@@ -14,7 +14,7 @@
 
    <div class="corpo">
       <div class="enunciado">
-         <h2 style="text-align: center;"> Questão Introdutória </h2>
+         <h2 style="text-align: center;"> Questão Introdutória 2</h2>
          <p> Criar um formulário que permita ao usuário inserir as informações de um carro, entre elas estão: </p>
          <ul>
             <li> Fabricante </li>
@@ -34,7 +34,7 @@
          <div class="formulario-texto">
             <form action="formulario2.php" method="post" id="formulario2">
                <fieldset>
-                  <legend> Espaço para infos do livro </legend>
+                  <legend> Espaço para infos do carro </legend>
                   <label class="alinha"> Fabricante: </label>
                   <input type="text" name="fabricante"> <br>
                   <label class="alinha"> Modelo: </label>
