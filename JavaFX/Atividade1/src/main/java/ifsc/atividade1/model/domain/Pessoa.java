@@ -89,13 +89,15 @@ public class Pessoa {
 
     public String mostrarDados(){
         StringBuilder sb = new StringBuilder();
+        String formatValor = "%5.2f";
+
         sb.append("Cálculo de IMC").append("\n\n");
         sb.append("Nome: ").append(this.getNome()).append("\n");
         sb.append("Idade: ").append(this.getIdade()).append("\n");
         sb.append("Sexo: ").append(this.getSexo()).append("\n");
         sb.append("Altura: ").append(this.getAltura()).append("\n");
         sb.append("Peso: ").append(this.getPeso()).append("\n\n");
-        sb.append("IMC: ").append(this.calcularIMC()).append("\n");
+        sb.append("IMC: ").append(String.format(formatValor, this.calcularIMC())).append("\n");
         sb.append("Classificação: ").append(this.verClassificacao()).append("\n");
         return sb.toString();
     }

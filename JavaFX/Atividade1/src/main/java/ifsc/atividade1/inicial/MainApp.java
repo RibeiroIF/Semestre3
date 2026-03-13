@@ -12,7 +12,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/ifsc/view/calculo-imc.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 520, 340);
-        stage.setTitle("Hello!");
+        stage.setTitle("Cálculo do IMC - FXML");
         stage.setScene(scene);
         stage.show();
     }
