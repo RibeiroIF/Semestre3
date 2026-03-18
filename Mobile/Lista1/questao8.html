@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="form1.css">
+    <title>Teste Formulário 1</title>
+</head>
+<body>
+
+    <header> Programação Mobile - Formulário </header>
+
+    <form id="form1">
+        <fieldset>
+            <legend> Formulário 1 - IMC </legend>
+            
+            <label for="peso"> Peso: </label>
+            <input type="number" name="peso" id="peso" min="0" max="300" step="0.01" autofocus> <br>
+
+            <label for="altura"> Altura: </label>
+            <input type="number" name="altura" id="altura" min="0" max="220" step="0.01"> <br>
+
+            <button type="submit" id="button"> Calcular </button>
+        </fieldset>
+    </form>
+
+    <h4 id="output"></h4>
+
+    <script src="questao8.js"></script>
+    
+</body>
+</html>
