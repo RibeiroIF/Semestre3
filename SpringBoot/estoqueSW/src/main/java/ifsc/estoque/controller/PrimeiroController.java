@@ -1,4 +1,4 @@
-package ifsc.estoquesw.controller;
+package ifsc.estoque.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

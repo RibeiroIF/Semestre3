@@ -1,4 +1,4 @@
-package ifsc.estoquesw;
+package ifsc.estoque;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
