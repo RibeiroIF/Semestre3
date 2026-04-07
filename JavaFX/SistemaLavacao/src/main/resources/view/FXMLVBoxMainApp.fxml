@@ -7,18 +7,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsc.fln.controller.FXMLVBoxMainAppController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsc.fln.controller.FXMLVBoxMainAppController">
    <children>
       <MenuBar>
         <menus>
           <Menu mnemonicParsing="false" text="Cadastros">
             <items>
-              <MenuItem fx:id="menuItemCadastroCategoria" mnemonicParsing="false" onAction="#handleMenuItemCadastroCategoria" text="Categoria" />
-                  <MenuItem fx:id="menuItemCadastroProduto" mnemonicParsing="false" onAction="#handleMenuItemCadastroProduto" text="Produto" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="menuItemCadastroCliente" mnemonicParsing="false" onAction="#handleMenuItemCadastroCliente" text="Cliente" />
+              <MenuItem fx:id="menuItemCadastroCor" mnemonicParsing="false" onAction="#handleMenuItemCadastroCor" text="Cor" />
+                  <MenuItem fx:id="menuItemCadastroMarca" mnemonicParsing="false" onAction="#handleMenuItemCadastroMarca" text="Marca" />
+                  <MenuItem fx:id="menuItemCadastroServico" mnemonicParsing="false" onAction="#handleMenuItemCadastroServico" text="Servico" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="menuItemCadastroFornecedor" mnemonicParsing="false" onAction="#handleMenuItemCadastroFornecedor" text="Fornecedor" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Processos">

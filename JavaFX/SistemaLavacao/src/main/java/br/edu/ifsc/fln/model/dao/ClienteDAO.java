@@ -31,7 +31,8 @@ public class ClienteDAO {
     }
 
     public boolean inserir(Cliente cliente) {
-        String sql = "INSERT INTO cliente(nome, cpf, telefone, endereco, data_nascimento) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cliente(nome, cpf, telefone, endereco, data_nascimento) " +
+                "VALUES(?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, cliente.getNome());
@@ -109,7 +110,7 @@ public class ClienteDAO {
         }
         return retorno;
     }
-    
+
     private Cliente populateVO(ResultSet rs) throws SQLException {
         Cliente cliente = new Cliente();
         cliente.setId(rs.getInt("id"));

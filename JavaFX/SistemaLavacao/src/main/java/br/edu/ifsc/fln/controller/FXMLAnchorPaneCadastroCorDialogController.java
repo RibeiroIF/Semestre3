@@ -4,24 +4,23 @@
  */
 package br.edu.ifsc.fln.controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import br.edu.ifsc.fln.model.domain.Cliente;
+import br.edu.ifsc.fln.model.domain.Cor;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
  *
  * @author mpisc
  */
-public class FXMLAnchorPaneCadastroClienteDialogController implements Initializable {
+public class FXMLAnchorPaneCadastroCorDialogController implements Initializable {
 
     @FXML
     private Button btCancelar;
@@ -30,23 +29,11 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
     private Button btConfirmar;
 
     @FXML
-    private DatePicker dpDataNascimento;
-
-    @FXML
-    private TextField tfCpf;
-
-    @FXML
-    private TextField tfEndereco;
-
-    @FXML
     private TextField tfNome;
-
-    @FXML
-    private TextField tfTelefone;
     
     private Stage dialogStage;
     private boolean btConfirmarClicked = false;
-    private Cliente cliente;
+    private Cor cor;
     
     /**
      * Initializes the controller class.
@@ -72,28 +59,21 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
         this.dialogStage = dialogStage;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Cor getCor() {
+        return cor;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-        this.tfNome.setText(this.cliente.getNome());
-        this.tfCpf.setText(this.cliente.getCpf());
-        this.tfTelefone.setText(this.cliente.getTelefone());
-        this.tfEndereco.setText(this.cliente.getEndereco());
-        dpDataNascimento.setValue(this.cliente.getDataNascimento());
+    public void setCor(Cor cor) {
+        this.cor = cor;
+        if (cor.getId() != 0){
+            this.tfNome.setText(cor.getNome());
+        }
     }
-    
 
     @FXML
     public void handleBtConfirmar() {
         if (validarEntradaDeDados()) {
-            cliente.setNome(tfNome.getText());
-            cliente.setCpf(tfCpf.getText());
-            cliente.setTelefone(tfTelefone.getText());
-            cliente.setEndereco(tfEndereco.getText());
-            cliente.setDataNascimento(dpDataNascimento.getValue());
+            cor.setNome(tfNome.getText());
 
             btConfirmarClicked = true;
             dialogStage.close();
@@ -109,15 +89,7 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
     private boolean validarEntradaDeDados() {
         String errorMessage = "";
         if (this.tfNome.getText() == null || this.tfNome.getText().length() == 0) {
-            errorMessage += "Nome inválido.\n";
-        }
-        
-        if (this.tfCpf.getText() == null || this.tfCpf.getText().length() == 0) {
-            errorMessage += "CPF inválido.\n";
-        }
-        
-        if (this.tfTelefone.getText() == null || this.tfTelefone.getText().length() == 0) {
-            errorMessage += "Telefone inválido.\n";
+            errorMessage += "Nome Inválido.\n";
         }
         
         if (errorMessage.length() == 0) {

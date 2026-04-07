@@ -4,11 +4,10 @@
  */
 package br.edu.ifsc.fln.controller;
 
-import br.edu.ifsc.fln.model.dao.CorDAO;
+import br.edu.ifsc.fln.model.dao.CategoriaDAO;
 import br.edu.ifsc.fln.model.database.Database;
 import br.edu.ifsc.fln.model.database.DatabaseFactory;
-import br.edu.ifsc.fln.model.domain.Cor
-;
+import br.edu.ifsc.fln.model.domain.Categoria;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -34,199 +33,128 @@ import javafx.stage.Stage;
  *
  * @author mpisc
  */
-public class FXMLAnchorPaneCadastroCor
-Controller implements Initializable {
+public class FXMLAnchorPaneCadastroCategoriaController implements Initializable {
 
-    
+
     @FXML
     private Button btnAlterar;
 
     @FXML
     private Button btExcluir;
-    
+
     @FXML
     private Button btInserir;
 
     @FXML
-    private Label lbCor
-Descricao;
+    private Label lbNome;
 
     @FXML
-    private Label lbCor
-Id;
+    private Label lbCategoriaId;
 
     @FXML
-    private TableColumn<Cor
-, String> tableColumnCor
-Descricao;
+    private TableColumn<Categoria, String> tableColumnCategoriaDescricao;
 
     @FXML
-    private TableView<Cor
-> tableViewCor
-s;
-    
-    private List<Cor
-> listaCor
-s;
-    private ObservableList<Cor
-> observableListCor
-s;
-    
+    private TableView<Categoria> tableViewCategorias;
+
+    private List<Categoria> listaCategorias;
+    private ObservableList<Categoria> observableListCategorias;
+
     private final Database database = DatabaseFactory.getDatabase("mysql");
     private final Connection connection = database.conectar();
-    private final CorDAO cor
-DAO = new CorDAO();
-    
+    private final CategoriaDAO categoriaDAO = new CategoriaDAO();
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cor
-DAO.setConnection(connection);
-        carregarTableViewCor
-();
-        
-        tableViewCor
-s.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> selecionarItemTableViewCor
-s(newValue));
-    }     
-    
-    public void carregarTableViewCor
-() {
-        tableColumnCor
-Descricao.setCellValueFactory(new PropertyValueFactory<>("nome
-"));
-        
-        listaCor
-s = cor
-DAO.listar();
-        
-        observableListCor
-s = FXCollections.observableArrayList(listaCor
-s);
-        tableViewCor
-s.setItems(observableListCor
-s);
+        categoriaDAO.setConnection(connection);
+        carregarTableViewCategoria();
+
+        tableViewCategorias.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> selecionarItemTableViewCategorias(newValue));
     }
-    
-    public void selecionarItemTableViewCor
-s(Cor
- cor
-) {
-        if (cor
- != null) {
-            lbCor
-Id.setText(String.valueOf(cor
-.getId())); 
-            lbCor
-Descricao.setText(cor
-.getDescricao());
+
+    public void carregarTableViewCategoria() {
+        tableColumnCategoriaDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+
+        listaCategorias = categoriaDAO.listar();
+
+        observableListCategorias = FXCollections.observableArrayList(listaCategorias);
+        tableViewCategorias.setItems(observableListCategorias);
+    }
+
+    public void selecionarItemTableViewCategorias(Categoria categoria) {
+        if (categoria != null) {
+            lbCategoriaId.setText(String.valueOf(categoria.getId()));
+            lbNome.setText(categoria.getDescricao());
         } else {
-            lbCor
-Id.setText(""); 
-            lbCor
-Descricao.setText("");
+            lbCategoriaId.setText("");
+            lbNome.setText("");
         }
-        
+
     }
-    
+
     @FXML
     public void handleBtInserir() throws IOException {
-        Cor
- cor
- = new Cor
-();
-        boolean btConfirmarClicked = showFXMLAnchorPaneCadastroCor
-Dialog(cor
-);
+        Categoria categoria = new Categoria();
+        boolean btConfirmarClicked = showFXMLAnchorPaneCadastroCategoriaDialog(categoria);
         if (btConfirmarClicked) {
-            cor
-DAO.inserir(cor
-);
-            carregarTableViewCor
-();
-        } 
+            categoriaDAO.inserir(categoria);
+            carregarTableViewCategoria();
+        }
     }
-    
-    @FXML 
+
+    @FXML
     public void handleBtAlterar() throws IOException {
-        Cor
- cor
- = tableViewCor
-s.getSelectionModel().getSelectedItem();
-        if (cor
- != null) {
-            boolean btConfirmarClicked = showFXMLAnchorPaneCadastroCor
-Dialog(cor
-);
+        Categoria categoria = tableViewCategorias.getSelectionModel().getSelectedItem();
+        if (categoria != null) {
+            boolean btConfirmarClicked = showFXMLAnchorPaneCadastroCategoriaDialog(categoria);
             if (btConfirmarClicked) {
-                cor
-DAO.alterar(cor
-);
-                carregarTableViewCor
-();
+                categoriaDAO.alterar(categoria);
+                carregarTableViewCategoria();
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Esta operação requer a seleção \nde uma Cor
- na tabela ao lado");
-            alert.show();
-        }
-    }
-    
-    @FXML
-    public void handleBtExcluir() throws IOException {
-        Cor
- cor
- = tableViewCor
-s.getSelectionModel().getSelectedItem();
-        if (cor
- != null) {
-            cor
-DAO.remover(cor
-);
-            carregarTableViewCor
-();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Esta operação requer a seleção \nde uma Cor
- na tabela ao lado");
+            alert.setContentText("Esta operação requer a seleção \nde uma Categoria na tabela ao lado");
             alert.show();
         }
     }
 
-    private boolean showFXMLAnchorPaneCadastroCor
-Dialog(Cor
- cor
-) throws IOException {
+    @FXML
+    public void handleBtExcluir() throws IOException {
+        Categoria categoria = tableViewCategorias.getSelectionModel().getSelectedItem();
+        if (categoria != null) {
+            categoriaDAO.remover(categoria);
+            carregarTableViewCategoria();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Esta operação requer a seleção \nde uma Categoria na tabela ao lado");
+            alert.show();
+        }
+    }
+
+    private boolean showFXMLAnchorPaneCadastroCategoriaDialog(Categoria categoria) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(FXMLAnchorPaneCadastroCor
-Controller.class.getResource("/view/FXMLAnchorPaneCadastroCor
-Dialog.fxml"));
+        loader.setLocation(FXMLAnchorPaneCadastroCategoriaController.class.getResource("/view/FXMLAnchorPaneCadastroCategoriaDialog.fxml"));
         AnchorPane page = (AnchorPane) loader.load();
-        
+
         //criação de um estágio de diálogo (StageDialog)
         Stage dialogStage = new Stage();
-        dialogStage.setTitle("Cadastro de Cor
-");
+        dialogStage.setTitle("Cadastro de Categoria");
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
-        
-        //enviando o obejto cor
- para o controller
-        FXMLAnchorPaneCadastroCor
-DialogController controller = loader.getController();
+
+        //enviando o obejto categoria para o controller
+        FXMLAnchorPaneCadastroCategoriaDialogController controller = loader.getController();
         controller.setDialogStage(dialogStage);
-        controller.setCor
-(cor
-);
-        
+        controller.setCategoria(categoria);
+
         //apresenta o diálogo e aguarda a confirmação do usuário
         dialogStage.showAndWait();
-        
+
         return controller.isBtConfirmarClicked();
     }
-    
+
 }

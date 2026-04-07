@@ -22,7 +22,7 @@ import javafx.scene.layout.AnchorPane;
 public class FXMLVBoxMainAppController implements Initializable {
 
     @FXML
-    private MenuItem menuItemCadastroCategoria;
+    private MenuItem menuItemCadastroCor;
     @FXML
     private MenuItem menuItemCadastroProduto;
     @FXML
@@ -51,26 +51,27 @@ public class FXMLVBoxMainAppController implements Initializable {
     }  
     
     @FXML
-    public void handleMenuItemCadastroCategoria() throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroCategoria.fxml"));
+    public void handleMenuItemCadastroCor() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroCor.fxml"));
         anchorPane.getChildren().setAll(a);
     }
-    
+
     @FXML
-    public void handleMenuItemCadastroCliente() throws IOException {
-                AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroCliente.fxml"));
+    public void handleMenuItemCadastroMarca() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroMarca.fxml"));
+        anchorPane.getChildren().setAll(a);
+    }
+
+    @FXML
+    public void handleMenuItemCadastroServico() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroServico.fxml"));
         anchorPane.getChildren().setAll(a);
     }    
     
     @FXML
     public void handleMenuItemCadastroFornecedor() throws IOException {
         //TODO not implemented yet
-    }    
-
-    @FXML
-    public void handleMenuItemCadastroProduto() throws IOException {
-        //TODO not implemented yet
-    }     
+    }
     
     @FXML
     public void handleMenuItemProcessoEstoque() throws IOException {
