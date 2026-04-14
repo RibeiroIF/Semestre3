@@ -12,8 +12,8 @@ public class Denuncia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String motivo;
-    private Date data;
-    private boolean resolvido;
+    private String data;
+    //private boolean resolvido;
 
     @ManyToOne
     private Anuncio anuncio;
@@ -37,21 +37,21 @@ public class Denuncia {
         this.motivo = motivo;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
-    public boolean isResolvido() {
-        return resolvido;
-    }
-
-    public void setResolvido(boolean resolvido) {
-        this.resolvido = resolvido;
-    }
+//    public boolean isResolvido() {
+//        return resolvido;
+//    }
+//
+//    public void setResolvido(boolean resolvido) {
+//        this.resolvido = resolvido;
+//    }
 
     public Anuncio getAnuncio() {
         return anuncio;
