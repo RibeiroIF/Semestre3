@@ -13,7 +13,6 @@ public class Denuncia {
     private Integer id;
     private String motivo;
     private String data;
-    //private boolean resolvido;
 
     @ManyToOne
     private Anuncio anuncio;
