@@ -1,9 +1,6 @@
 package br.edu.ifsc.fln.integrador.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.Objects;
@@ -17,6 +14,9 @@ public class Anuncio {
     private String titulo;
     private String descricao;
     private Double preco;
+
+    @ManyToOne
+    private Categoria categoria;
 
     public Anuncio() {
     }
@@ -53,15 +53,23 @@ public class Anuncio {
         this.preco = preco;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Anuncio anuncio = (Anuncio) o;
-        return id == anuncio.id;
+        return Objects.equals(id, anuncio.id) && Objects.equals(titulo, anuncio.titulo) && Objects.equals(descricao, anuncio.descricao) && Objects.equals(preco, anuncio.preco);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id, titulo, descricao, preco);
     }
 }

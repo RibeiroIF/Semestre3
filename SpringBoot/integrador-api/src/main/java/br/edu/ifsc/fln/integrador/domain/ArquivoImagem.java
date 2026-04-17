@@ -1,9 +1,6 @@
 package br.edu.ifsc.fln.integrador.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -16,7 +13,18 @@ public class ArquivoImagem {
     private String url;
     private Double tamanho;
 
+    @ManyToOne
+    private Anuncio anuncio;
+
     public ArquivoImagem() {
+    }
+
+    public Anuncio getAnuncio() {
+        return anuncio;
+    }
+
+    public void setAnuncio(Anuncio anuncio) {
+        this.anuncio = anuncio;
     }
 
     public int getId() {

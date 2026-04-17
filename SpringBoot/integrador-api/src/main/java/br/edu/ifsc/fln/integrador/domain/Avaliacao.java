@@ -13,7 +13,7 @@ public class Avaliacao {
     private Integer id;
     private Integer nota;
     private String comentario;
-    private Date data;
+    private String data;
 
     @ManyToOne
     private Anuncio anuncio;
@@ -45,11 +45,11 @@ public class Avaliacao {
         this.comentario = comentario;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 

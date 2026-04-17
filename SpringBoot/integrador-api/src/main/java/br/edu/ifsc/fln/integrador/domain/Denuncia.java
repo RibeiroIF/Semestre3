@@ -44,14 +44,6 @@ public class Denuncia {
         this.data = data;
     }
 
-//    public boolean isResolvido() {
-//        return resolvido;
-//    }
-//
-//    public void setResolvido(boolean resolvido) {
-//        this.resolvido = resolvido;
-//    }
-
     public Anuncio getAnuncio() {
         return anuncio;
     }

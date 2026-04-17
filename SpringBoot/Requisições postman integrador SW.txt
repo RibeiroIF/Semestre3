@@ -1,0 +1,67 @@
+Anuncio:
+{
+    "titulo": "Escrivaninha",
+    "descricao": "3 gavetas",
+    "preco": 150.00,
+    "categoria": {
+	"id": 1
+     }
+}
+
+{
+    "titulo": "Toca-discos",
+    "descricao": "Proteção reinstalada",
+    "preco": 130.00,
+    "categoria": {
+	"id": 2
+     }
+}
+
+Categoria:
+{
+    "nome": "Móveis",
+    "descricao": "Mobília para casa"
+}
+
+Categoria:
+{
+    "nome": "Áudio",
+    "descricao": "Equipamentos para áudio"
+}
+
+ArquivoImagem:
+{
+    "url": "http://imagem.escrivaninha3gavetas",
+    "tamanho": 130,
+    "anuncio": {
+        "id": 1
+    }
+}
+
+ArquivoImagem:
+{
+    "url": "http://imagem.tocadiscos",
+    "tamanho": 120,
+    "anuncio": {
+        "id": 2
+    }
+}
+
+Avaliacao:
+{
+    "nota": 4,
+    "comentario": "Leve frouxidão na primeira gaveta",
+    "data": "2026-04-09",
+    "anuncio": {
+        "id": 1
+    }
+}
+
+Denuncia:
+{
+    "motivo": "Primeira gaveta danificada",
+    "data": "2026-04-15",
+    "anuncio": {
+        "id": 2
+    }
+}

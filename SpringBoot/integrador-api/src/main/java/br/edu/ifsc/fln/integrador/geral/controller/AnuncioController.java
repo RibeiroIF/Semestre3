@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/anuncios")
+@RequestMapping("/anuncio")
 public class AnuncioController {
 
     @Autowired
@@ -40,11 +40,4 @@ public class AnuncioController {
         anuncioRepository.deleteById(id);
     }
 
-//    {
-//        "titulo" : "Notebook",
-//            "descricao" : "Usado",
-//            "publicacao" : "14/04/2026",
-//            "expiracao" : "14/08/2026",
-//            "preco" : 3.000
-//    }
 }
