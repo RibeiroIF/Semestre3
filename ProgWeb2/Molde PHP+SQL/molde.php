@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="molde.css">
+  <title> Exercício para entrega ProgWeb2 </title>
+</head>
+
+<body>
+  <header> Exercício para entrega - ProgWeb 2 </header>
+
+  <div class="blocogeral">
+    <div class="blocoformulario">
+      <form action="molde.php" method="post">
+        <fieldset>
+          <legend> Exercício para entrega </legend>
+
+          <div class="formulario">
+            <label class="alinha"> Exemplo 1: </label>
+            <input type="text" name="nome" autofocus> <br>
+
+            <label class="alinha"> Exemplo 2: </label>
+            <input type="text" name="nome"> <br>
+
+            <label class="alinha"> Exemplo 3: </label>
+            <input type="text" name="nome"> <br>
+          </div>
+
+          <button name="button" class="button"> Enviar Dados </button>
+
+        </fieldset>
+      </form>
+    </div>
+    <div class="blocoresposta">
+      <h2> Teste </h2>
+      <p> Texto de Teste </p>
+        <?php 
+          require "criarBDD-molde.php";
+          require "criarClasseExemplos.php";
+
+          $banco = new BancoDeDados("localhost", "root", "", "CTDS", "alunos");
+
+          $conexao = $banco->criarConexao();
+          $banco->criarBanco($conexao);
+          $banco->abrirBanco($conexao);
+          $banco->definirCharset($conexao);
+          $banco->criarTabela($conexao); 
+          $exemplo = new Exemplos(); 
+
+          ?>
+    </div>
+  </div>
+</body>
+</html>
