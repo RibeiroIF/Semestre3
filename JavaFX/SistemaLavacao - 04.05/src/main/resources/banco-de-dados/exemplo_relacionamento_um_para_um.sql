@@ -2,7 +2,7 @@
 CREATE DATABASE IF NOT EXISTS db_teste_relacionamentos;
 USE db_teste_relacionamentos;
 
-CREATE TABLE cliente(
+CREATE TABLE clienteA(
 	id_cliente int NOT NULL auto_increment,
     nome VARCHAR(50) NOT NULL,
     sexo CHAR(1) NOT NULL,
@@ -11,17 +11,17 @@ CREATE TABLE cliente(
 );
 
 CREATE TABLE documento(
-	id_cliente int REFERENCES cliente (id_cliente),
+	id_cliente int REFERENCES clienteA (id_cliente),
     tipo VARCHAR(25) NOT NULL,
 	numero VARCHAR(15) NOT NULL,
     CONSTRAINT pk_documento PRIMARY KEY (id_cliente),
-    CONSTRAINT fk_documento_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)
+    CONSTRAINT fk_documento_cliente FOREIGN KEY (id_cliente) REFERENCES clienteA(id_cliente)
 );
 
-INSERT INTO cliente (nome, sexo) VALUES('JOSE', 'M');
-INSERT INTO cliente (nome, sexo) VALUES('MARIA', 'F');
-INSERT INTO cliente (nome, sexo) VALUES('PEDRO', 'M');
-INSERT INTO cliente (nome, sexo) VALUES('LUCIA', 'F');
+INSERT INTO clienteA (nome, sexo) VALUES('JOSE', 'M');
+INSERT INTO clienteA (nome, sexo) VALUES('MARIA', 'F');
+INSERT INTO clienteA (nome, sexo) VALUES('PEDRO', 'M');
+INSERT INTO clienteA (nome, sexo) VALUES('LUCIA', 'F');
 
 INSERT INTO documento (id_cliente, tipo, numero) VALUES(1, 'RG', '123.321-9');
 INSERT INTO documento (id_cliente, tipo, numero) VALUES(2, 'CPF', '123.321.333-93');

@@ -21,7 +21,7 @@ CREATE TABLE produto(
       REFERENCES categoria(id)
 ) engine=InnoDB;
 
-CREATE TABLE cliente(
+CREATE TABLE clienteA(
    id int NOT NULL auto_increment,
    nome varchar(50) NOT NULL,
    cpf varchar(50) NOT NULL,
@@ -33,9 +33,9 @@ CREATE TABLE cliente(
       PRIMARY KEY(id)
 ) engine=InnoDB;
 
-INSERT INTO cliente(nome, cpf, telefone, email, endereco, data_nascimento) VALUES('Edgar','111.111.111-11','(11) 1111-1111', 'edgar@ifsc.edu.br', 'av. mauro ramos', '1970-04-20');
-INSERT INTO cliente(nome, cpf, telefone, email, endereco, data_nascimento) VALUES('Marilene','222.222.222-22','(22) 2222-2121', 'marilene@ifsc.edu.br', 'av. mauro ramos', '1979-10-18');
-INSERT INTO cliente(nome, cpf, telefone, email, endereco, data_nascimento) VALUES('Carla','333.333.333-33','(33) 3333-3333', 'carla@ifsc.edu.br', 'av. mauro ramos', '1986-12-12');
+INSERT INTO clienteA(nome, cpf, telefone, email, endereco, data_nascimento) VALUES('Edgar','111.111.111-11','(11) 1111-1111', 'edgar@ifsc.edu.br', 'av. mauro ramos', '1970-04-20');
+INSERT INTO clienteA(nome, cpf, telefone, email, endereco, data_nascimento) VALUES('Marilene','222.222.222-22','(22) 2222-2121', 'marilene@ifsc.edu.br', 'av. mauro ramos', '1979-10-18');
+INSERT INTO clienteA(nome, cpf, telefone, email, endereco, data_nascimento) VALUES('Carla','333.333.333-33','(33) 3333-3333', 'carla@ifsc.edu.br', 'av. mauro ramos', '1986-12-12');
 
 INSERT INTO categoria(descricao) VALUES('Eletrônicos');
 INSERT INTO categoria(descricao) VALUES('Vestuário');

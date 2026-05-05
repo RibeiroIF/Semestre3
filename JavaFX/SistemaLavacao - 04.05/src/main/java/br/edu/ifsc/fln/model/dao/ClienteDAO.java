@@ -4,7 +4,8 @@
  */
 package br.edu.ifsc.fln.model.dao;
 
-import br.edu.ifsc.fln.model.domain.Cliente;
+import br.edu.ifsc.fln.model.domain.ClienteA;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,15 +31,15 @@ public class ClienteDAO {
         this.connection = connection;
     }
 
-    public boolean inserir(Cliente cliente) {
+    public boolean inserir(ClienteA clienteA) {
         String sql = "INSERT INTO cliente(nome, cpf, telefone, endereco, data_nascimento) VALUES(?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getCpf());
-            stmt.setString(3, cliente.getTelefone());
-            stmt.setString(4, cliente.getEndereco());
-            stmt.setDate(5, java.sql.Date.valueOf(cliente.getDataNascimento()));
+            stmt.setString(1, clienteA.getNome());
+            stmt.setString(2, clienteA.getCpf());
+            stmt.setString(3, clienteA.getTelefone());
+            stmt.setString(4, clienteA.getEndereco());
+            stmt.setDate(5, java.sql.Date.valueOf(clienteA.getDataNascimento()));
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -47,16 +48,16 @@ public class ClienteDAO {
         }
     }
 
-    public boolean alterar(Cliente cliente) {
+    public boolean alterar(ClienteA clienteA) {
         String sql = "UPDATE cliente SET nome=?, cpf=?, telefone=?, endereco=?, data_nascimento=? WHERE id=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getCpf());
-            stmt.setString(3, cliente.getTelefone());
-            stmt.setString(4, cliente.getEndereco());
-            stmt.setDate(5, java.sql.Date.valueOf(cliente.getDataNascimento()));
-            stmt.setInt(6, cliente.getId());
+            stmt.setString(1, clienteA.getNome());
+            stmt.setString(2, clienteA.getCpf());
+            stmt.setString(3, clienteA.getTelefone());
+            stmt.setString(4, clienteA.getEndereco());
+            stmt.setDate(5, java.sql.Date.valueOf(clienteA.getDataNascimento()));
+            stmt.setInt(6, clienteA.getId());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -65,11 +66,11 @@ public class ClienteDAO {
         }
     }
 
-    public boolean remover(Cliente cliente) {
+    public boolean remover(ClienteA clienteA) {
         String sql = "DELETE FROM cliente WHERE id=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, cliente.getId());
+            stmt.setInt(1, clienteA.getId());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -78,15 +79,15 @@ public class ClienteDAO {
         }
     }
 
-    public List<Cliente> listar() {
+    public List<ClienteA> listar() {
         String sql = "SELECT * FROM cliente";
-        List<Cliente> retorno = new ArrayList<>();
+        List<ClienteA> retorno = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
-                Cliente cliente = populateVO(resultado);
-                retorno.add(cliente);
+                ClienteA clienteA = populateVO(resultado);
+                retorno.add(clienteA);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,12 +95,12 @@ public class ClienteDAO {
         return retorno;
     }
 
-    public Cliente buscar(Cliente cliente) {
+    public ClienteA buscar(ClienteA clienteA) {
         String sql = "SELECT * FROM cliente WHERE id=?";
-        Cliente retorno = new Cliente();
+        ClienteA retorno = new ClienteA();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, cliente.getId());
+            stmt.setInt(1, clienteA.getId());
             ResultSet resultado = stmt.executeQuery();
             if (resultado.next()) {
                 retorno = populateVO(resultado);
@@ -110,14 +111,14 @@ public class ClienteDAO {
         return retorno;
     }
     
-    private Cliente populateVO(ResultSet rs) throws SQLException {
-        Cliente cliente = new Cliente();
-        cliente.setId(rs.getInt("id"));
-        cliente.setNome(rs.getString("nome"));
-        cliente.setCpf(rs.getString("cpf"));
-        cliente.setTelefone(rs.getString("telefone"));
-        cliente.setEndereco(rs.getString("endereco"));
-        cliente.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
-        return cliente;
+    private ClienteA populateVO(ResultSet rs) throws SQLException {
+        ClienteA clienteA = new ClienteA();
+        clienteA.setId(rs.getInt("id"));
+        clienteA.setNome(rs.getString("nome"));
+        clienteA.setCpf(rs.getString("cpf"));
+        clienteA.setTelefone(rs.getString("telefone"));
+        clienteA.setEndereco(rs.getString("endereco"));
+        clienteA.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+        return clienteA;
     }
 }

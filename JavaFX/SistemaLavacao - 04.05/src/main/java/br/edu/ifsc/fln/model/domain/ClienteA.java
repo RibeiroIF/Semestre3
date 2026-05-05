@@ -10,7 +10,7 @@ import java.time.LocalDate;
  *
  * @author mpisc
  */
-public class Cliente {
+public class ClienteA {
     private int id;
     private String nome;
     private String cpf;
@@ -18,10 +18,10 @@ public class Cliente {
     private String endereco;
     private LocalDate dataNascimento;
 
-    public Cliente() {
+    public ClienteA() {
     }
 
-    public Cliente(String nome, String cpf, String telefone, String endereco, LocalDate dataNascimento) {
+    public ClienteA(String nome, String cpf, String telefone, String endereco, LocalDate dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -29,7 +29,7 @@ public class Cliente {
         this.dataNascimento = dataNascimento;
     }
 
-    public Cliente(int id, String nome, String cpf, String telefone, String endereco, LocalDate dataNascimento) {
+    public ClienteA(int id, String nome, String cpf, String telefone, String endereco, LocalDate dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;

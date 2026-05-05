@@ -4,7 +4,7 @@
  */
 package br.edu.ifsc.fln.controller;
 
-import br.edu.ifsc.fln.model.domain.Cliente;
+import br.edu.ifsc.fln.model.domain.ClienteA;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -45,7 +45,7 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
     
     private Stage dialogStage;
     private boolean btConfirmarClicked = false;
-    private Cliente cliente;
+    private ClienteA clienteA;
     
     /**
      * Initializes the controller class.
@@ -71,28 +71,28 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
         this.dialogStage = dialogStage;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public ClienteA getCliente() {
+        return clienteA;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-        this.tfNome.setText(this.cliente.getNome());
-        this.tfCpf.setText(this.cliente.getCpf());
-        this.tfTelefone.setText(this.cliente.getTelefone());
-        this.tfEndereco.setText(this.cliente.getEndereco());
-        dpDataNascimento.setValue(this.cliente.getDataNascimento());
+    public void setCliente(ClienteA clienteA) {
+        this.clienteA = clienteA;
+        this.tfNome.setText(this.clienteA.getNome());
+        this.tfCpf.setText(this.clienteA.getCpf());
+        this.tfTelefone.setText(this.clienteA.getTelefone());
+        this.tfEndereco.setText(this.clienteA.getEndereco());
+        dpDataNascimento.setValue(this.clienteA.getDataNascimento());
     }
     
 
     @FXML
     public void handleBtConfirmar() {
         if (validarEntradaDeDados()) {
-            cliente.setNome(tfNome.getText());
-            cliente.setCpf(tfCpf.getText());
-            cliente.setTelefone(tfTelefone.getText());
-            cliente.setEndereco(tfEndereco.getText());
-            cliente.setDataNascimento(dpDataNascimento.getValue());
+            clienteA.setNome(tfNome.getText());
+            clienteA.setCpf(tfCpf.getText());
+            clienteA.setTelefone(tfTelefone.getText());
+            clienteA.setEndereco(tfEndereco.getText());
+            clienteA.setDataNascimento(dpDataNascimento.getValue());
 
             btConfirmarClicked = true;
             dialogStage.close();

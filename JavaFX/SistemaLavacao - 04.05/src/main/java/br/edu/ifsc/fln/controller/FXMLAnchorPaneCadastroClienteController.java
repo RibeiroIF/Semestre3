@@ -7,13 +7,14 @@ package br.edu.ifsc.fln.controller;
 import br.edu.ifsc.fln.model.dao.ClienteDAO;
 import br.edu.ifsc.fln.model.database.Database;
 import br.edu.ifsc.fln.model.database.DatabaseFactory;
-import br.edu.ifsc.fln.model.domain.Cliente;
+import br.edu.ifsc.fln.model.domain.ClienteA;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -65,17 +66,17 @@ public class FXMLAnchorPaneCadastroClienteController implements Initializable {
     private Label lbClienteEndereco;
     
     @FXML
-    private TableColumn<Cliente, String> tableColumnClienteCPF;
+    private TableColumn<ClienteA, String> tableColumnClienteCPF;
 
     @FXML
-    private TableColumn<Cliente, String> tableColumnClienteNome;
+    private TableColumn<ClienteA, String> tableColumnClienteNome;
 
     @FXML
-    private TableView<Cliente> tableViewClientes;
+    private TableView<ClienteA> tableViewClientes;
 
     
-    private List<Cliente> listaClientes;
-    private ObservableList<Cliente> observableListClientes;
+    private List<ClienteA> listaClienteAS;
+    private ObservableList<ClienteA> observableListClienteAS;
     
     private final Database database = DatabaseFactory.getDatabase("mysql");
     private final Connection connection = database.conectar();
@@ -97,21 +98,21 @@ public class FXMLAnchorPaneCadastroClienteController implements Initializable {
         tableColumnClienteNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tableColumnClienteCPF.setCellValueFactory(new PropertyValueFactory<>("cpf"));
         
-        listaClientes = clienteDAO.listar();
+        listaClienteAS = clienteDAO.listar();
         
-        observableListClientes = FXCollections.observableArrayList(listaClientes);
-        tableViewClientes.setItems(observableListClientes);
+        observableListClienteAS = FXCollections.observableArrayList(listaClienteAS);
+        tableViewClientes.setItems(observableListClienteAS);
     }
     
-    public void selecionarItemTableViewClientes(Cliente cliente) {
-        if (cliente != null) {
-            lbClienteId.setText(String.valueOf(cliente.getId())); 
-            lbClienteNome.setText(cliente.getNome());
-            lbClienteCPF.setText(cliente.getCpf());
-            lbClienteTelefone.setText(cliente.getTelefone());
-            lbClienteEndereco.setText(cliente.getEndereco());
+    public void selecionarItemTableViewClientes(ClienteA clienteA) {
+        if (clienteA != null) {
+            lbClienteId.setText(String.valueOf(clienteA.getId()));
+            lbClienteNome.setText(clienteA.getNome());
+            lbClienteCPF.setText(clienteA.getCpf());
+            lbClienteTelefone.setText(clienteA.getTelefone());
+            lbClienteEndereco.setText(clienteA.getEndereco());
             lbClienteDataNascimento.setText(String.valueOf(
-                    cliente.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+                    clienteA.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
         } else {
             lbClienteId.setText(""); 
             lbClienteNome.setText("");
@@ -125,21 +126,21 @@ public class FXMLAnchorPaneCadastroClienteController implements Initializable {
     
     @FXML
     public void handleBtInserir() throws IOException {
-        Cliente cliente = new Cliente();
-        boolean btConfirmarClicked = showFXMLAnchorPaneCadastroClienteDialog(cliente);
+        ClienteA clienteA = new ClienteA();
+        boolean btConfirmarClicked = showFXMLAnchorPaneCadastroClienteDialog(clienteA);
         if (btConfirmarClicked) {
-            clienteDAO.inserir(cliente);
+            clienteDAO.inserir(clienteA);
             carregarTableViewCliente();
         } 
     }
     
     @FXML 
     public void handleBtAlterar() throws IOException {
-        Cliente cliente = tableViewClientes.getSelectionModel().getSelectedItem();
-        if (cliente != null) {
-            boolean btConfirmarClicked = showFXMLAnchorPaneCadastroClienteDialog(cliente);
+        ClienteA clienteA = tableViewClientes.getSelectionModel().getSelectedItem();
+        if (clienteA != null) {
+            boolean btConfirmarClicked = showFXMLAnchorPaneCadastroClienteDialog(clienteA);
             if (btConfirmarClicked) {
-                clienteDAO.alterar(cliente);
+                clienteDAO.alterar(clienteA);
                 carregarTableViewCliente();
             }
         } else {
@@ -151,9 +152,9 @@ public class FXMLAnchorPaneCadastroClienteController implements Initializable {
     
     @FXML
     public void handleBtExcluir() throws IOException {
-        Cliente cliente = tableViewClientes.getSelectionModel().getSelectedItem();
-        if (cliente != null) {
-            clienteDAO.remover(cliente);
+        ClienteA clienteA = tableViewClientes.getSelectionModel().getSelectedItem();
+        if (clienteA != null) {
+            clienteDAO.remover(clienteA);
             carregarTableViewCliente();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -162,7 +163,7 @@ public class FXMLAnchorPaneCadastroClienteController implements Initializable {
         }
     }
 
-    private boolean showFXMLAnchorPaneCadastroClienteDialog(Cliente cliente) throws IOException {
+    private boolean showFXMLAnchorPaneCadastroClienteDialog(ClienteA clienteA) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(FXMLAnchorPaneCadastroClienteController.class.getResource("/view/FXMLAnchorPaneCadastroClienteDialog.fxml"));
         AnchorPane page = (AnchorPane) loader.load();
@@ -176,7 +177,7 @@ public class FXMLAnchorPaneCadastroClienteController implements Initializable {
         //enviando o obejto cliente para o controller
         FXMLAnchorPaneCadastroClienteDialogController controller = loader.getController();
         controller.setDialogStage(dialogStage);
-        controller.setCliente(cliente);
+        controller.setCliente(clienteA);
         
         //apresenta o diálogo e aguarda a confirmação do usuário
         dialogStage.showAndWait();
