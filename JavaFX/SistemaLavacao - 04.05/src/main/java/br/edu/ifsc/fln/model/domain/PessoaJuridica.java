@@ -1,5 +1,6 @@
 package br.edu.ifsc.fln.model.domain;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class PessoaJuridica extends Cliente {

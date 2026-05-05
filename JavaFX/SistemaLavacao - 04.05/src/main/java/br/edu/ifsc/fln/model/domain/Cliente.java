@@ -2,9 +2,10 @@ package br.edu.ifsc.fln.model.domain;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
-public abstract class Cliente {
+public class Cliente {
     protected int id;
     protected String nome, celular, email;
     protected LocalDate dataCadastro;

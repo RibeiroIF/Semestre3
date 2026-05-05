@@ -4,15 +4,19 @@
  */
 package br.edu.ifsc.fln.controller;
 
-import br.edu.ifsc.fln.model.domain.ClienteA;
+import br.edu.ifsc.fln.model.domain.Cliente;
+import br.edu.ifsc.fln.model.domain.PessoaJuridica;
+import br.edu.ifsc.fln.model.domain.PessoaFisica;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 /**
@@ -29,31 +33,43 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
     private Button btConfirmar;
 
     @FXML
-    private DatePicker dpDataNascimento;
+    private RadioButton rbPessoaJuridica;
 
     @FXML
-    private TextField tfCpf;
+    private RadioButton rbPessoaFisica;
 
     @FXML
-    private TextField tfEndereco;
+    private Group gbTipo;
+
+    @FXML
+    private ToggleGroup tgTipo;
+
+    @FXML
+    private TextField tfEmail;
+
+    @FXML
+    private TextField tfFone;
 
     @FXML
     private TextField tfNome;
 
     @FXML
-    private TextField tfTelefone;
-    
+    private TextField tfNumFiscal;
+
+    @FXML
+    private TextField tfPais;
+
     private Stage dialogStage;
     private boolean btConfirmarClicked = false;
-    private ClienteA clienteA;
-    
+    private Cliente cliente;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }       
+    }
 
     public boolean isBtConfirmarClicked() {
         return btConfirmarClicked;
@@ -71,54 +87,95 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
         this.dialogStage = dialogStage;
     }
 
-    public ClienteA getCliente() {
-        return clienteA;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setCliente(ClienteA clienteA) {
-        this.clienteA = clienteA;
-        this.tfNome.setText(this.clienteA.getNome());
-        this.tfCpf.setText(this.clienteA.getCpf());
-        this.tfTelefone.setText(this.clienteA.getTelefone());
-        this.tfEndereco.setText(this.clienteA.getEndereco());
-        dpDataNascimento.setValue(this.clienteA.getDataNascimento());
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+        if (cliente.getId() != 0) {
+            this.tfNome.setText(this.cliente.getNome());
+            this.tfEmail.setText(this.cliente.getEmail());
+            this.tfFone.setText(this.cliente.getCelular());
+            this.gbTipo.setDisable(true);
+            if (cliente instanceof PessoaFisica) {
+                rbPessoaFisica.setSelected(true);
+                tfNumFiscal.setText(((PessoaFisica) this.cliente).getCpf());
+                tfPais.setText("BRASIL");
+                tfPais.setDisable(true);
+            } else {
+                rbPessoaJuridica.setSelected(true);
+                tfNumFiscal.setText(((PessoaJuridica) this.cliente).getCnpj());
+                tfPais.setText(((PessoaJuridica) this.cliente).getInscricaoEstadual());
+                tfPais.setDisable(false);
+            }
+        }
+        this.tfNome.requestFocus();
     }
-    
 
     @FXML
     public void handleBtConfirmar() {
         if (validarEntradaDeDados()) {
-            clienteA.setNome(tfNome.getText());
-            clienteA.setCpf(tfCpf.getText());
-            clienteA.setTelefone(tfTelefone.getText());
-            clienteA.setEndereco(tfEndereco.getText());
-            clienteA.setDataNascimento(dpDataNascimento.getValue());
-
+            cliente.setNome(tfNome.getText());
+            cliente.setEmail(tfEmail.getText());
+            cliente.setCelular(tfFone.getText());
+//            if (rbPessoaFisica.isSelected()) {
+//                ((PessoaFisica) cliente).setCpf(tfNumFiscal.getText());
+//            } else {
+//                ((PessoaJuridica) cliente).setCnpj(tfNumFiscal.getText());
+//                ((PessoaJuridica) cliente).setInscricaoEstadual(tfPais.getText());
+//            }
+            ((PessoaFisica) cliente).setCpf(tfNumFiscal.getText());
             btConfirmarClicked = true;
             dialogStage.close();
         }
     }
-    
+
     @FXML
     public void handleBtCancelar() {
         dialogStage.close();
     }
-    
+
+    @FXML
+    public void handleRbPessoaFisica() {
+        this.tfPais.setText("BRASIL");
+        this.tfPais.setDisable(true);
+    }
+
+    @FXML
+    public void handleRbPessoaJuridica() {
+        this.tfPais.setText("");
+        this.tfPais.setDisable(false);
+    }
+
     //método para validar a entrada de dados
     private boolean validarEntradaDeDados() {
         String errorMessage = "";
         if (this.tfNome.getText() == null || this.tfNome.getText().length() == 0) {
             errorMessage += "Nome inválido.\n";
         }
-        
-        if (this.tfCpf.getText() == null || this.tfCpf.getText().length() == 0) {
-            errorMessage += "CPF inválido.\n";
-        }
-        
-        if (this.tfTelefone.getText() == null || this.tfTelefone.getText().length() == 0) {
+
+        if (this.tfFone.getText() == null || this.tfFone.getText().length() == 0) {
             errorMessage += "Telefone inválido.\n";
         }
-        
+
+        if (this.tfEmail.getText() == null || this.tfEmail.getText().length() == 0 || !this.tfEmail.getText().contains("@")) {
+            errorMessage += "Email inválido.\n";
+        }
+
+//        if (rbPessoaFisica.isSelected()) {
+//            if (this.tfNumFiscal.getText() == null || this.tfNumFiscal.getText().length() == 0) {
+//                errorMessage += "CNPJ inválido.\n";
+//            }
+//        } else {
+//            if (this.tfNumFiscal.getText() == null || this.tfNumFiscal.getText().length() == 0) {
+//                errorMessage += "NIF inválido.\n";
+//            }
+//            if (this.tfPais.getText() == null || this.tfPais.getText().length() == 0) {
+//                errorMessage += "Informe o nome do País.\n";
+//            }
+//        }
+
         if (errorMessage.length() == 0) {
             return true;
         } else {
@@ -131,5 +188,5 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
             return false;
         }
     }
-    
+
 }

@@ -52,23 +52,23 @@ public class FXMLVBoxMainAppController implements Initializable {
         anchorPane.getChildren().setAll(a);
     }
     
+//    @FXML
+//    public void handleMenuItemCadastroCliente() throws IOException {
+//        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroClienteA.fxml"));
+//        anchorPane.getChildren().setAll(a);
+//    }
+    
     @FXML
     public void handleMenuItemCadastroCliente() throws IOException {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroCliente.fxml"));
         anchorPane.getChildren().setAll(a);
     }    
-    
-    @FXML
-    public void handleMenuItemCadastroFornecedor() throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroFornecedor.fxml"));
-        anchorPane.getChildren().setAll(a);
-    }    
 
-    @FXML
-    public void handleMenuItemCadastroProduto() throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroProduto.fxml"));
-        anchorPane.getChildren().setAll(a);
-    }     
+//    @FXML
+//    public void handleMenuItemCadastroProduto() throws IOException {
+//        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroProduto.fxml"));
+//        anchorPane.getChildren().setAll(a);
+//    }
     
     @FXML
     public void handleMenuItemProcessoEstoque() throws IOException {

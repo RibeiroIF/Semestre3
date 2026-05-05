@@ -38,7 +38,7 @@ CREATE TABLE pessoaJuridica(
 ) engine=InnoDB;
 
 CREATE TABLE veiculo(
-    id INT NOT NULL,
+    id INT NOT NULL auto_increment,
     placa VARCHAR(16) NOT NULL,
     observacoes VARCHAR(100),
     id_cliente INT NOT NULL,
@@ -46,8 +46,14 @@ CREATE TABLE veiculo(
     CONSTRAINT fk_veiculo_cliente FOREIGN KEY(id_cliente) REFERENCES cliente(id)
 ) engine=InnoDB;
 
+CREATE TABLE marca(
+    id INT NOT NULL auto_increment,
+    nome VARCHAR(20) NOT NULL,
+    CONSTRAINT pk_marca PRIMARY KEY (id)
+) engine=InnoDB;
+
 CREATE TABLE modelo(
-    id INT NOT NULL,
+    id INT NOT NULL auto_increment,
     descricao VARCHAR(50),
     id_marca INT NOT NULL,
     id_veiculo INT NOT NULL,
@@ -56,15 +62,9 @@ CREATE TABLE modelo(
     CONSTRAINT fk_produto_veiculo FOREIGN KEY(id_veiculo) REFERENCES veiculo(id)
 ) engine=InnoDB;
 
-CREATE TABLE marca(
-    id INT NOT NULL,
-    nome VARCHAR(20) NOT NULL,
-    CONSTRAINT pk_marca PRIMARY KEY (id)
-) engine=InnoDB;
-
 CREATE TABLE motor(
     id_modelo INT NOT NULL REFERENCES modelo(id),
-    id INT NOT NULL,
+    id INT NOT NULL auto_increment,
     potencia INT NOT NULL,
     id_tipoCombustivel ENUM('GASOLINA', 'ETANOL', 'FLEX', 'DIESEL', 'GNV', 'OUTRO') NOT NULL DEFAULT 'GASOLINA',
     CONSTRAINT pk_motor PRIMARY KEY (id),
@@ -73,7 +73,7 @@ CREATE TABLE motor(
 ) engine=InnoDB;
 
 CREATE TABLE pontuacao(
-    id INT NOT NULL,
+    id INT NOT NULL auto_increment,
     quantidade INT DEFAULT 0,
     id_cliente INT NOT NULL,
     CONSTRAINT pk_pontuacao PRIMARY KEY(id),
@@ -93,6 +93,25 @@ INSERT INTO cliente(nome, celular, email, dataCadastro) VALUES('Clara','(11)
     3333-3333', 'clara@ifsc.edu.br', '2026-05-18');
 INSERT INTO pessoaFisica(id_cliente, cpf, dataNascimento) VALUES ((SELECT max(id) FROM cliente), '222.222.222-22','2000-05-05');
 
+INSERT INTO veiculo(placa, observacoes, id_cliente) VALUES ('XXX-1111', 'Carro pequeno', 1);
+INSERT INTO veiculo(placa, observacoes, id_cliente) VALUES ('YYY-2222', 'Carro médio', 2);
+INSERT INTO veiculo(placa, observacoes, id_cliente) VALUES ('ZZZ-3333', 'Carro grande', 3);
+
+INSERT INTO marca(nome) VALUES ('Ford');
+INSERT INTO marca(nome) VALUES ('BYD');
+INSERT INTO marca(nome) VALUES ('Renault');
+
+INSERT INTO modelo(descricao, id_marca, id_veiculo) VALUES ('Ford KA', 1, 1);
+INSERT INTO modelo(descricao, id_marca, id_veiculo) VALUES ('BYD Dolphin', 2, 2);
+INSERT INTO modelo(descricao, id_marca, id_veiculo) VALUES ('Sandero', 3, 3);
+
+INSERT INTO motor(id_modelo, potencia) VALUES (1, 180);
+INSERT INTO motor(id_modelo, potencia) VALUES (2, 200);
+INSERT INTO motor(id_modelo, potencia) VALUES (3, 230);
+
+INSERT INTO pontuacao(id_cliente) VALUES (1);
+INSERT INTO pontuacao(id_cliente) VALUES (2);
+INSERT INTO pontuacao(id_cliente) VALUES (3);
 
 /* TABELAS ANTIGAS */
 CREATE TABLE fornecedor(
