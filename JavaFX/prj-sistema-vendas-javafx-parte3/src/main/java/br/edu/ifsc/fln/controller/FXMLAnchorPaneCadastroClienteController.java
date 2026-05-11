@@ -14,6 +14,7 @@ import br.edu.ifsc.fln.utils.AlertDialog;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -72,7 +73,16 @@ public class FXMLAnchorPaneCadastroClienteController implements Initializable {
     private Label lbClienteTipo;
 
     @FXML
+    private Label lbClientePais;
+
+    @FXML
+    private Label lbInfoParaTroca;
+
+    @FXML
     private Label lbClientePontuacao;
+
+    @FXML
+    private Label lbTituloParaTroca;
     
     @FXML
     private TableColumn<Cliente, String> tableColumnClienteCelular;
@@ -122,11 +132,14 @@ public class FXMLAnchorPaneCadastroClienteController implements Initializable {
             if (cliente instanceof PessoaFisica) {
                 lbClienteTipo.setText("PessoaFisica");
                 lbClienteNumFiscal.setText(((PessoaFisica)cliente).getCpf());
-                lbClienteInscricaoEstadual.setText("Brasil");
+                lbClientePais.setText("Brasil");
+                lbTituloParaTroca.setText("Data Nasc.:");
+                lbInfoParaTroca.setText(String.valueOf(((PessoaFisica) cliente).getDataNascimento()));
             } else {
                 lbClienteTipo.setText("PessoaJuridica");
                 lbClienteNumFiscal.setText(((PessoaJuridica)cliente).getCnpj());
-                lbClienteInscricaoEstadual.setText(((PessoaJuridica)cliente).getInscricaoEstadual());
+                lbTituloParaTroca.setText("Inscrição:");
+                lbInfoParaTroca.setText(((PessoaJuridica)cliente).getInscricaoEstadual());
             }
             lbClientePontuacao.setText(String.valueOf(cliente.getPontuacao().verificarPontos()));
         } else {

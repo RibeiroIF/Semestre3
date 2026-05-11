@@ -51,4 +51,12 @@ public class Modelo {
     public void setMarca(Marca marca) {
         this.marca = marca;
     }
+
+    public Motor getMotor() {
+        return motor;
+    }
+
+    public void setMotor(Motor motor) {
+        this.motor = motor;
+    }
 }

@@ -47,33 +47,33 @@ public class FXMLVBoxMainAppController implements Initializable {
     }  
     
     @FXML
-    public void handleMenuItemCadastroCategoria() throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroCategoria.fxml"));
+    public void handleMenuItemCadastroMarca() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroMarca.fxml"));
         anchorPane.getChildren().setAll(a);
     }
     
+
+    @FXML
+    public void handleMenuItemCadastroModelo() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroModelo.fxml"));
+        anchorPane.getChildren().setAll(a);
+    }
+
+    @FXML
+    public void handleMenuItemCadastroVeiculo() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroVeiculo.fxml"));
+        anchorPane.getChildren().setAll(a);
+    }
+
     @FXML
     public void handleMenuItemCadastroCliente() throws IOException {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroCliente.fxml"));
         anchorPane.getChildren().setAll(a);
     }    
-    
-    @FXML
-    public void handleMenuItemCadastroFornecedor() throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroCliente.fxml"));
-        anchorPane.getChildren().setAll(a);
-    }    
-
-    @FXML
-    public void handleMenuItemCadastroProduto() throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneCadastroProduto.fxml"));
-        anchorPane.getChildren().setAll(a);
-    }     
-    
     @FXML
     public void handleMenuItemProcessoEstoque() throws IOException {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAnchorPaneProcessoEstoque.fxml"));
         anchorPane.getChildren().setAll(a);
-    }     
-    
+    }
+
 }

@@ -29,6 +29,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="102.0" text="Nome:">
@@ -67,28 +68,34 @@
                   <Insets right="5.0" />
                </padding>
             </Label>
-            <TextField fx:id="tfInscricaoEstadual" disable="true" text="BRASIL" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="tfPais" disable="true" text="BRASIL" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <Group fx:id="gbTipo" layoutX="14.0" layoutY="5.0">
                      <children>
-                        <RadioButton fx:id="rbPessoaFisica" mnemonicParsing="false" onAction="#handleRbPessoaFisica" selected="true" text="Nacional">
+                        <RadioButton fx:id="rbPessoaFisica" mnemonicParsing="false" onAction="#handleRbPessoaFisica" selected="true" text="Física">
                            <toggleGroup>
                               <ToggleGroup fx:id="tgTipo" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="rbPessoaJuridica" layoutX="99.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleRbPessoaJuridica" text="Internacional" toggleGroup="$tgTipo" />
+                        <RadioButton fx:id="rbPessoaJuridica" layoutX="99.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleRbPessoaJuridica" text="Jurídica" toggleGroup="$tgTipo" />
                      </children>
                   </Group>
                </children>
             </Pane>
             <TextField fx:id="tfNumFiscal" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="102.0" text="Data:" GridPane.rowIndex="6">
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="102.0" text="Data:" GridPane.rowIndex="7">
                <padding>
                   <Insets right="5.0" />
                </padding>
             </Label>
-            <DatePicker fx:id="tfData" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <DatePicker fx:id="tfData" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="102.0" text="Inscrição:" GridPane.rowIndex="6">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="tfInscricaoEstadual" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <Group layoutX="126.0" layoutY="90.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
