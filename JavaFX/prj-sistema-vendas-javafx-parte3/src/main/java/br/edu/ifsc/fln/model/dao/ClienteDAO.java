@@ -32,27 +32,25 @@ public class ClienteDAO {
     }
 
     public boolean inserir(Cliente cliente) {
-        String sql = "INSERT INTO cliente(nome, celular, email, dataCadastro) VALUES(?, ?, ?, ?)";
-        String sqlFN = "INSERT INTO pessoaFisica(id_cliente, cpf, dataNascimento) VALUES((SELECT max(id) FROM " +
-                "cliente),?, ?, ?)";
+        String sql = "INSERT INTO cliente(nome, email, celular, dataCadastro) VALUES(?, ?, ?, ?)";
+        String sqlFN = "INSERT INTO pessoaFisica(id_cliente, cpf) VALUES((SELECT max(id) FROM cliente), ?)";
         String sqlFI = "INSERT INTO pessoaJuridica(id_cliente, cnpj, inscricaoEstadual) VALUES((SELECT max(id) FROM " +
-                "cliente),?, ?, ?)";
+                "cliente), ?, ?)";
         try {
             //armazena os dados da superclasse
             PreparedStatement stmt = connection.prepareStatement(sql);
             connection.setAutoCommit(false);
             stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getCelular());
-            stmt.setString(3, cliente.getEmail());
+            stmt.setString(2, cliente.getEmail());
+            stmt.setString(3, cliente.getCelular());
             stmt.setDate(4, Date.valueOf(LocalDate.now()));
             stmt.execute();
             //armazena os dados da subclasse
             if (cliente instanceof PessoaFisica) {
                 stmt = connection.prepareStatement(sqlFN);
                 stmt.setString(1, ((PessoaFisica)cliente).getCpf());
-                stmt.setDate(2, Date.valueOf(((PessoaFisica)cliente).getDataNascimento()));
                 //a linha a seguir está errada e foi proposital para fazer um teste de rollback
-                //stmt.setString(2, ((PessoaFisica)cliente).getCnpj());
+                //stmt.setString(2, ((PessoaFisica)cliente).getCpf());
                 stmt.execute();
             } else {
                 stmt = connection.prepareStatement(sqlFI);
@@ -83,15 +81,15 @@ public class ClienteDAO {
     }
 
     public boolean alterar(Cliente cliente) {
-        String sql = "UPDATE cliente SET nome=?, celular=?, email=?, dataCadastro=? WHERE id=?";
+        String sql = "UPDATE cliente SET nome=?, email=?, celular=?, dataCadastro=? WHERE id=?";
         String sqlFN = "UPDATE pessoaFisica SET cpf=? WHERE id_cliente = ?";
         String sqlFI = "UPDATE pessoaJuridica SET cnpj=?, inscricaoEstadual=? WHERE id_cliente = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getCelular());
-            stmt.setString(3, cliente.getEmail());
-            stmt.setDate(4, Date.valueOf(cliente.getDataCadastro()));
+            stmt.setString(2, cliente.getEmail());
+            stmt.setString(3, cliente.getCelular());
+            stmt.setDate(4, Date.valueOf(LocalDate.now()));
             stmt.setInt(5, cliente.getId());
             stmt.execute();
             if (cliente instanceof PessoaFisica) {
@@ -127,9 +125,9 @@ public class ClienteDAO {
     }
 
     public List<Cliente> listar() {
-        String sql = "SELECT * FROM cliente c "
-                        + "LEFT JOIN pessoaFisica pf on pf.id_cliente = c.id "
-                        + "LEFT JOIN pessoaJuridica pj on pj.id_cliente = c.id;";
+        String sql = "SELECT * FROM cliente f "
+                        + "LEFT JOIN pessoaFisica n on n.id_cliente = f.id "
+                        + "LEFT JOIN pessoaJuridica i on i.id_cliente = f.id;";
         List<Cliente> retorno = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -145,9 +143,9 @@ public class ClienteDAO {
     }
 
     public Cliente buscar(Cliente cliente) {
-        String sql = "SELECT * FROM cliente c "
-                        + "LEFT JOIN pessoaFisica pf on pf.id_cliente = c.id "
-                        + "LEFT JOIN pessoaJuridica pj on pj.id_cliente = c.id WHERE id=?";
+        String sql = "SELECT * FROM cliente f "
+                        + "LEFT JOIN pessoaFisica n on n.id_cliente = f.id "
+                        + "LEFT JOIN pessoaJuridica i on i.id_cliente = f.id WHERE id=?";
         Cliente retorno = null;
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -163,9 +161,9 @@ public class ClienteDAO {
     }
     
     public Cliente buscar(int id) {
-        String sql = "SELECT * FROM cliente c "
-                        + "LEFT JOIN pessoaFisica pf on pf.id_cliente = c.id "
-                        + "LEFT JOIN pessoaJuridica pj on pj.id_cliente = c.id WHERE id=?";
+        String sql = "SELECT * FROM cliente f "
+                        + "LEFT JOIN pessoaFisica n on n.id_cliente = f.id "
+                        + "LEFT JOIN pessoaJuridica i on i.id_cliente = f.id WHERE id=?";
         Cliente retorno = null;
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -182,7 +180,7 @@ public class ClienteDAO {
     
     private Cliente populateVO(ResultSet rs) throws SQLException {
         Cliente cliente;
-        if (rs.getString("inscricaoEstadual") == null || rs.getString("inscricaoEstadual").length() <= 0) {
+        if (rs.getString("cnpj") == null || rs.getString("inscricaoEstadual").length() <= 0) {
             //é um cliente pessoaFisica
             cliente = new PessoaFisica();
             ((PessoaFisica)cliente).setCpf(rs.getString("cpf"));
@@ -194,9 +192,9 @@ public class ClienteDAO {
         }
         cliente.setId(rs.getInt("id"));
         cliente.setNome(rs.getString("nome"));
-        cliente.setCelular(rs.getString("celular"));
         cliente.setEmail(rs.getString("email"));
-        cliente.setDataCadastro(rs.getDate("dataCadastro").toLocalDate());
+        cliente.setCelular(rs.getString("celular"));
+        cliente.getPontuacao().verificarPontos();
         return cliente;
     }
 }

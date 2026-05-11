@@ -48,7 +48,7 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
     private TextField tfEmail;
 
     @FXML
-    private TextField tfFone;
+    private TextField tfCelular;
 
     @FXML
     private TextField tfNome;
@@ -57,7 +57,7 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
     private TextField tfNumFiscal;
 
     @FXML
-    private TextField tfPais;
+    private TextField tfInscricaoEstadual;
 
     private Stage dialogStage;
     private boolean btConfirmarClicked = false;
@@ -96,18 +96,18 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
         if (cliente.getId() != 0) {
             this.tfNome.setText(this.cliente.getNome());
             this.tfEmail.setText(this.cliente.getEmail());
-            this.tfFone.setText(this.cliente.getCelular());
-            this.gbTipo.setDisable(false);
+            this.tfCelular.setText(this.cliente.getCelular());
+            this.gbTipo.setDisable(true);
             if (cliente instanceof PessoaFisica) {
                 rbPessoaFisica.setSelected(true);
                 tfNumFiscal.setText(((PessoaFisica) this.cliente).getCpf());
-                tfPais.setText("BRASIL");
-                tfPais.setDisable(true);
+                tfInscricaoEstadual.setText("BRASIL");
+                tfInscricaoEstadual.setDisable(true);
             } else {
                 rbPessoaJuridica.setSelected(true);
                 tfNumFiscal.setText(((PessoaJuridica) this.cliente).getCnpj());
-                tfPais.setText("EXTERNO");
-                tfPais.setDisable(false);
+                tfInscricaoEstadual.setText(((PessoaJuridica) this.cliente).getInscricaoEstadual());
+                tfInscricaoEstadual.setDisable(false);
             }
         }
         this.tfNome.requestFocus();
@@ -118,12 +118,12 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
         if (validarEntradaDeDados()) {
             cliente.setNome(tfNome.getText());
             cliente.setEmail(tfEmail.getText());
-            cliente.setCelular(tfFone.getText());
+            cliente.setCelular(tfCelular.getText());
             if (rbPessoaFisica.isSelected()) {
                 ((PessoaFisica) cliente).setCpf(tfNumFiscal.getText());
             } else {
                 ((PessoaJuridica) cliente).setCnpj(tfNumFiscal.getText());
-                ((PessoaJuridica) cliente).setInscricaoEstadual(tfPais.getText());
+                ((PessoaJuridica) cliente).setInscricaoEstadual(tfInscricaoEstadual.getText());
             }
             btConfirmarClicked = true;
             dialogStage.close();
@@ -137,14 +137,14 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
 
     @FXML
     public void handleRbPessoaFisica() {
-        this.tfPais.setText("BRASIL");
-        this.tfPais.setDisable(true);
+        this.tfInscricaoEstadual.setText("BRASIL");
+        this.tfInscricaoEstadual.setDisable(true);
     }
 
     @FXML
     public void handleRbPessoaJuridica() {
-        this.tfPais.setText("EXTERIOR");
-        this.tfPais.setDisable(false);
+        this.tfInscricaoEstadual.setText("");
+        this.tfInscricaoEstadual.setDisable(false);
     }
 
     //método para validar a entrada de dados
@@ -154,8 +154,8 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
             errorMessage += "Nome inválido.\n";
         }
 
-        if (this.tfFone.getText() == null || this.tfFone.getText().length() == 0) {
-            errorMessage += "Telefone inválido.\n";
+        if (this.tfCelular.getText() == null || this.tfCelular.getText().length() == 0) {
+            errorMessage += "Telecelular inválido.\n";
         }
 
         if (this.tfEmail.getText() == null || this.tfEmail.getText().length() == 0 || !this.tfEmail.getText().contains("@")) {
@@ -170,7 +170,7 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
             if (this.tfNumFiscal.getText() == null || this.tfNumFiscal.getText().length() == 0) {
                 errorMessage += "NIF inválido.\n";
             }
-            if (this.tfPais.getText() == null || this.tfPais.getText().length() == 0) {
+            if (this.tfInscricaoEstadual.getText() == null || this.tfInscricaoEstadual.getText().length() == 0) {
                 errorMessage += "Informe o nome do País.\n";
             }
         }
