@@ -5,11 +5,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsc.fln.controller.FXMLAnchorPaneCadastroClienteDialogController">
@@ -43,45 +44,49 @@
                   <Insets right="5.0" />
                </padding>
             </Label>
+            <TextField fx:id="tfEmail" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="101.0" text="Telefone:" GridPane.rowIndex="2">
                <padding>
                   <Insets right="5.0" />
                </padding>
             </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="106.0" text="Tipo:" GridPane.rowIndex="3">
-               <padding>
-                  <Insets right="5.0" />
-               </padding>
-            </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="102.0" text="CPF/CNPJ" GridPane.rowIndex="4">
-               <padding>
-                  <Insets right="5.0" />
-               </padding>
-            </Label>
-            <TextField fx:id="tfEmail" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="tfFone" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="102.0" text="CPF/CNPJ" GridPane.rowIndex="3">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="tfNumFiscal" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="102.0" text="País:" GridPane.rowIndex="5">
                <padding>
                   <Insets right="5.0" />
                </padding>
             </Label>
             <TextField fx:id="tfPais" disable="true" text="BRASIL" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <children>
-                  <Group fx:id="gbTipo" layoutX="14.0" layoutY="5.0">
-<!--                     <children>-->
-<!--                        <RadioButton fx:id="rbNacional" mnemonicParsing="false" onAction="#handleRbNacional" selected="true" text="Nacional">-->
-<!--                           <toggleGroup>-->
-<!--                              <ToggleGroup fx:id="tgTipo" />-->
-<!--                           </toggleGroup>-->
-<!--                        </RadioButton>-->
-<!--                        <RadioButton fx:id="rbInternacional" layoutX="99.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleRbInternacional" text="Internacional" toggleGroup="$tgTipo" />-->
-<!--                     </children>-->
-                  </Group>
-               </children>
-            </Pane>
-            <TextField fx:id="tfNumFiscal" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <DatePicker fx:id="dpDataNascimento" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="119.0" text="Nome:">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="102.0" text="Tipo:" GridPane.rowIndex="4">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+               <Group fx:id="gbTipo" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                   <children>
+                       <RadioButton fx:id="rbPessoaFisica" mnemonicParsing="false" onAction="#handleRbPessoaFisica" selected="true" text="Física">
+                           <toggleGroup>
+                               <ToggleGroup fx:id="tgTipo" />
+                           </toggleGroup>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                       </RadioButton>
+                       <RadioButton fx:id="rbPessoaJuridica" layoutX="99.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleRbPessoaJuridica" text="Jurídica" toggleGroup="$tgTipo" />
+                   </children>
+               </Group>
          </children>
       </GridPane>
       <Group layoutX="126.0" layoutY="90.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">

@@ -117,12 +117,13 @@ public class FXMLAnchorPaneCadastroClienteController implements Initializable {
             lbClienteCelular.setText(cliente.getCelular());
             lbClienteEmail.setText(cliente.getEmail());
             if (cliente instanceof PessoaFisica) {
-                lbClienteTipo.setText("PessoaFisica");
+                lbClienteTipo.setText("Pessoa Física");
                 lbClienteNumFiscal.setText(((PessoaFisica)cliente).getCpf());
+                lbClientePais.setText("Brasil");
             } else {
-                lbClienteTipo.setText("PessoaJuridica");
+                lbClienteTipo.setText("Pessoa Jurídica");
                 lbClienteNumFiscal.setText(((PessoaJuridica)cliente).getCnpj());
-                lbClientePais.setText(((PessoaJuridica)cliente).getInscricaoEstadual());
+                lbClientePais.setText("Externo");
             }
         } else {
             lbClienteId.setText("");
@@ -150,15 +151,15 @@ public class FXMLAnchorPaneCadastroClienteController implements Initializable {
 
     private Cliente getTipoCliente() {
         List<String> opcoes = new ArrayList<>();
-        opcoes.add("PessoaFisica");
-        opcoes.add("PessoaJuridica");
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("PessoaFisica", opcoes);
+        opcoes.add("Pessoa Física");
+        opcoes.add("Pessoa Jurídica");
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Pessoa Física", opcoes);
         dialog.setTitle("Dialogo de Opções");
         dialog.setHeaderText("Escolha o tipo de cliente");
         dialog.setContentText("Tipo de cliente: ");
         Optional<String> escolha = dialog.showAndWait();
         if (escolha.isPresent()) {
-            if (escolha.get().equalsIgnoreCase("PessoaFisica"))
+            if (escolha.get().equalsIgnoreCase("Pessoa Física"))
                 return new PessoaFisica();
             else
                 return new PessoaJuridica();
@@ -200,7 +201,7 @@ public class FXMLAnchorPaneCadastroClienteController implements Initializable {
 
     private boolean showFXMLAnchorPaneCadastroClienteDialog(Cliente cliente) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(FXMLAnchorPaneCadastroClienteAController.class.getResource("/view/FXMLAnchorPaneCadastroClienteDialog.fxml"));
+        loader.setLocation(FXMLAnchorPaneCadastroClienteController.class.getResource("/view/FXMLAnchorPaneCadastroClienteDialog.fxml"));
         AnchorPane page = (AnchorPane) loader.load();
 
         //criação de um estágio de diálogo (StageDialog)

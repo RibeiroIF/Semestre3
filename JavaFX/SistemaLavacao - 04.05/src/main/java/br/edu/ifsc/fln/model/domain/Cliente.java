@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
-public class Cliente {
+public abstract class Cliente {
     protected int id;
     protected String nome, celular, email;
     protected LocalDate dataCadastro;

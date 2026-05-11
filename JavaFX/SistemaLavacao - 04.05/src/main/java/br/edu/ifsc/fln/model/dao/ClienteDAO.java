@@ -9,6 +9,7 @@ import br.edu.ifsc.fln.model.domain.PessoaJuridica;
 import br.edu.ifsc.fln.model.domain.PessoaFisica;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,8 +33,10 @@ public class ClienteDAO {
 
     public boolean inserir(Cliente cliente) {
         String sql = "INSERT INTO cliente(nome, celular, email, dataCadastro) VALUES(?, ?, ?, ?)";
-        String sqlFN = "INSERT INTO pessoaFisica(id_cliente, cpf, dataNascimento) VALUES((SELECT max(id) FROM cliente),?, ?, ?)";
-        String sqlFI = "INSERT INTO pessoaJuridica(id_cliente, cnpj, inscricaoEstadual) VALUES((SELECT max(id) FROM cliente),?, ?, ?)";
+        String sqlFN = "INSERT INTO pessoaFisica(id_cliente, cpf, dataNascimento) VALUES((SELECT max(id) FROM " +
+                "cliente),?, ?, ?)";
+        String sqlFI = "INSERT INTO pessoaJuridica(id_cliente, cnpj, inscricaoEstadual) VALUES((SELECT max(id) FROM " +
+                "cliente),?, ?, ?)";
         try {
             //armazena os dados da superclasse
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -41,12 +44,13 @@ public class ClienteDAO {
             stmt.setString(1, cliente.getNome());
             stmt.setString(2, cliente.getCelular());
             stmt.setString(3, cliente.getEmail());
-            stmt.setDate(4, Date.valueOf(cliente.getDataCadastro()));
+            stmt.setDate(4, Date.valueOf(LocalDate.now()));
             stmt.execute();
             //armazena os dados da subclasse
             if (cliente instanceof PessoaFisica) {
                 stmt = connection.prepareStatement(sqlFN);
                 stmt.setString(1, ((PessoaFisica)cliente).getCpf());
+                stmt.setDate(2, Date.valueOf(((PessoaFisica)cliente).getDataNascimento()));
                 //a linha a seguir está errada e foi proposital para fazer um teste de rollback
                 //stmt.setString(2, ((PessoaFisica)cliente).getCnpj());
                 stmt.execute();
@@ -59,7 +63,7 @@ public class ClienteDAO {
             connection.commit();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteADAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
 
             try {
                 connection.rollback();
@@ -93,7 +97,8 @@ public class ClienteDAO {
             if (cliente instanceof PessoaFisica) {
                 stmt = connection.prepareStatement(sqlFN);
                 stmt.setString(1, ((PessoaFisica)cliente).getCpf());
-                stmt.setInt(2, cliente.getId());
+                stmt.setString(2, String.valueOf(((PessoaFisica)cliente).getDataNascimento()));
+                stmt.setInt(3, cliente.getId());
                 stmt.execute();
             } else {
                 stmt = connection.prepareStatement(sqlFI);
@@ -104,7 +109,7 @@ public class ClienteDAO {
             }
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteADAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -117,7 +122,7 @@ public class ClienteDAO {
             stmt.execute();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteADAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -135,7 +140,7 @@ public class ClienteDAO {
                 retorno.add(cliente);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteADAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retorno;
     }
@@ -153,7 +158,7 @@ public class ClienteDAO {
                 retorno = populateVO(resultado);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteADAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retorno;
     }
@@ -171,7 +176,7 @@ public class ClienteDAO {
                 retorno = populateVO(resultado);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteADAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retorno;
     }    

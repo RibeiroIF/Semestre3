@@ -97,7 +97,7 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
             this.tfNome.setText(this.cliente.getNome());
             this.tfEmail.setText(this.cliente.getEmail());
             this.tfFone.setText(this.cliente.getCelular());
-            this.gbTipo.setDisable(true);
+            this.gbTipo.setDisable(false);
             if (cliente instanceof PessoaFisica) {
                 rbPessoaFisica.setSelected(true);
                 tfNumFiscal.setText(((PessoaFisica) this.cliente).getCpf());
@@ -106,7 +106,7 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
             } else {
                 rbPessoaJuridica.setSelected(true);
                 tfNumFiscal.setText(((PessoaJuridica) this.cliente).getCnpj());
-                tfPais.setText(((PessoaJuridica) this.cliente).getInscricaoEstadual());
+                tfPais.setText("EXTERNO");
                 tfPais.setDisable(false);
             }
         }
@@ -119,12 +119,12 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
             cliente.setNome(tfNome.getText());
             cliente.setEmail(tfEmail.getText());
             cliente.setCelular(tfFone.getText());
-//            if (rbPessoaFisica.isSelected()) {
-//                ((PessoaFisica) cliente).setCpf(tfNumFiscal.getText());
-//            } else {
-//                ((PessoaJuridica) cliente).setCnpj(tfNumFiscal.getText());
-//                ((PessoaJuridica) cliente).setInscricaoEstadual(tfPais.getText());
-//            }
+            if (rbPessoaFisica.isSelected()) {
+                ((PessoaFisica) cliente).setCpf(tfNumFiscal.getText());
+            } else {
+                ((PessoaJuridica) cliente).setCnpj(tfNumFiscal.getText());
+                ((PessoaJuridica) cliente).setInscricaoEstadual(tfPais.getText());
+            }
             ((PessoaFisica) cliente).setCpf(tfNumFiscal.getText());
             btConfirmarClicked = true;
             dialogStage.close();
@@ -144,7 +144,7 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
 
     @FXML
     public void handleRbPessoaJuridica() {
-        this.tfPais.setText("");
+        this.tfPais.setText("EXTERIOR");
         this.tfPais.setDisable(false);
     }
 
@@ -163,18 +163,18 @@ public class FXMLAnchorPaneCadastroClienteDialogController implements Initializa
             errorMessage += "Email inválido.\n";
         }
 
-//        if (rbPessoaFisica.isSelected()) {
-//            if (this.tfNumFiscal.getText() == null || this.tfNumFiscal.getText().length() == 0) {
-//                errorMessage += "CNPJ inválido.\n";
-//            }
-//        } else {
-//            if (this.tfNumFiscal.getText() == null || this.tfNumFiscal.getText().length() == 0) {
-//                errorMessage += "NIF inválido.\n";
-//            }
-//            if (this.tfPais.getText() == null || this.tfPais.getText().length() == 0) {
-//                errorMessage += "Informe o nome do País.\n";
-//            }
-//        }
+        if (rbPessoaFisica.isSelected()) {
+            if (this.tfNumFiscal.getText() == null || this.tfNumFiscal.getText().length() == 0) {
+                errorMessage += "CNPJ inválido.\n";
+            }
+        } else {
+            if (this.tfNumFiscal.getText() == null || this.tfNumFiscal.getText().length() == 0) {
+                errorMessage += "NIF inválido.\n";
+            }
+            if (this.tfPais.getText() == null || this.tfPais.getText().length() == 0) {
+                errorMessage += "Informe o nome do País.\n";
+            }
+        }
 
         if (errorMessage.length() == 0) {
             return true;
