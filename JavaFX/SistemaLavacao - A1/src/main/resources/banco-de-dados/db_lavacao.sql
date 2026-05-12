@@ -1,13 +1,11 @@
-DROP DATABASE IF EXISTS db_lavacao_of;
-CREATE DATABASE IF NOT EXISTS db_lavacao_of;
-USE db_lavacao_of;
+DROP DATABASE IF EXISTS db_lavacao;
+CREATE DATABASE IF NOT EXISTS db_lavacao;
+USE db_lavacao;
 
-/*TABELAS PARA COMPORTAR O CONCEITO DE HERANÇA - 1 TABELA POR ENTIDADE
-TABELA FORNECEDOR
-TABELAS NACIONAL E INTERNACIONAL
-*/
+CREATE TABLE parametros_do_sistema(
+                        pontos int not null
+) engine=InnoDB;
 
-/* TABELAS NOVAS */
 CREATE TABLE cliente(
                         id INT NOT NULL auto_increment,
                         nome VARCHAR(50) NOT NULL,
@@ -49,9 +47,13 @@ CREATE TABLE veiculo(
                         observacoes VARCHAR(100),
                         id_cliente INT NOT NULL,
                         id_cor INT NOT NULL,
+                        id_modelo INT NOT NULL,
                         CONSTRAINT pk_veiculo PRIMARY KEY(id),
                         CONSTRAINT fk_veiculo_cor FOREIGN KEY(id_cor) REFERENCES cor(id),
-                        CONSTRAINT fk_veiculo_cliente FOREIGN KEY(id_cliente) REFERENCES cliente(id)
+                        CONSTRAINT fk_veiculo_cliente FOREIGN KEY(id_cliente) REFERENCES cliente(id),
+                        CONSTRAINT fk_veiculo_modelo FOREIGN KEY(id_modelo) REFERENCES cliente(id)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE
 ) engine=InnoDB;
 
 CREATE TABLE marca(
@@ -60,30 +62,32 @@ CREATE TABLE marca(
                       CONSTRAINT pk_marca PRIMARY KEY (id)
 ) engine=InnoDB;
 
+CREATE TABLE motor(
+                      id INT NOT NULL auto_increment,
+                      potencia INT NOT NULL,
+                      id_tipoCombustivel ENUM('GASOLINA', 'ETANOL', 'FLEX', 'DIESEL', 'GNV', 'OUTRO') NOT NULL DEFAULT 'GASOLINA',
+                      CONSTRAINT pk_motor PRIMARY KEY (id)
+) engine=InnoDB;
+
 CREATE TABLE modelo(
                        id INT NOT NULL auto_increment,
                        descricao VARCHAR(50),
                        id_marca INT NOT NULL,
+                       id_motor INT NOT NULL,
                        CONSTRAINT pk_modelo PRIMARY KEY(id),
-                       CONSTRAINT fk_modelo_marca FOREIGN KEY(id_marca) REFERENCES marca(id)
+                       CONSTRAINT fk_modelo_marca FOREIGN KEY(id_marca) REFERENCES marca(id),
+                       CONSTRAINT fk_modelo_motor foreign key(id_motor) references motor(id)
+                           ON DELETE CASCADE
+                           ON UPDATE CASCADE
 ) engine=InnoDB;
 
-CREATE TABLE motor(
-                      id_modelo INT NOT NULL REFERENCES modelo(id),
-                      id INT NOT NULL auto_increment,
-                      potencia INT NOT NULL,
-                      id_tipoCombustivel ENUM('GASOLINA', 'ETANOL', 'FLEX', 'DIESEL', 'GNV', 'OUTRO') NOT NULL DEFAULT 'GASOLINA',
-                      CONSTRAINT pk_motor PRIMARY KEY (id),
-                      CONSTRAINT fk_motor_modelo FOREIGN KEY (id_modelo) REFERENCES modelo(id)
-                          ON DELETE CASCADE
-) engine=InnoDB;
 
 CREATE TABLE servico(
-    id int NOT NULL auto_increment,
-    descricao varchar(40) NOT NULL,
-    valor float NOT NULL,
-    CONSTRAINT pk_servico
-        PRIMARY KEY(id)
+                        id int NOT NULL auto_increment,
+                        descricao varchar(40) NOT NULL,
+                        valor float NOT NULL,
+                        CONSTRAINT pk_servico
+                            PRIMARY KEY(id)
 ) engine=InnoDB;
 
 CREATE TABLE pontuacao(
@@ -93,10 +97,7 @@ CREATE TABLE pontuacao(
                           CONSTRAINT pk_pontuacao PRIMARY KEY(id),
                           CONSTRAINT fk_pontuacao_cliente FOREIGN KEY(id_cliente) REFERENCES cliente(id)
                               ON DELETE CASCADE
-) engine=InnoDB;
-
-CREATE TABLE parametros_do_sistema(
-    pontos int
+                              ON UPDATE CASCADE
 ) engine=InnoDB;
 
 INSERT INTO cliente(nome, celular, email, dataCadastro) VALUES('Marcos','(11)1111-1111', 'marcos@gremio.edu.br', '2026-07-23');
@@ -112,21 +113,22 @@ INSERT INTO cor(nome) VALUES ('Azul');
 INSERT INTO cor(nome) VALUES ('Preto');
 INSERT INTO cor(nome) VALUES ('Vermelho');
 
-INSERT INTO veiculo(placa, observacoes, id_cliente, id_cor) VALUES ('XXX-1111', 'Carro pequeno', 1, 1);
-INSERT INTO veiculo(placa, observacoes, id_cliente, id_cor) VALUES ('YYY-2222', 'Carro médio', 2, 2);
-INSERT INTO veiculo(placa, observacoes, id_cliente, id_cor) VALUES ('ZZZ-3333', 'Carro grande', 3, 3);
 
 INSERT INTO marca(nome) VALUES ('Ford');
 INSERT INTO marca(nome) VALUES ('BYD');
 INSERT INTO marca(nome) VALUES ('Renault');
 
-INSERT INTO modelo(descricao, id_marca) VALUES ('Ford KA', 1);
-INSERT INTO modelo(descricao, id_marca) VALUES ('BYD Dolphin', 2);
-INSERT INTO modelo(descricao, id_marca) VALUES ('Sandero', 3);
+INSERT INTO motor(potencia) VALUES (180);
+INSERT INTO motor(potencia) VALUES (200);
+INSERT INTO motor(potencia) VALUES (230);
 
-INSERT INTO motor(id_modelo, potencia) VALUES (1, 180);
-INSERT INTO motor(id_modelo, potencia) VALUES (2, 200);
-INSERT INTO motor(id_modelo, potencia) VALUES (3, 230);
+INSERT INTO modelo(descricao, id_marca, id_motor) VALUES ('Ford KA', 1, 1);
+INSERT INTO modelo(descricao, id_marca, id_motor) VALUES ('BYD Dolphin', 2, 2);
+INSERT INTO modelo(descricao, id_marca, id_motor) VALUES ('Sandero', 3, 3);
+
+INSERT INTO veiculo(placa, observacoes, id_cliente, id_cor, id_modelo) VALUES ('XXX-1111', 'Carro pequeno', 1, 1, 1);
+INSERT INTO veiculo(placa, observacoes, id_cliente, id_cor, id_modelo) VALUES ('YYY-2222', 'Carro médio', 2, 2, 2);
+INSERT INTO veiculo(placa, observacoes, id_cliente, id_cor, id_modelo) VALUES ('ZZZ-3333', 'Carro grande', 3, 3, 3);
 
 INSERT INTO pontuacao(id_cliente) VALUES (1);
 INSERT INTO pontuacao(id_cliente) VALUES (2);
