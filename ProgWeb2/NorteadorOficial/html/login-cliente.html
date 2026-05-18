@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Norteador</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/display.css">
+    <link rel="stylesheet" href="/css/form.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+          <h1 class="title"> Lava-Jato Aquaman </h1>
+            <nav class="navbar">
+              <ul>
+                <li> <a href="cadastro-cliente.html" class="card"> Cadastrar Cliente </a> </li>
+                <li> <a href="cadastro-veiculo.html" class="card"> Cadastrar Veículo </a> </li>
+                <li> <a href="homepage.html" class="card" id="return"> Voltar à Página Inicial </a> </li>
+                <li> <a href="login-admin.html" class="card"> Login Administrador </a> </li>
+              </ul>
+            </nav>
+        </header>
+
+        <!--Display de fotos-->
+        <div class="display">
+          <img class="display-imagem" src="/imagens/exemplo-carro-1.jpg" alt="foto-lamborghini">
+        </div>
+
+        <!--Display de texto explicativo-->
+        <div class="enunciado">
+          <h2 class="enunciado-titulo"> Espaço para <span>Login do Cliente</span> </h2> <br>
+          <p class="enunciado-texto"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure dolor sunt voluptatum mollitia
+             accusamus hic corporis molestias sint, autem officia, voluptate, aperiam est. Hic maiores porro odit, voluptatum harum
+             recusandae quaerat veniam placeat consectetur. Nobis omnis reiciendis veniam quas dolorem totam voluptatem dicta
+             aspernatur et odio! Quam beatae nisi odio vel quisquam architecto impedit nulla dolores possimus quibusdam temporibus
+             id aliquam, rerum ratione in! Cumque eum esse dolor officiis quas! Aliquam eum labore accusantium magnam numquam, 
+             dolores, doloremque, adipisci fugiat dolorem vero expedita beatae sed sunt corporis ut minima quaerat atque saepe 
+             quam. Quia amet alias aut quis quidem minima? </p>
+        </div>
+
+        <!--Seção principal-->
+        <main class="form">
+          <form action="login-cliente.php" method="post" id="form-login-cliente">
+            <fieldset>
+              <legend> Login do Cliente: </legend>
+              
+              <div class="form-infos">
+                <label for="login" class="alinha"> Login: </label>
+                <input type="text" name="login" id="login" placeholder="Seu login aqui..."> <br>
+
+                <label for="password" class="alinha"> Senha: </label>
+                <input type="password" name="password" id="password"> <br>
+
+                <input type="checkbox" name="lembrarLogin" id="lembrarLogin">
+                <label for="lembrarLogin" id="lembrarLogin"> Manter-me Conectado </label> <br>
+              </div>
+
+              <button form="form-login-cliente" type="submit" class="button" name="button-login-cliente"> Logar como Cliente </button>
+            </fieldset>
+          </form>
+        </main>
+    </div>
+
+    <footer class="footer">
+     <p> Desenvolvimento web - CTDS - Web Design, turma do semestre 2025/1 <br>
+     Copyright &copy;2025 - todos os direitos reservados. Proibida a reprodução parcial ou total do conteúdo presente nesta aplicação. <br>
+
+     <a href="contato-empresa.html"> Entre em contato conosco </a> 
+     </p>
+  </footer>
+</body>
+</html>

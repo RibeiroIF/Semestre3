@@ -1,0 +1,11 @@
+.display{
+  margin: 0 auto;
+  background-color: rgb(37, 33, 96);
+}
+
+.display-imagem{
+  display: block;
+  margin: 0 auto;
+  height: 20em;
+  width: 40%;
+}
