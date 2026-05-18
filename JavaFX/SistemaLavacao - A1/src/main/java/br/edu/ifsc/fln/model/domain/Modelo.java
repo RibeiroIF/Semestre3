@@ -8,7 +8,9 @@ public class Modelo {
 	private ECategoria categoria;
 	private Motor motor;
 	
-	public Modelo() {}
+	public Modelo() {
+		this.motor = new Motor();
+	}
 	
 	public Modelo(int id, String descricao, Marca marca, ECategoria categoria, int potencia, ETipoCombustivel combustivel) {
 		super();
@@ -56,5 +58,8 @@ public class Modelo {
 		this.descricao = descricao;
 	}
 
-
+	@Override
+	public String toString() {
+		return this.descricao;
+	}
 }

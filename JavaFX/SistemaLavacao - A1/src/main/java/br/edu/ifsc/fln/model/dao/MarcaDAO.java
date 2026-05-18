@@ -1,6 +1,8 @@
 package br.edu.ifsc.fln.model.dao;
 
 import br.edu.ifsc.fln.model.domain.Marca;
+import br.edu.ifsc.fln.model.domain.Modelo;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,7 +65,7 @@ public class MarcaDAO {
     }
 
     public List<Marca> listar() {
-        String sql = "SELECT * FROM marca";
+        String sql = "SELECT * from marca";
         List<Marca> retorno = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -72,6 +74,23 @@ public class MarcaDAO {
                 Marca marca = new Marca();
                 marca.setId(resultado.getInt("id"));
                 marca.setNome(resultado.getString("nome"));
+                retorno.add(marca);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MarcaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+
+    public List<Marca> listarNomesMarcas() {
+        String sql = "SELECT m.nome as marca_nome FROM marca m INNER JOIN modelo m1 on m.id = m1.id_marca;";
+        List<Marca> retorno = new ArrayList<>();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                Marca marca = new Marca();
+                marca.setNome(resultado.getString("marca_nome"));
                 retorno.add(marca);
             }
         } catch (SQLException ex) {

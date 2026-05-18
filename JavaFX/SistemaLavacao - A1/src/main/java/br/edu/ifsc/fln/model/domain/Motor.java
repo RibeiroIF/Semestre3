@@ -4,6 +4,8 @@ public class Motor {
 
 	private int potencia;
 	private ETipoCombustivel tipoCombustivel;
+
+	private Modelo modelo;
 	
 	public Motor() {
 		super();
@@ -30,6 +32,13 @@ public class Motor {
 	public void setTipoCombustivel(ETipoCombustivel tipoCombustivel) {
 		this.tipoCombustivel = tipoCombustivel;
 	}
-	
-	
+
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf(this.potencia);
+	}
 }

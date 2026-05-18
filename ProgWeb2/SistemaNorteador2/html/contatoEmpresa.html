@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Norteador</title>
+    <link rel="stylesheet" href="/css/sistemaNorteador.css">
+    <link rel="stylesheet" href="https://cdn.boxicons.com/3.0.6/fonts/basic/boxicons.min.css">
+</head>
+
+<body>
+        <header>
+            <h1> Desenvolvimento Web - CTDS - Sistema Norteador </h1>
+        </header>
+
+        <div class="container">
+          <div class="sidebar">
+            <nav>
+            <a href="cadastroCliente.html" class="card"> <i class="bx  bx-home   icon"></i>  Voltar à página inicial </a>
+            <a href="homepage.html" class="card"> <i class="bx  bx-car   icon"></i> Cadastrar Veículo </a>
+            <a href="loginCliente.html" class="card"> <i class="bx  bx-arrow-to-right   icon"></i> Login do Cliente </a>
+            <a href="loginAdmin.html" class="card"> <i class="bx  bx-key   icon"></i> Login Administrador </a>
+            </nav>
+          </div>
+
+          <div class="principal">
+            <!--Seção principal-->
+            <main>
+              <form action="contatoEmpresa.php" method="post" id="contatoEmpresa">
+                <fieldset>
+                <legend> Contato com a Empresa: </legend>
+
+                <label for="contatoEmpresa" class="alinha"> Espaço para sugestões </label>
+                <textarea name="contatoEmpresa" id="idContato" placeholder="Suas sugestões aqui: "></textarea> <br>
+
+                <button form="contatoEmpresa" type="submit" class="button" name="contatoEmpresa"> Enviar Sugestões </button>
+                </fieldset>
+            </form>
+            </main>
+          </div>
+        </div>
+
+        
+
+    <footer>
+     <p> Desenvolvimento web - CTDS - Web Design, turma do semestre 2025/1 <br>
+     Copyright &copy;2025 - todos os direitos reservados. Proibida a reprodução parcial ou total do conteúdo presente nesta aplicação. <br>
+
+     <a href="contatoEmpresa.html" target="_self"> Entre em contato conosco </a> 
+     </p>
+  </footer>
+
+</body>
+</html>

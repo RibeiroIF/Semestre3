@@ -6,7 +6,7 @@ package br.edu.ifsc.fln;
 
 /**
  *
- * @author mpisc
+ * @author gabrielr
  */
 public class Main {
 

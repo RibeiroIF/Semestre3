@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="219.0" prefWidth="404.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsc.fln.controller.FXMLAPCadastroVeiculoDialogController">
+<AnchorPane id="AnchorPane" prefHeight="219.0" prefWidth="404.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com" fx:controller="br.edu.ifsc.fln.controller.FXMLAPCadastroVeiculoDialogController">
     <children>
         <GridPane layoutX="25.0" layoutY="24.0" prefHeight="138.0" prefWidth="362.0">
             <columnConstraints>

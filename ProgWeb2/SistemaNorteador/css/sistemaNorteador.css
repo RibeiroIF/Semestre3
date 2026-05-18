@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Mozilla+Headline:wght@200..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+  --primary-color: #145180;
+  --secondary-color: #7e9777;
+  --tertiary-color: #9ca8b0;
+  --card-color: #87b5c9;
+  --shadow-color: #0a2a40;
+  --text-color: #dce3e9;
+  --hover-color: #b0cacd;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans";
+}
+
+html{
+  height: 100%;
+}
+
+body{
+   min-height: 100%;
+   line-height: 1.5;
+   font-size: 20px;
+   display: grid;
+   grid-template-rows: 100px 1fr 100px;
+   grid-template-columns: 1fr;
+   background-color: rgb(40, 39, 39);
+}
+
+header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  background-image: linear-gradient(to top, rgb(76, 83, 121), rgb(24, 30, 62));
+}
+
+footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100px;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  font-size: 18px;
+  background-image: linear-gradient(to bottom, rgb(76, 83, 121), rgb(24, 30, 62));
+}
+
+.container{
+   display: grid;
+   grid-template-columns: 250px 1fr;
+   grid-template-rows: 1fr;
+   grid-auto-flow: column;
+}
+
+.principal{
+  margin: 0;
+  padding: 50px;
+}
+
+main{
+  background-color: var(--card-color);
+  padding: 40px;
+  font-size: 18px;
+  box-shadow: rgb(192, 190, 190) -1px -1px 8px 0px;
+  z-index: 2;
+  border-width: 1px;
+  border-style: hidden;
+  color: var(--text-color);
+  background-image: linear-gradient(90deg, rgb(79, 76, 76), rgb(49, 47, 47));
+}
+
+main h2{
+   text-align: center;
+   margin-bottom: 20px;
+}
+
+main form {
+   line-height: 2.0;
+}
+
+nav{
+   display: grid;
+   background-color: var(--tertiary-color);
+}
+
+nav a{
+  text-decoration: none;
+  color: black;
+}
+
+nav a:hover{
+   background-color: var(--hover-color);
+}
+
+.sidebar{
+   height: 100%;
+   background-color: var(--text-color);
+   font-size: 18px;
+}
+
+.icon{
+   font-size: 32px;
+}
+
+.card{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  height: 50px;
+  background-color: var(--text-color);
+}
+
+footer a{
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+fieldset{
+  border: 2px solid white;
+  border-radius: 2px;
+  padding: 10px;
+}
+
+legend{
+  text-align: center;
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.alinha{
+  display: inline-block;
+  text-align: right;
+  width: 200px;
+}
+
+#contatoEmpresa .alinha{
+  display: inline-block;
+  text-align: right;
+  width: 200px;
+}
+
+.button{
+  display: flex;
+  align-self: center;
+  margin: auto;
+  font-size: 20px;
+  border-radius: 10px;
+  padding: 4px;
+  font-weight: bold;
+}

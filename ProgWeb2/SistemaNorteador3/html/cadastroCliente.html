@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Norteador</title>
+    <link rel="stylesheet" href="/css/sistemaNorteador.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1> Desenvolvimento Web - CTDS - Sistema Norteador </h1>
+        </header>
+
+        <nav>
+          <div class="menu">
+            <a href="homepage.html" id="botaoHomepageStart" class="card"> Voltar à página inicial </a>
+
+            <a href="cadastroVeiculo.html" class="card botaoUnselected"> Cadastrar Veículo </a>
+
+            <a href="loginCliente.html" class="card botaoUnselected"> Login do Cliente </a>
+
+            <a href="loginAdmin.html" class="card botaoUnselected"> Login Administrador </a>
+          </div>
+        </nav>
+
+        <!--Seção principal-->
+        <main>
+          <form action="dadosCliente.php" method="post" id="formCliente">
+            <fieldset>
+              <legend> Cadastro do Cliente: </legend>
+              
+              <div class="infosPessoais">
+                <label for="name" class="alinha"> Nome: </label>
+                <input type="text" name="nome" id="nome" placeholder="Insira seu nome aqui..."> <br>
+
+                <label for="endereco" class="alinha"> Endereço: </label>
+                <input type="text" name="endereco" id="endereco"> <br>
+
+                <label for="email" class="alinha"> E-mail: </label>
+                <input type="email" name="email" id="email"> <br>
+
+                <label for="tel" class="alinha"> Telefone: </label>
+                <input type="tel" name="tel" id="tel"> <br>
+              </div>
+
+              <div class="infosCadastro">
+                <label for="user" class="alinha"> Usuário: </label>
+                <input type="text" name="user" id="user"> <br>
+
+                <label for="password" class="alinha"> Senha: </label>
+                <input type="password" name="password" id="password"> <br>
+              </div>
+
+              <button form="formCliente" type="submit" class="button" name="buttonCliente"> Cadastrar Cliente </button>
+            </fieldset>
+          </form>
+        </main>
+  </div>
+
+  <footer>
+     <p> Desenvolvimento web - CTDS - Web Design, turma do semestre 2025/1 <br>
+     Copyright &copy;2025 - todos os direitos reservados. Proibida a reprodução parcial ou total do conteúdo presente nesta aplicação. <br>
+
+     <a href="contatoEmpresa.html" target="_blank"> Entre em contato conosco </a> 
+     </p>
+  </footer>
+
+</body>
+</html>

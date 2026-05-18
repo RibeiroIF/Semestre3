@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="entrega.css">
+  <title> Exercício para entrega ProgWeb2 </title>
+</head>
+
+<body>
+  <header> Exercício para entrega - ProgWeb 2 </header>
+
+  <div class="blocogeral">
+    <div class="blocoformulario">
+      <form action="main.php" method="post">
+        <fieldset>
+          <legend> Projetos para a Empresa PromptWare </legend>
+
+          <div class="formulario">
+            <label class="alinha"> ID do projeto: </label>
+            <input type="number" name="id" autofocus min="0" max="9999999"> <br>
+
+            <label class="alinha"> Orçamento (R$ - 1m máx): </label>
+            <input type="number" name="orcamento" min="0" max="1000000"> <br>
+
+            <label class="alinha"> Data de início: </label>
+            <input type="date" name="dataInicio"> <br>
+
+            <label class="alinha"> Número de horas necessárias (10000h máx): </label>
+            <input type="number" name="horas" min="0" max="10000"> <br>
+          </div>
+
+          <div class="buttons">
+            <button name="cadastrar" class="button"> Cadastrar </button>
+            <button name="listar" class="button"> Listar </button>
+            <button name="mostrarEspecifico" class="button"> Mostrar projetos 2020+ </button>
+            <button name="deletar" class="button"> Deletar projetos &lt; 100h e &lt; R$1000 </button>
+          </div>
+
+        </fieldset>
+      </form>
+    </div>
+    <h1 class="enunciadoResposta"> Resultado da Ação </h1>
+    <div class="blocoresposta">
+    </div>
+  </div>
+</body>
+</html>

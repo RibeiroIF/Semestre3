@@ -10,7 +10,7 @@ public enum ETipoCombustivel {
 	OUTRO ("Outro tipo de combustível atribuído");
 	
 	private String descricao;
-	
+
 	private ETipoCombustivel(String descricao) {
 		this.descricao = descricao;
 	}

@@ -53,6 +53,15 @@ public class FXMLAPCadastroModeloController implements Initializable {
     private Label lbModeloMarca;
 
     @FXML
+    private Label lbModeloCategoria;
+
+    @FXML
+    private Label lbMotorCombustivel;
+
+    @FXML
+    private Label lbMotorPotencia;
+
+    @FXML
     private Button btInserir;
 
     @FXML
@@ -97,10 +106,16 @@ public class FXMLAPCadastroModeloController implements Initializable {
             lbModeloId.setText(Integer.toString(modelo.getId()));
             lbModeloDescricao.setText(modelo.getDescricao());
             lbModeloMarca.setText(modelo.getMarca().getNome());
+            lbModeloCategoria.setText(modelo.getCategoria().getDescricao());
+            lbMotorPotencia.setText(Integer.toString(modelo.getMotor().getPotencia()));
+            lbMotorCombustivel.setText(modelo.getMotor().getTipoCombustivel().getDescricao());
         } else {
             lbModeloId.setText("");
             lbModeloDescricao.setText("");
             lbModeloMarca.setText("");
+            lbModeloCategoria.setText("");
+            lbMotorPotencia.setText("");
+            lbMotorCombustivel.setText("");
         }
     }
 

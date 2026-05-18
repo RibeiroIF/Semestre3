@@ -4,8 +4,8 @@
  */
 package br.edu.ifsc.fln.model.dao;
 
-import br.edu.ifsc.fln.model.domain.Cliente;
-import br.edu.ifsc.fln.model.domain.Veiculo;
+import br.edu.ifsc.fln.model.domain.*;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,13 +32,15 @@ public class VeiculoDAO {
     }
 
     public boolean inserir(Veiculo veiculo) {
-        String sql = "INSERT INTO veiculo(placa, observacoes) VALUES(?, ?)";
+        String sql = "INSERT INTO veiculo(placa, observacoes, id_modelo, id_cliente) VALUES(?, ?, ?, ?)";
         try {
             //armazena os dados da superclasse
             PreparedStatement stmt = connection.prepareStatement(sql);
             connection.setAutoCommit(false);
             stmt.setString(1, veiculo.getPlaca());
             stmt.setString(2, veiculo.getObservacoes());
+            stmt.setInt(3, veiculo.getModelo().getId());
+            stmt.setInt(4, veiculo.getCliente().getId());
             stmt.execute();
             connection.commit();
             return true;
@@ -63,12 +65,14 @@ public class VeiculoDAO {
     }
 
     public boolean alterar(Veiculo veiculo) {
-        String sql = "UPDATE veiculo SET placa=?, observacoes=? WHERE id=?";
+        String sql = "UPDATE veiculo SET placa=?, observacoes=?, id_modelo=?, id_cliente WHERE id=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, veiculo.getPlaca());
             stmt.setString(2, veiculo.getObservacoes());
-            stmt.setInt(3, veiculo.getId());
+            stmt.setInt(3, veiculo.getModelo().getId());
+            stmt.setInt(4, veiculo.getCliente().getId());
+            stmt.setInt(5, veiculo.getId());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -91,7 +95,10 @@ public class VeiculoDAO {
     }
 
     public List<Veiculo> listar() {
-        String sql = "SELECT * FROM veiculo f;";
+        String sql = "SELECT v.id as veiculo_id, v.placa as veiculo_placa, v.observacoes as veiculo_observacoes," +
+                "m.id as modelo_id, m.descricao as modelo_descricao, c.id as cliente_id," +
+                "c.nome as cliente_nome FROM veiculo v INNER JOIN modelo m ON m.id = v.id_modelo " +
+                "INNER JOIN cliente c ON c.id = v.id_cliente;";
         List<Veiculo> retorno = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -107,11 +114,11 @@ public class VeiculoDAO {
     }
 
     public Veiculo buscar(Veiculo veiculo) {
-        String sql = "SELECT * FROM veiculo f WHERE id=?;";
+        String sql = "SELECT * FROM veiculo v WHERE id=?;";
         Veiculo retorno = null;
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, veiculo.getId());
+            stmt.setString(1, veiculo.getPlaca());
             ResultSet resultado = stmt.executeQuery();
             if (resultado.next()) {
                 retorno = populateVO(resultado);
@@ -123,7 +130,7 @@ public class VeiculoDAO {
     }
 
     public Veiculo buscar(int id) {
-        String sql = "SELECT * FROM veiculo f WHERE id=?;";
+        String sql = "SELECT * FROM veiculo v WHERE id=?;";
         Veiculo retorno = null;
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -140,13 +147,41 @@ public class VeiculoDAO {
 
     private Veiculo populateVO(ResultSet rs) throws SQLException {
         Veiculo veiculo = new Veiculo();
-        veiculo.setId(rs.getInt("id"));
-        veiculo.setPlaca(rs.getString("placa"));
-        veiculo.setObservacoes(rs.getString("observacoes"));
-        int idCliente = rs.getInt("id_cliente");
+
+        veiculo.setId(rs.getInt("veiculo_id"));
+        veiculo.setPlaca(rs.getString("veiculo_placa"));
+        veiculo.setObservacoes(rs.getString("veiculo_observacoes"));
+        int idCliente = rs.getInt("cliente_id");
+        
         ClienteDAO clienteDAO = new ClienteDAO();
         clienteDAO.setConnection(connection);
         Cliente cliente = clienteDAO.buscar(idCliente);
+        veiculo.setCliente(cliente);
+        return veiculo;
+    }
+
+    private Veiculo populateVOFull(ResultSet rs) throws SQLException {
+        Veiculo veiculo = new Veiculo();
+        Modelo modelo = new Modelo();
+        veiculo.setModelo(modelo);
+
+        veiculo.setId(rs.getInt(1));
+        veiculo.setPlaca(rs.getString(2));
+        modelo.setId(rs.getInt(7));
+        modelo.setDescricao(rs.getString(8));
+        Cliente cliente;
+        if (rs.getString("cnpj") == null) {
+            cliente = new PessoaFisica();
+            ((PessoaFisica)cliente).setCpf(rs.getString(13));
+        } else {
+            cliente = new PessoaJuridica();
+            ((PessoaJuridica)cliente).setCnpj(rs.getString(15));
+            ((PessoaJuridica)cliente).setInscricaoEstadual(rs.getString(16));
+        }
+        cliente.setId(rs.getInt(7));
+        cliente.setNome(rs.getString(8));
+        cliente.setEmail(rs.getString(9));
+        cliente.setCelular(rs.getString(10));
         veiculo.setCliente(cliente);
         return veiculo;
     }

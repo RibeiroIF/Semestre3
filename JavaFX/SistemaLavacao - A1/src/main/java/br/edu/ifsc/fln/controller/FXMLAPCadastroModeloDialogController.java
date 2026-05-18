@@ -5,24 +5,22 @@
  */
 package br.edu.ifsc.fln.controller;
 
-import br.edu.ifsc.fln.model.dao.MarcaDAO;
-import br.edu.ifsc.fln.model.dao.VeiculoDAO;
+import br.edu.ifsc.fln.model.dao.ModeloDAO;
+import br.edu.ifsc.fln.model.dao.MotorDAO;
 import br.edu.ifsc.fln.model.database.Database;
 import br.edu.ifsc.fln.model.database.DatabaseFactory;
-import br.edu.ifsc.fln.model.domain.Marca;
-import br.edu.ifsc.fln.model.domain.Modelo;
+import br.edu.ifsc.fln.model.domain.*;
+
 import java.net.URL;
 import java.sql.Connection;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 /**
@@ -36,7 +34,16 @@ public class FXMLAPCadastroModeloDialogController implements Initializable {
     private TextField tfDescricao;
 
     @FXML
-    private ComboBox<Marca> cbMarca;
+    private TextField tfMarca;
+
+    @FXML
+    private ChoiceBox cbCombustivel;
+
+    @FXML
+    private ChoiceBox cbCategoria;
+
+    @FXML
+    private TextField tfMotor;
 
     @FXML
     private Button btConfirmar;
@@ -44,14 +51,18 @@ public class FXMLAPCadastroModeloDialogController implements Initializable {
     @FXML
     private Button btCancelar;
 
-    private List<Marca> listaMarcas;
-    private ObservableList<Marca> observableListMarcas;
+    private List<Modelo> listaCategorias;
+    private ObservableList<Modelo> observableListCategorias;
+
+    private List<Motor> listaCombustiveis;
+    private ObservableList<Motor> observableListCombustiveis;
 
     //atributos para manipulação de banco de dados
     private final Database database = DatabaseFactory.getDatabase("mysql");
     private final Connection connection = database.conectar();
-    private final MarcaDAO marcaDAO = new MarcaDAO();
-    private final VeiculoDAO veiculoDAO = new VeiculoDAO();
+
+    private final MotorDAO motorDAO = new MotorDAO();
+    private final ModeloDAO modeloDAO = new ModeloDAO();
 
     private Stage dialogStage;
     private boolean buttonConfirmarClicked = false;
@@ -62,9 +73,11 @@ public class FXMLAPCadastroModeloDialogController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        marcaDAO.setConnection(connection);
-        veiculoDAO.setConnection(connection);
-        carregarComboBoxMarcas();
+        modeloDAO.setConnection(connection);
+        carregarChoiceBoxCategorias();
+
+        motorDAO.setConnection(connection);
+        carregarChoiceBoxCombustiveis();
 
         setFocusLostHandle();
     }
@@ -94,11 +107,22 @@ public class FXMLAPCadastroModeloDialogController implements Initializable {
 //    }
 //}
 
-    public void carregarComboBoxMarcas() {
-        listaMarcas = marcaDAO.listar();
-        observableListMarcas =
-                FXCollections.observableArrayList(listaMarcas);
-        cbMarca.setItems(observableListMarcas);
+    public void carregarChoiceBoxCategorias() {
+        cbCategoria.setItems(FXCollections.observableArrayList(ECategoria.values()));
+        cbCategoria.getSelectionModel().select(0);
+//        listaCategorias = modeloDAO.listarCategorias();
+//        observableListCategorias =
+//                FXCollections.observableArrayList(listaCategorias);
+//        cbCategoria.setItems(observableListCategorias);
+    }
+
+    public void carregarChoiceBoxCombustiveis() {
+        cbCombustivel.setItems(FXCollections.observableArrayList(ETipoCombustivel.values()));
+        cbCombustivel.getSelectionModel().select(0);
+//        listaCombustiveis = motorDAO.listarPorCombustivel();
+//        observableListCombustiveis =
+//                FXCollections.observableArrayList(listaCombustiveis);
+//        cbCombustivel.setItems(observableListCombustiveis);
     }
 
     /**
@@ -141,16 +165,23 @@ public class FXMLAPCadastroModeloDialogController implements Initializable {
      */
     public void setModelo(Modelo modelo) {
         this.modelo = modelo;
+        Marca marca = new Marca();
+        this.modelo.setMarca(marca);
         tfDescricao.setText(modelo.getDescricao());
-        cbMarca.getSelectionModel().select(modelo.getMarca());
+        tfMarca.setText(modelo.getMarca().getNome());
+        cbCategoria.getSelectionModel().select(this.modelo.getCategoria());
+        tfMotor.setText(String.valueOf(modelo.getMotor().getPotencia()));
+        cbCombustivel.getSelectionModel().select(this.modelo.getMotor().getTipoCombustivel());
     }
 
     @FXML
     private void handleBtConfirmar() {
         if (validarEntradaDeDados()) {
             modelo.setDescricao(tfDescricao.getText());
-            modelo.setMarca(
-                    cbMarca.getSelectionModel().getSelectedItem());
+            modelo.setCategoria((ECategoria) cbCategoria.getSelectionModel().getSelectedItem());
+            modelo.getMarca().setNome(tfMarca.getText());
+            modelo.getMotor().setPotencia(Integer.parseInt(tfMotor.getText()));
+            modelo.getMotor().setTipoCombustivel((ETipoCombustivel) cbCombustivel.getSelectionModel().getSelectedItem());
             buttonConfirmarClicked = true;
             dialogStage.close();
         }
@@ -169,8 +200,20 @@ public class FXMLAPCadastroModeloDialogController implements Initializable {
             errorMessage += "Descricao inválido!\n";
         }
 
-        if (cbMarca.getSelectionModel().getSelectedItem() == null) {
+        if (cbCategoria.getSelectionModel().getSelectedItem() == null) {
+            errorMessage += "Selecione uma categoria!\n";
+        }
+
+        if (tfMarca.getText() == null) {
             errorMessage += "Selecione uma marca!\n";
+        }
+
+        if (tfMotor.getText() == null) {
+            errorMessage += "Selecione um motor!\n";
+        }
+
+        if (cbCombustivel.getSelectionModel().getSelectedItem() == null) {
+            errorMessage += "Selecione um tipo de combustível!\n";
         }
 
         if (errorMessage.length() == 0) {

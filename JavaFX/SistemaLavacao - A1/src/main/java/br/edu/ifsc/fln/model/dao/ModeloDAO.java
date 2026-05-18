@@ -1,5 +1,7 @@
 package br.edu.ifsc.fln.model.dao;
 
+import br.edu.ifsc.fln.model.domain.ECategoria;
+import br.edu.ifsc.fln.model.domain.ETipoCombustivel;
 import br.edu.ifsc.fln.model.domain.Marca;
 import br.edu.ifsc.fln.model.domain.Modelo;
 
@@ -26,16 +28,15 @@ public class ModeloDAO{
     }
 
     public boolean inserir(Modelo modelo) {
-        final String sql = "INSERT INTO modelo(descricao, id_marca) VALUES(?,?);";
-        final String sqlEstoque = "INSERT INTO marca(id_modelo) (SELECT max(id) FROM modelo);";
+        final String sql = "INSERT INTO modelo(descricao, categoria, id_marca) VALUES(?,?,?);";
+        final String sqlMotor = "INSERT INTO motor(id_modelo) (SELECT max(id) FROM modelo);";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            //registra o modelo
             stmt.setString(1, modelo.getDescricao());
-            stmt.setInt(2, modelo.getMarca().getId());
+            stmt.setString(2, modelo.getCategoria().getDescricao());
+            stmt.setInt(3, modelo.getMarca().getId());
             stmt.execute();
-            //registra o marca do modelo imediatamente
-            stmt = connection.prepareStatement(sqlEstoque);
+            stmt = connection.prepareStatement(sqlMotor);
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -73,8 +74,10 @@ public class ModeloDAO{
     }
 
     public List<Modelo> listar() {
-        String sql =  "SELECT p.id as modelo_id, p.descricao as modelo_descricao, c.id as marca_id, c.nome as " +
-                "marca_nome, FROM modelo p INNER JOIN marca c ON c.id = p.id_marca;";
+        String sql =  "SELECT p.id as modelo_id, p.descricao as modelo_descricao, " +
+                "p.categoria as modelo_categoria, c.id as marca_id, c.nome as marca_nome," +
+                "m.id as motor_id, m.potencia as motor_potencia, m.tipoCombustivel as motor_tipoCombustivel " +
+                "FROM modelo p INNER JOIN marca c ON c.id = p.id_marca INNER JOIN motor m on m.id = p.id_motor;";
         List<Modelo> retorno = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -90,8 +93,8 @@ public class ModeloDAO{
     }
 
     public List<Modelo> listagem() {
-        String sql = "select * from modelo p "
-                +       "inner join marca c on c.id = p.id_marca;";
+        String sql = "select * from modelo p inner join marca c on c.id = p.id_marca " +
+                "inner join motor m on m.id = p.id_motor;";
         List<Modelo> retorno = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -106,17 +109,34 @@ public class ModeloDAO{
         return retorno;
     }
 
-    public List<Modelo> listarPorMarca(Marca marca) {
+    public List<Modelo> listarPorMarca() {
         String sql =  "SELECT p.id as modelo_id, p.descricao as modelo_descricao, "
                 + "c.id as marca_id, c.nome as marca_nome "
                 + "FROM modelo p INNER JOIN marca c ON c.id = p.id_marca WHERE c.id = ?;";
         List<Modelo> retorno = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, marca.getId());
+            //stmt.setInt(1, marca.getId());
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
                 Modelo modelo = populateVO(resultado);
+                retorno.add(modelo);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ModeloDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+
+    public List<Modelo> listarCategorias() {
+        String sql = "SELECT categoria FROM modelo;";
+        List<Modelo> retorno = new ArrayList<>();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                Modelo modelo = new Modelo();
+                modelo.setCategoria(ECategoria.valueOf(resultado.getString("categoria")));
                 retorno.add(modelo);
             }
         } catch (SQLException ex) {
@@ -150,6 +170,9 @@ public class ModeloDAO{
 
         modelo.setId(rs.getInt("modelo_id"));
         modelo.setDescricao(rs.getString("modelo_descricao"));
+        modelo.setCategoria(ECategoria.valueOf(rs.getString("modelo_categoria")));
+        modelo.getMotor().setPotencia(rs.getInt("potencia"));
+        modelo.getMotor().setTipoCombustivel(ETipoCombustivel.valueOf(rs.getString("tipoCombustivel")));
         marca.setId(rs.getInt("marca_id"));
         marca.setNome(rs.getString("marca_nome"));
         return modelo;
@@ -163,12 +186,11 @@ public class ModeloDAO{
 
         modelo.setId(rs.getInt(1));
         modelo.setDescricao(rs.getString(2));
-        marca.setId(rs.getInt(3));
-        marca.setNome(rs.getString(4));
-//        int idFornecedor = rs.getInt("fornecedor_id");
-//        FornecedorDAO fornecedorDAO = new FornecedorDAO();
-//        Fornecedor fornecedor = fornecedorDAO.buscar(idFornecedor);
-//        modelo.setFornecedor(fornecedor);
+        modelo.setCategoria(ECategoria.valueOf(rs.getString(5)));
+        marca.setId(rs.getInt(6));
+        marca.setNome(rs.getString(7));
+        modelo.getMotor().setPotencia(rs.getInt(9));
+        modelo.getMotor().setTipoCombustivel(ETipoCombustivel.valueOf(rs.getString(10)));
         return modelo;
     }
 
