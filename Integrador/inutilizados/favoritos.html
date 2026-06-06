@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://rwnobrega.page/_assets/ifsc-logo.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/favoritos.css">
+    <title>Favoritos - Classificados IFSC</title>
+</head>
+<body>
+
+    <div class="blocoEsquerdo">
+        <nav>
+            <ul>
+                <li><span class="logo">Classificados IFSC</span></li>
+                <li><a href="index.html">Página Inicial</a></li>
+                <li><a href="pesquisar.html">Pesquisar</a></li>
+                <li><a href="meus-anuncios.html">Meus Anúncios</a></li>
+                <li><a href="favoritos.html" class="active">Favoritos</a></li>
+                <li><a href="perfil.html">Perfil</a></li>
+                <li class="admin-link"><a href="admin.html">Painel Adm</a></li>
+                <li><a href="login.html" class="logout">Sair</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="blocoCentral">
+        <header class="header-favoritos">
+            <h2>Meus Favoritos</h2>
+            <p>Itens que você demonstrou interesse</p>
+        </header>
+
+        <div class="grid-anuncios">
+            
+            <article class="card-anuncio">
+                <button class="btn-remover-favorito" title="Remover dos favoritos">❤️</button>
+                <div class="badge-campus">Câmpus São José</div>
+                <div class="foto-placeholder">Imagem</div>
+                <div class="info-anuncio">
+                    <h4>Arduíno Uno R3</h4>
+                    <p class="preco">R$ 50,00</p>
+                    <p class="vendedor">Vendido por: Carlos Tech</p>
+                    <button class="btn-detalhes">Ver Detalhes</button>
+                </div>
+            </article>
+
+            <article class="card-anuncio">
+                <button class="btn-remover-favorito" title="Remover dos favoritos">❤️</button>
+                <div class="badge-campus">Câmpus Palhoça</div>
+                <div class="foto-placeholder">Imagem</div>
+                <div class="info-anuncio">
+                    <h4>Mesa Digitalizadora</h4>
+                    <p class="preco">R$ 250,00</p>
+                    <p class="vendedor">Vendido por: Ana Design</p>
+                    <button class="btn-detalhes">Ver Detalhes</button>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <div class="blocoDireito">
+        <div class="alerta-precos">
+            <h3>Alerta de Preços</h3>
+            <p>Você será notificado se algum favorito baixar de preço.</p>
+            <div class="toggle-container">
+                <span>Ativar Notificações</span>
+                <input type="checkbox" checked>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

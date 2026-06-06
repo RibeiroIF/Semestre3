@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Norteador</title>
+    <link rel="stylesheet" href="/css/sistemaNorteador.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1> Desenvolvimento Web - CTDS - Sistema Norteador </h1>
+        </header>
+
+        <nav>
+          <div class="menu">
+            <a href="cadastroCliente.html" class="card" id="botaoUnselected"> Cadastrar Cliente </a>
+
+            <a href="homepage.html" id="botaoHomepage" class="card"> Voltar à página inicial </a>
+
+            <a href="loginCliente.html" class="card" id="botaoUnselected"> Login do Cliente </a>
+
+            <a href="loginAdmin.html" class="card" id="botaoUnselected"> Login Administrador </a>
+          </div>
+        </nav>
+
+        <!--Seção principal-->
+        <main>
+          <form action="dadosVeiculo.php" method="post" id="formVeiculo">
+            <fieldset>
+              <legend> Cadastro do Veículo: </legend>
+              <label for="fabricante" class="alinha"> Fabricante: </label>
+              <input type="text" name="fabricante" id="fabricante" autofocus placeholder="Nome do fabricante aqui..."> <br>
+              
+              <label for="modelo" class="alinha"> Modelo: </label>
+              <input type="text" name="modelo" id="modelo"> <br>
+
+              <label for="placa" class="alinha"> Placa: </label>
+              <input type="text" name="placa" id="placa"> <br>
+
+              <button form="formVeiculo" type="submit" class="button" name="buttonVeiculo"> Cadastrar Veículo </button>
+            </fieldset>
+          </form>
+        </main>
+    </div>
+    <footer>
+     <p> Desenvolvimento web - CTDS - Web Design, turma do semestre 2025/1 <br>
+     Copyright &copy;2025 - todos os direitos reservados. Proibida a reprodução parcial ou total do conteúdo presente nesta aplicação. <br>
+
+     <a href="contatoEmpresa.html" target="_blank"> Entre em contato conosco </a> 
+     </p>
+  </footer>
+</body>
+</html>

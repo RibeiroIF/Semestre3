@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Norteador</title>
+    <link rel="stylesheet" href="/css/sistemaNorteador.css">
+    <link rel="stylesheet" href="https://cdn.boxicons.com/3.0.6/fonts/basic/boxicons.min.css">
+</head>
+
+<body>
+        <header>
+            <h1> Desenvolvimento Web - CTDS - Sistema Norteador </h1>
+        </header>
+
+        <div class="container">
+          <div class="sidebar">
+            <nav>
+             <a href="cadastroCliente.html" class="card"> <i class="bx bx-user  icon"></i> Cadastrar Cliente </a>
+             <a href="cadastroVeiculo.html" class="card"> <i class="bx  bx-car   icon"></i> Cadastrar Veículo </a>
+             <a href="loginCliente.html" class="card"> <i class="bx  bx-arrow-to-right   icon"></i> Login do Cliente </a>
+             <a href="homepage.html" class="card"> <i class="bx  bx-home   icon"></i>  Voltar à Página Inicial </a>
+            </nav>
+          </div>
+
+          <div class="principal">
+            <!--Seção principal-->
+            <main>
+            <form action="loginAdmin.php" method="post" id="formLoginAdmin">
+            <fieldset>
+              <legend> Login do Administrador: </legend>
+              
+              <label for="login" class="alinha"> Login: </label>
+              <input type="text" name="login" id="login"> <br>
+
+              <label for="password" class="alinha"> Senha: </label>
+              <input type="password" name="password" id="password"> <br>
+
+              <input type="checkbox" name="lembrarLogin" id="lembrarLogin">
+              <label for="lembrarLogin"> Manter-me Conectado </label> <br>
+
+              <button form="formLoginAdmin" type="submit" class="button" name="buttonLoginAdmin"> Logar como Administrador </button>
+            </fieldset>
+            </form>
+           </main>
+          </div>
+        </div>
+
+    <footer>
+     <p> Desenvolvimento web - CTDS - Web Design, turma do semestre 2025/1 <br>
+     Copyright &copy;2025 - todos os direitos reservados. Proibida a reprodução parcial ou total do conteúdo presente nesta aplicação. <br>
+
+     <a href="contatoEmpresa.html" target="_self"> Entre em contato conosco </a> 
+     </p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,38 @@
+.espaco-imagem{
+  width: 100%;
+  background-color: rgb(33, 58, 96);
+}
+
+.slider{
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+.slider::-webkit-scrollbar{
+  display: none;
+}
+
+.display{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: spin 55s infinite linear;
+}
+
+img{
+  flex: 0 0 5em;
+  height: 20em;
+  width: 100%;
+  align-content:center;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+
+@keyframes spin{
+  from{translate: 0;}
+  to {translate: -100%;}
+}

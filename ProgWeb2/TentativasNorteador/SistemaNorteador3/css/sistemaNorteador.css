@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Oregano:ital@0;1&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  height: 100%;
+}
+
+body{
+  min-height: 100%;
+  font-family: "Sansation";
+  display: flex;
+  flex-direction: column;
+  background-color: lightgray;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  background-color: lightgray;
+}
+
+header{
+  margin-bottom: auto;
+  text-align: center;
+  color: white;
+  background-color: rgb(4, 79, 79);
+  height: 80px;
+  padding-top: 20px;
+}
+
+nav{
+  height: 50px;
+}
+
+.menu{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: cadetblue;
+  height: 50px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.menu a{
+  text-align: center;
+  padding: 1em 8em;
+  color: white;
+  font-family: "Sansation";
+  text-decoration: none;
+  display: inline-block;
+}
+
+#botaoUnselected:hover{
+  background-color: rgb(154, 198, 200);
+  padding-bottom: 1px;
+  padding-top: 1px;
+  border-radius: 200px;
+}
+
+#botaoHomepage{
+  background-color: lightgray;
+  height: 20px;
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  color: black;
+}
+
+#botaoHomepageStart{
+  background-color: lightgray;
+  height: 20px;
+  border-top-right-radius: 200px;
+  color: black;
+}
+
+#botaoHomepageEnd{
+  background-color: lightgray;
+  height: 20px;
+  border-top-left-radius: 200px;
+  color: black;
+}
+
+main{
+  margin-top: 4%;
+  margin-bottom: 4%;
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: center;
+  line-height: 2.0;
+}
+
+.principal{
+  background-color: rgb(155, 202, 204);
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  border-radius: 10px;
+  padding: 30px;  
+}
+
+.principal ul li{
+  text-align: left;
+}
+
+fieldset{
+  border-width: 3px;
+  border-style: solid;
+  border-color: black;
+  border-radius: 10px;
+  background-color: lightblue;
+  font-size: 20px;
+}
+
+.alinha{
+  display: inline-block;
+  text-align: right;
+  width: 100px;
+}
+
+.button{
+  font-size: 18px;
+  margin-top: 1%;
+  padding: 8px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+footer{
+  margin-top: auto;
+  background-color: cadetblue;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}

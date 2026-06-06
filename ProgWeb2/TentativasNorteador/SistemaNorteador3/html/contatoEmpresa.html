@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Norteador</title>
+    <link rel="stylesheet" href="/css/sistemaNorteador.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1> Desenvolvimento Web - CTDS - Sistema Norteador </h1>
+        </header>
+
+        <nav>
+          <div class="menu">
+            <a href="cadastroCliente.html" class="card" id="botaoHomepage"> Voltar à página inicial </a>
+
+            <a href="homepage.html" class="card" id="botaoUnselected"> Cadastrar Veículo </a>
+
+            <a href="loginCliente.html" class="card" id="botaoUnselected"> Login do Cliente </a>
+
+            <a href="loginAdmin.html" class="card" id="botaoUnselected"> Login Administrador </a>
+          </div>
+        </nav>
+
+        <!--Seção principal-->
+        <main>
+          <form action="contatoEmpresa.php" method="post" id="contatoEmpresa">
+            <fieldset>
+              <legend> Contato com a Empresa: </legend>
+
+              <label for="contatoEmpresa" class="alinha"> Espaço para sugestões </label>
+              <textarea name="contatoEmpresa" id="idContato" placeholder="Suas sugestões aqui: "></textarea> <br>
+
+              <button form="contatoEmpresa" type="submit" class="button" name="contatoEmpresa"> Enviar Sugestões </button>
+            </fieldset>
+          </form>
+        </main>
+    </div>
+
+    <footer>
+     <p> Desenvolvimento web - CTDS - Web Design, turma do semestre 2025/1 <br>
+     Copyright &copy;2025 - todos os direitos reservados. Proibida a reprodução parcial ou total do conteúdo presente nesta aplicação. <br>
+
+     <a href="contatoEmpresa.html" target="_blank"> Entre em contato conosco </a> 
+     </p>
+  </footer>
+
+</body>
+</html>

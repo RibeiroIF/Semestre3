@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="https://rwnobrega.page/_assets/ifsc-logo.png">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/form.css">
+  <title>Document</title>
+</head>
+<body>
+
+  <header> Prova Prática PHP + MySQL - PRW2 </header>
+
+  <div class="forms">
+    <form action="" class="form" id="form-cadastro">
+      <fieldset>
+        <legend> Cadastro de Usuário </legend>
+        <label for="login" class="alinha"> Login: </label>
+        <input type="text" name="login" id="login"> <br>
+        <label for="senha" class="alinha"> Senha: </label>
+        <input type="text" name="senha" id="senha"> <br>
+        <label for="confirma-senha" class="alinha"> Confirmar senha: </label>
+        <input type="text" name="confirma-senha" id="confirma-senha"> <br>
+      </fieldset>
+      <button type="submit" class="button" name="cadastrar" id="cadastrar"> Cadastrar </button>
+    </form>
+
+    <form action="" class="form" id="form-login">
+      <fieldset>
+        <legend> Login de Usuário </legend>
+        <label for="login" class="alinha"> Login: </label>
+        <input type="text" name="login" id="login"> <br>
+        <label for="senha" class="alinha"> Senha: </label>
+        <input type="text" name="senha" id="senha"> <br>
+      </fieldset>
+      <button type="submit" class="button" name="logar" id="logar"> Realizar Login</button>
+    </form>
+  </div>
+
+  <div class="opcoes">
+    <input type="radio" name="sistema" id="login" value="login" checked>
+    <label for="login"> Realizar login </label>
+    <input type="radio" name="sistema" id="cadastro" value="cadastro">
+    <label for="cadastro"> Realizar cadastro </label>
+  </div>
+
+  <script src="/javascript/main.js"></script>
+  
+</body>
+</html>

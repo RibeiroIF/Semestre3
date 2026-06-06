@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://rwnobrega.page/_assets/ifsc-logo.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/pesquisar.css">
+    <title>Pesquisar - Classificados IFSC</title>
+</head>
+<body>
+
+    <div class="blocoEsquerdo">
+        <nav>
+            <ul>
+                <li><span class="logo">Classificados IFSC</span></li>
+                <li><a href="index.html">Página Inicial</a></li>
+                <li><a href="pesquisar.html" class="active">Pesquisar</a></li>
+                <li><a href="meus-anuncios.html">Meus Anúncios</a></li>
+                <li><a href="favoritos.html">Favoritos</a></li>
+                <li><a href="#">Perfil</a></li>
+                <li class="admin-link"><a href="#">Painel Adm</a></li>
+                <li><a href="login.html" class="logout">Sair</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="blocoCentral">
+        <header class="header-pesquisa-avancada">
+            <h2>Busca Detalhada</h2>
+            <div class="search-box-large">
+                <input type="text" placeholder="Ex: Monitor Dell 24 polegadas...">
+                <button class="btn-busca-principal">Pesquisar</button>
+            </div>
+        </header>
+
+        <section class="filtros-container">
+            <div class="filtro-grupo">
+                <label>Câmpus:</label>
+                <select>
+                    <option value="todos">Todos os Câmpus</option>
+                    <option value="fpolis">Florianópolis</option>
+                    <option value="sj">São José</option>
+                    <option value="palhoca">Palhoça</option>
+                </select>
+            </div>
+
+            <div class="filtro-grupo">
+                <label>Faixa de Preço:</label>
+                <div class="inputs-preco">
+                    <input type="number" placeholder="Min" min="0" step="5">
+                    <input type="number" placeholder="Max" max="20000" step="5">
+                </div>
+            </div>
+
+            <div class="filtro-grupo">
+                <label>Condição:</label>
+                <select>
+                    <option value="todos">Qualquer uma</option>
+                    <option value="novo">Novo</option>
+                    <option value="usado">Usado - Excelente</option>
+                    <option value="usado-bom">Usado - Bom</option>
+                </select>
+            </div>
+        </section>
+
+        <div class="resultados-info">
+            <p>Mostrando 12 resultados para "Eletrônicos"</p>
+            <select class="ordenacao">
+                <option>Mais recentes</option>
+                <option>Menor Preço</option>
+                <option>Maior Preço</option>
+            </select>
+        </div>
+
+        <div class="grid-anuncios">
+            <article class="card-anuncio">
+                <div class="badge-campus">Câmpus Florianópolis</div>
+                <div class="foto-placeholder">Imagem</div>
+                <div class="info-anuncio">
+                    <h4>Monitor 24' Dell</h4>
+                    <p class="preco">R$ 600,00</p>
+                    <button class="btn-detalhes">Ver Detalhes</button>
+                </div>
+            </article>
+            </div>
+    </main>
+
+    <div class="blocoDireito">
+        <div class="historico-pesquisa">
+            <h3>Buscas Recentes</h3>
+            <ul>
+                <li><a href="#">"Cálculo A"</a></li>
+                <li><a href="#">"Notebook"</a></li>
+                <li><a href="#">"Bicicleta"</a></li>
+            </ul>
+        </div>
+        <button class="btn-anunciar">+ Criar Novo Anúncio</button>
+    </div>
+    
+</body>
+</html>
