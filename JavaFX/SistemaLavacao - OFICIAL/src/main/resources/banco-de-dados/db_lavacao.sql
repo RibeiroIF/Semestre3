@@ -3,37 +3,39 @@ CREATE DATABASE IF NOT EXISTS db_lavacao;
 USE db_lavacao;
 
 CREATE TABLE parametros(
-    pontos int not null,
-    CONSTRAINT pk_parametros PRIMARY KEY(pontos)
+    id int not null auto_increment primary key,
+    pontos int not null
 ) engine=InnoDB;
+
+INSERT INTO parametros(pontos) VALUES(20);
 
 CREATE TABLE cliente(
     id INT NOT NULL auto_increment,
     nome VARCHAR(50) NOT NULL,
     celular VARCHAR(20),
     email VARCHAR(100),
-    dataCadastro DATE,
+    data_cadastro DATE,
     CONSTRAINT pk_cliente PRIMARY KEY(id)
 ) engine=InnoDB;
 
-CREATE TABLE pessoaFisica(
+CREATE TABLE pessoa_fisica(
     id_cliente INT NOT NULL,
     cpf VARCHAR(20) NOT NULL,
-    dataNascimento DATE,
-    CONSTRAINT pk_pessoaFisica PRIMARY KEY (id_cliente),
-    CONSTRAINT fk_pessoaFisica_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id)
+    data_nascimento DATE,
+    CONSTRAINT pk_pessoa_fisica PRIMARY KEY (id_cliente),
+    CONSTRAINT fk_pessoa_fisica_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 ) engine=InnoDB;
 
-CREATE TABLE pessoaJuridica(
+CREATE TABLE pessoa_juridica(
     id_cliente INT NOT NULL,
     cnpj VARCHAR(20) NOT NULL,
     inscricaoEstadual VARCHAR(20),
-    CONSTRAINT pk_pessoaJuridica PRIMARY KEY (id_cliente),
-    CONSTRAINT fk_pessoaJuridica_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+    CONSTRAINT pk_pessoa_juridica PRIMARY KEY (id_cliente),
+    CONSTRAINT fk_pessoa_juridica_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id)
+         ON DELETE CASCADE
+         ON UPDATE CASCADE
 ) engine=InnoDB;
 
 CREATE TABLE cor(
@@ -85,9 +87,33 @@ CREATE TABLE servico(
     id int NOT NULL auto_increment,
     descricao varchar(40) NOT NULL,
     valor double NOT NULL,
-    pontos INT NOT NULL,
-    CONSTRAINT pk_servico PRIMARY KEY(id),
-    CONSTRAINT fk_servico_parametros FOREIGN KEY (pontos) REFERENCES parametros(pontos)
+    categoria ENUM('PEQUENO', 'MÉDIO', 'GRANDE', 'MOTO', 'PADRÃO') NOT NULL DEFAULT 'PADRÃO',
+    id_parametros INT NOT NULL,
+       CONSTRAINT pk_servico PRIMARY KEY(id),
+       CONSTRAINT fk_servico_parametros FOREIGN KEY (id_parametros) REFERENCES parametros(id)
+) engine=InnoDB;
+
+CREATE TABLE ordem_servico(
+    id INT NOT NULL auto_increment,
+    numero LONG,
+    total DOUBLE,
+    agenda DATE,
+    desconto DOUBLE,
+    status ENUM('FECHADA', 'CANCELADA', 'ABERTA') NOT NULL DEFAULT 'ABERTA',
+    id_veiculo INT NOT NULL,
+    CONSTRAINT pk_ordem_servico PRIMARY KEY(id),
+    CONSTRAINT fk_ordemservico_veiculo FOREIGN KEY (id_veiculo) REFERENCES veiculo(id)
+) engine=InnoDB;
+
+CREATE TABLE item_os(
+    id INT NOT NULL auto_increment,
+    valor_servico DOUBLE,
+    observacoes VARCHAR(128),
+    id_servico INT NOT NULL,
+    id_ordemservico INT NOT NULL,
+    CONSTRAINT pk_item_os PRIMARY KEY(id),
+    CONSTRAINT fk_itemos_servico FOREIGN KEY (id_servico) REFERENCES servico(id),
+    CONSTRAINT fk_itemos_ordem_servico FOREIGN KEY (id_ordemservico) REFERENCES ordem_servico(id)
 ) engine=InnoDB;
 
 CREATE TABLE pontuacao(
@@ -98,48 +124,50 @@ CREATE TABLE pontuacao(
     CONSTRAINT fk_pontuacao_cliente FOREIGN KEY(id_cliente) REFERENCES cliente(id)
 ) engine=InnoDB;
 
-INSERT INTO parametros(pontos) VALUES(20);
+#####################
+#POVOAÇÃO DAS TABELAS
+#####################
 
-INSERT INTO servico (descricao, valor, pontos) VALUES
-    ('Lavação Completa', 150.00, (SELECT MAX(pontos) from parametros)),
-    ('Lavação interna', 120.00, (SELECT MAX(pontos) from parametros));
+INSERT INTO servico (descricao, valor, id_parametros, categoria) VALUES
+   ('Lavação Completa', 150.00, (SELECT max(id) FROM parametros), 'PEQUENO'),
+   ('Lavação interna', 120.00, (SELECT max(id) FROM parametros), 'GRANDE');
 
-INSERT INTO cliente (nome, celular, email, dataCadastro) VALUES
-    ('Carlos Silva', '(11) 98888-1111', 'carlos@gmail.com', '2026-01-10'),
-    ('Ana Oliveira', '(21) 98888-2222', 'ana@gmail.com', '2026-01-15'),
-    ('Marcos Pisching', '(31) 98888-3333', 'marcos@gmail.com', '2026-02-01'),
-    ('Gabriel Ribeiro', '(11) 4002-8922', 'gabriel@gmail.com', '2026-02-10'),
-    ('Jonas Silva', '(11) 4004-1234', 'jonas@gmail.com', '2026-02-20');
+INSERT INTO cliente (nome, celular, email, data_cadastro) VALUES
+   ('Carlos Silva', '(11) 98888-1111', 'carlos@gmail.com', '2026-01-10'),
+   ('Ana Oliveira', '(21) 98888-2222', 'ana@gmail.com', '2026-01-15'),
+   ('Marcos Pisching', '(31) 98888-3333', 'marcos@gmail.com', '2026-02-01'),
+   ('Gabriel Ribeiro', '(11) 4002-8922', 'gabriel@gmail.com', '2026-02-10'),
+   ('Jonas Silva', '(11) 4004-1234', 'jonas@gmail.com', '2026-02-20');
 
-INSERT INTO pessoaFisica (id_cliente, cpf, dataNascimento) VALUES
-    (1, '111.222.333-44', '1985-05-12'),
-    (2, '222.333.444-55', '1992-08-24'),
-    (3, '333.444.555-66', '1979-03-02');
+INSERT INTO pessoa_fisica (id_cliente, cpf, data_nascimento) VALUES
+   (1, '111.222.333-44', '1985-05-12'),
+   (2, '222.333.444-55', '1992-08-24'),
+   (3, '333.444.555-66', '1979-03-02');
 
 
-INSERT INTO pessoaJuridica (id_cliente, cnpj, inscricaoEstadual) VALUES
-    (4, '12.345.678/0001-99', '111.222.333.444'),
-    (5, '98.765.432/0001-11', '555.666.777.888');
+INSERT INTO pessoa_juridica (id_cliente, cnpj, inscricaoEstadual) VALUES
+   (4, '12.345.678/0001-99', '111.222.333.444'),
+   (5, '98.765.432/0001-11', '555.666.777.888');
 
 
 INSERT INTO pontuacao (quantidade, id_cliente) VALUES
-    (100, 1),
-    (20, 2),
-    (0, 3),
-    (160, 4),
-    (400, 5);
+   (100, 1),
+   (20, 2),
+   (0, 3),
+   (160, 4),
+   (400, 5);
 
 INSERT INTO cor (nome) VALUES
-    ('Preto'),
-    ('Branco'),
-    ('Prata'),
-    ('Vermelho');
+   ('Preto'),
+   ('Branco'),
+   ('Prata'),
+   ('Vermelho');
 
 INSERT INTO marca (nome) VALUES
-    ('Chevrolet'),
-    ('Fiat'),
-    ('Volkswagen'),
-    ('Toyota');
+   ('Chevrolet'),
+   ('Fiat'),
+   ('Volkswagen'),
+   ('Toyota');
 
 
 INSERT INTO modelo (descricao, id_marca, categoria) VALUES
@@ -178,3 +206,18 @@ INSERT INTO veiculo (placa, observacoes, id_cliente, id_cor, id_modelo) VALUES
     ('RTY-9900', 'Carro de suporte', 4, 4, 3),
     ('UOP-1133', 'Frota Locação A', 5, 2, 5),
     ('VBN-4455', 'Frota Locação B', 5, 1, 2);
+
+INSERT INTO ordem_servico (numero, total, agenda, desconto, status, id_veiculo) VALUES
+    (1001, 150.00, '2026-03-01', 0.00, 'FECHADA', 1),
+    (1002, 120.00, '2026-03-02', 10.00, 'FECHADA', 3),
+    (1003, 270.00, '2026-03-05', 0.00, 'ABERTA', 4),
+    (1004, 150.00, '2026-03-06', 15.00, 'CANCELADA', 5),
+    (1005, 120.00, '2026-03-07', 0.00, 'ABERTA', 7);
+
+INSERT INTO item_os (valor_servico, observacoes, id_servico, id_ordemservico) VALUES
+    (150.00, 'Lavação completa padrão', 1, 1),
+    (120.00, 'Focar na limpeza dos bancos traseiros', 2, 2),
+    (150.00, 'Lavação externa', 1, 3),
+    (120.00, 'Lavação interna detalhada', 2, 3),
+    (150.00, 'Cliente desistiu antes de iniciar', 1, 4),
+    (120.00, 'Cuidado com os espelhos da moto', 2, 5);

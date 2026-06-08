@@ -94,4 +94,8 @@ public class Veiculo implements IDados {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return this.placa;
+	}
 }

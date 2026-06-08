@@ -2,11 +2,15 @@ package br.edu.ifsc.fln.model.domain;
 
 public class ItemOS {
 
+	private int id;
 	private double valorServico;
 	private String observacoes;
 	private Servico servico;
 	private OrdemServico ordemServico;
-	
+
+	public ItemOS() {
+	}
+
 	public ItemOS(Servico servico) {
 		super();
 		this.servico = servico;
@@ -30,10 +34,25 @@ public class ItemOS {
 		this.servico = servico;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public double getValorServico() {
 		valorServico = this.getServico().getValor();
 		return valorServico;
+	}
+
+	public void setValorServico(double valorServico) {
+		this.valorServico = valorServico;
+	}
+
+	public void setServico(Servico servico) {
+		this.servico = servico;
 	}
 
 	public String getObservacoes() {

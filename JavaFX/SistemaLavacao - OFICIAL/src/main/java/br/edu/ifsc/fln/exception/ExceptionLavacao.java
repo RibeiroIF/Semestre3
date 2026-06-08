@@ -1,4 +1,4 @@
-package br.edu.ifsc.fln.model.exceptions;
+package br.edu.ifsc.fln.exception;
 
 @SuppressWarnings("serial")
 public class ExceptionLavacao extends Exception {

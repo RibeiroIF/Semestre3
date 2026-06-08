@@ -2,7 +2,7 @@ package br.edu.ifsc.fln.model.report;
 
 import br.edu.ifsc.fln.model.domain.ItemOS;
 import br.edu.ifsc.fln.model.domain.OrdemServico;
-import br.edu.ifsc.fln.model.exceptions.ExceptionLavacao;
+import br.edu.ifsc.fln.exception.ExceptionLavacao;
 
 import java.time.format.DateTimeFormatter;
 

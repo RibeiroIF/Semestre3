@@ -1,6 +1,6 @@
 package br.edu.ifsc.fln.model.domain;
 
-import br.edu.ifsc.fln.model.exceptions.ExceptionLavacao;
+import br.edu.ifsc.fln.exception.ExceptionLavacao;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,13 +8,17 @@ import java.util.List;
 
 public class OrdemServico {
 
+	private int id;
 	private long numero;
 	private double total, desconto;
 	private LocalDate agenda;
 	private EStatus status = EStatus.ABERTA;
 	private Veiculo veiculo;
 	private List<ItemOS> itens;
-	
+
+	public OrdemServico() {
+	}
+
 	public OrdemServico(long numero) {
 		super();
 		this.numero = numero;
@@ -30,7 +34,14 @@ public class OrdemServico {
 		this.itens = itens;
 	}
 
-	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public long getNumero() {
 		return numero;
 	}

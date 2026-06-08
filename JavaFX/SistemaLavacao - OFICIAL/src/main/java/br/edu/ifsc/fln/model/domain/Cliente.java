@@ -1,6 +1,6 @@
 package br.edu.ifsc.fln.model.domain;
 
-import br.edu.ifsc.fln.model.exceptions.ExceptionLavacao;
+import br.edu.ifsc.fln.exception.ExceptionLavacao;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
