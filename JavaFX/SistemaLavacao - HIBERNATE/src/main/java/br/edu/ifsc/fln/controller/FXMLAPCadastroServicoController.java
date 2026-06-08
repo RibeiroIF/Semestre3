@@ -49,6 +49,9 @@ public class FXMLAPCadastroServicoController implements Initializable {
     private Label lbServicoPontos;
 
     @FXML
+    private Label lbServicoCategoria;
+
+    @FXML
     private TableColumn<Servico, String> tableColumnServicoDescricao;
 
     @FXML
@@ -89,11 +92,13 @@ public class FXMLAPCadastroServicoController implements Initializable {
             lbServicoDescricao.setText(servico.getDescricao());
             lbServicoValor.setText(String.valueOf(servico.getValor()));
             lbServicoPontos.setText(String.valueOf(servico.getPontos()));
+            lbServicoCategoria.setText(servico.getCategoria().getDescricao());
         } else {
             lbServicoId.setText("");
             lbServicoDescricao.setText("");
             lbServicoValor.setText("");
             lbServicoPontos.setText("");
+            lbServicoCategoria.setText("");
         }
 
     }

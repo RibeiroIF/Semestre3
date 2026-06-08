@@ -130,6 +130,7 @@ public class FXMLAPCadastroClienteController implements Initializable {
                 lbTituloParaTroca.setText("Data Nasc.:");
                 lbInfoParaTroca.setText(String.valueOf(((PessoaFisica) cliente).getDataNascimento()));
             } else {
+                lbClientePais.setText("Exterior");
                 lbClienteTipo.setText("PessoaJuridica");
                 lbClienteNumFiscal.setText(((PessoaJuridica)cliente).getCnpj());
                 lbTituloParaTroca.setText("Inscrição:");

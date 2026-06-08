@@ -1,6 +1,6 @@
 package br.edu.ifsc.fln.model.domain;
 
-//import br.edu.ifsc.fln.model.exceptions.ExceptionLavacao;
+import br.edu.ifsc.fln.exception.ExceptionLavacao;
 
 import jakarta.persistence.*;
 
@@ -29,14 +29,14 @@ public class Pontuacao {
 	}
 
 	// EXCEÇÃO PARA CASO SEJA SUBTRAÍDO UM VALOR MAIOR QUE A QUANTIDADE ATUAL OU A QUANTIDADE ESTEJA EM ZERO
-//	public void subtrairPontos(int quantidade) throws ExceptionLavacao {
-//		if (this.quantidade == 0 || quantidade >= this.quantidade) {
-//			throw new ExceptionLavacao("Impossível retirar os pontos deferidos");
-//		}
-//		else {
-//			this.quantidade -= quantidade;
-//		}
-//	}
+	public void subtrairPontos(int quantidade) throws ExceptionLavacao {
+		if (this.quantidade == 0 || quantidade >= this.quantidade) {
+			throw new ExceptionLavacao("Impossível retirar os pontos deferidos");
+		}
+		else {
+			this.quantidade -= quantidade;
+		}
+	}
 	
 	public int verificarPontos() {
 		return quantidade;

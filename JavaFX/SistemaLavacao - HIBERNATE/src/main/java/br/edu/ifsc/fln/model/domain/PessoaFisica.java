@@ -39,6 +39,7 @@ public class PessoaFisica extends Cliente {
 		this.dataNascimento = dataNascimento;
 	}
 
+//	PARTE COMENTADA PARA SER USADA APENAS NO FINAL
 	@Override
 	public String getDados() {
 		DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern("dd/MM/yyyy");

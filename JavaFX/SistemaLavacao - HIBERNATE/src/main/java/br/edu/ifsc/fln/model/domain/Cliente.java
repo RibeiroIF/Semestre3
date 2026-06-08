@@ -1,6 +1,6 @@
 package br.edu.ifsc.fln.model.domain;
 
-//import br.edu.ifsc.fln.model.exceptions.ExceptionLavacao;
+import br.edu.ifsc.fln.exception.ExceptionLavacao;
 
 import jakarta.persistence.*;
 
@@ -57,17 +57,17 @@ public abstract class Cliente implements IDados {
 		ListaDeVeiculos.add(veiculo);
 		veiculo.setCliente(this);
 	}
-	
-	// EXCEÇÃO AO REMOVER UM VEÍCULO QUE NÃO PERTENÇA AO CLIENTE
-//	public void removerVeiculo(Veiculo veiculo) throws ExceptionLavacao {
-//		if (!this.ListaDeVeiculos.contains(veiculo)) {
-//			throw new ExceptionLavacao("Não é possível retirar este carro pois não pertence ao cliente");
-//		}
-//		else {
-//			ListaDeVeiculos.remove(veiculo);
-//			veiculo.setCliente(null);
-//		}
-//	}
+
+//	EXCEÇÃO AO REMOVER UM VEÍCULO QUE NÃO PERTENÇA AO CLIENTE
+	public void removerVeiculo(Veiculo veiculo) throws ExceptionLavacao {
+		if (!this.ListaDeVeiculos.contains(veiculo)) {
+			throw new ExceptionLavacao("Não é possível retirar este carro pois não pertence ao cliente");
+		}
+		else {
+			ListaDeVeiculos.remove(veiculo);
+			veiculo.setCliente(null);
+		}
+	}
 	
 	public int getId() {
 		return id;
@@ -114,6 +114,7 @@ public abstract class Cliente implements IDados {
 		return this.nome;
 	}
 
+	//PARTE COMENTADA PARA SER USADA NO FUTURO
 	@Override
 	public String getDados() {
 		DateTimeFormatter formatadorData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -125,7 +126,7 @@ public abstract class Cliente implements IDados {
 		sb.append("Pontuação...........: ").append(pontuacao.verificarPontos()).append("\n");
 		return sb.toString();
 	}
-	
+
 	@Override
 	public String getDados(String observacao) {
 		StringBuilder sb = new StringBuilder();

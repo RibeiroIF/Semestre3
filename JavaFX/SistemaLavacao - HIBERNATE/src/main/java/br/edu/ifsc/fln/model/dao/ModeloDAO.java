@@ -1,6 +1,5 @@
 package br.edu.ifsc.fln.model.dao;
 
-import br.edu.ifsc.fln.model.domain.ECategoria;
 import br.edu.ifsc.fln.model.domain.Modelo;
 import br.edu.ifsc.fln.model.util.HibernateUtil;
 import org.hibernate.Session;

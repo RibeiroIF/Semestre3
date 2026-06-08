@@ -93,6 +93,29 @@ CREATE TABLE servico(
     CONSTRAINT fk_servico_parametros FOREIGN KEY (id_parametros) REFERENCES parametros(id)
 ) engine=InnoDB;
 
+CREATE TABLE ordem_servico(
+    id INT NOT NULL auto_increment,
+    numero LONG,
+    total DOUBLE,
+    agenda DATE,
+    desconto DOUBLE,
+    status ENUM('FECHADA', 'CANCELADA', 'ABERTA') NOT NULL DEFAULT 'ABERTA',
+    id_veiculo INT NOT NULL,
+    CONSTRAINT pk_ordem_servico PRIMARY KEY(id),
+    CONSTRAINT fk_ordemservico_veiculo FOREIGN KEY (id_veiculo) REFERENCES veiculo(id)
+) engine=InnoDB;
+
+CREATE TABLE item_os(
+    id INT NOT NULL auto_increment,
+    valor_servico DOUBLE,
+    observacoes VARCHAR(128),
+    id_servico INT NOT NULL,
+    id_ordemservico INT NOT NULL,
+    CONSTRAINT pk_item_os PRIMARY KEY(id),
+    CONSTRAINT fk_itemos_servico FOREIGN KEY (id_servico) REFERENCES servico(id),
+    CONSTRAINT fk_itemos_ordem_servico FOREIGN KEY (id_ordemservico) REFERENCES ordem_servico(id)
+) engine=InnoDB;
+
 CREATE TABLE pontuacao(
     id INT NOT NULL auto_increment,
     quantidade INT DEFAULT 0,
@@ -100,6 +123,10 @@ CREATE TABLE pontuacao(
     CONSTRAINT pk_pontuacao PRIMARY KEY(id),
     CONSTRAINT fk_pontuacao_cliente FOREIGN KEY(id_cliente) REFERENCES cliente(id)
 ) engine=InnoDB;
+
+#####################
+#POVOAÇÃO DAS TABELAS
+#####################
 
 INSERT INTO servico (descricao, valor, id_parametros, categoria) VALUES
     ('Lavação Completa', 150.00, (SELECT max(id) FROM parametros), 'PEQUENO'),
@@ -179,3 +206,18 @@ INSERT INTO veiculo (placa, observacoes, id_cliente, id_cor, id_modelo) VALUES
     ('RTY-9900', 'Carro de suporte', 4, 4, 3),
     ('UOP-1133', 'Frota Locação A', 5, 2, 5),
     ('VBN-4455', 'Frota Locação B', 5, 1, 2);
+
+INSERT INTO ordem_servico (numero, total, agenda, desconto, status, id_veiculo) VALUES
+    (1001, 150.00, '2026-03-01', 0.00, 'FECHADA', 1),
+    (1002, 120.00, '2026-03-02', 10.00, 'FECHADA', 3),
+    (1003, 270.00, '2026-03-05', 0.00, 'ABERTA', 4),
+    (1004, 150.00, '2026-03-06', 15.00, 'CANCELADA', 5),
+    (1005, 120.00, '2026-03-07', 0.00, 'ABERTA', 7);
+
+INSERT INTO item_os (valor_servico, observacoes, id_servico, id_ordemservico) VALUES
+    (150.00, 'Lavação completa padrão', 1, 1),
+    (120.00, 'Focar na limpeza dos bancos traseiros', 2, 2),
+    (150.00, 'Lavação externa', 1, 3),
+    (120.00, 'Lavação interna detalhada', 2, 3),
+    (150.00, 'Cliente desistiu antes de iniciar', 1, 4),
+    (120.00, 'Cuidado com os espelhos da moto', 2, 5);

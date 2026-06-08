@@ -6,20 +6,21 @@
   <link rel="icon" type="image/x-icon" href="https://rwnobrega.page/_assets/ifsc-logo.png">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/form.css">
-  <title>Document</title>
+  <script src="/javascript/main.js"></script>
+  <title>Prova Prática PHP + MySQL - PRW2</title>
 </head>
 <body>
 
   <header> Prova Prática PHP + MySQL - PRW2 </header>
 
   <div class="forms">
-    <form action="" class="form" id="form-cadastro">
+    <form action="" class="form hidden" id="form-cadastro">
       <fieldset>
         <legend> Cadastro de Usuário </legend>
-        <label for="login" class="alinha"> Login: </label>
-        <input type="text" name="login" id="login"> <br>
-        <label for="senha" class="alinha"> Senha: </label>
-        <input type="text" name="senha" id="senha"> <br>
+        <label for="login-cadastrar" class="alinha"> Login: </label>
+        <input type="text" name="login" id="login-cadastrar"> <br>
+        <label for="senha-entrar" class="alinha"> Senha: </label>
+        <input type="text" name="senha" id="senha-cadastrar"> <br>
         <label for="confirma-senha" class="alinha"> Confirmar senha: </label>
         <input type="text" name="confirma-senha" id="confirma-senha"> <br>
       </fieldset>
@@ -29,23 +30,37 @@
     <form action="" class="form" id="form-login">
       <fieldset>
         <legend> Login de Usuário </legend>
-        <label for="login" class="alinha"> Login: </label>
-        <input type="text" name="login" id="login"> <br>
-        <label for="senha" class="alinha"> Senha: </label>
-        <input type="text" name="senha" id="senha"> <br>
+        <label for="login-entrar" class="alinha"> Login: </label>
+        <input type="text" name="login" id="login-entrar"> <br>
+        <label for="senha-entrar" class="alinha"> Senha: </label>
+        <input type="text" name="senha" id="senha-entrar"> <br>
       </fieldset>
       <button type="submit" class="button" name="logar" id="logar"> Realizar Login</button>
     </form>
   </div>
 
   <div class="opcoes">
-    <input type="radio" name="sistema" id="login" value="login" checked>
-    <label for="login"> Realizar login </label>
-    <input type="radio" name="sistema" id="cadastro" value="cadastro">
-    <label for="cadastro"> Realizar cadastro </label>
+    <h2> Opções: </h2>
+    <div class="botoes">
+      <div class="radioLogin">
+        <input type="radio" name="sistema" value="login" checked onchange="trocarFormRadio()">
+        <label> Realizar login </label>
+      </div>
+      <div class="radioCadastro">
+        <input type="radio" name="sistema" value="cadastro" onchange="trocarFormRadio()">
+        <label> Realizar cadastro </label>
+      </div>
+    </div>
   </div>
 
-  <script src="/javascript/main.js"></script>
+<!--   <div class="opcoes">
+    <div class="buttonLogin">
+      <button type="button" class="button-escolha" name="sistema" value="login" onclick="trocarFormButton()"> Fazer Login </button>
+    </div>
+    <div class="buttonCadastro">
+      <button type="button" class="button-escolha" name="sistema" value="cadastro" onclick="trocarFormButton()"> Cadastrar-se </button>
+    </div>
+  </div> -->
   
 </body>
 </html>

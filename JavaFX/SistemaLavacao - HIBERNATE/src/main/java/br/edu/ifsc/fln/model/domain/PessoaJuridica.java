@@ -37,6 +37,7 @@ public class PessoaJuridica extends Cliente {
 		this.inscricaoEstadual = inscricaoEstadual;
 	}
 
+//  PARTE COMENTADA PARA SER USADA APENAS NO FINAL
 	@Override
 	public String getDados() {
 		StringBuilder sb = new StringBuilder();

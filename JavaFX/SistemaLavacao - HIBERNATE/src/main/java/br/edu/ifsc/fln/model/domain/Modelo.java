@@ -20,10 +20,6 @@ public class Modelo {
 
 	@OneToOne(mappedBy = "modelo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Motor motor;
-
-//	@ManyToOne
-//	@JoinColumn(name = "id_veiculo")
-//	private Veiculo veiculo;
 	
 	public Modelo() {
 		this.motor = new Motor();
@@ -57,10 +53,6 @@ public class Modelo {
 	public void setMarca(Marca marca) {
 		this.marca = marca;
 	}
-
-//	public Veiculo getVeiculo() {
-//		return veiculo;
-//	}
 
 	public int getId() {
 		return id;

@@ -14,11 +14,15 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="@localhost [2]" uuid="dcbf657c-4c4e-4db0-9c39-e7a047e0e235">
+    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="0925f8f3-d3f6-4d26-8dc0-cb7576b19960">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/Gabriel/OneDrive/Documentos/IFSC/3Semestre/JavaFX/SistemaLavacao - HIBERNATE/src/main/resources/hibernate.cfg.xml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/db_lavacao</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

@@ -1,10 +1,12 @@
 package br.edu.ifsc.fln.controller;
 
+import br.edu.ifsc.fln.model.domain.ECategoria;
 import br.edu.ifsc.fln.model.domain.Servico;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -30,6 +32,9 @@ public class FXMLAPCadastroServicoDialogController implements Initializable {
     @FXML
     private TextField tfServicoValor;
 
+    @FXML
+    private ChoiceBox<ECategoria> cbCategoria;
+
     private Stage dialogStage;
     private boolean btConfirmarClicked = false;
     private Servico servico;
@@ -39,6 +44,7 @@ public class FXMLAPCadastroServicoDialogController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        carregarChoiceBoxCategorias();
         // TODO
     }
 
@@ -48,6 +54,10 @@ public class FXMLAPCadastroServicoDialogController implements Initializable {
 
     public void setBtConfirmarClicked(boolean btConfirmarClicked) {
         this.btConfirmarClicked = btConfirmarClicked;
+    }
+
+    public void carregarChoiceBoxCategorias() {
+        cbCategoria.getItems().setAll(ECategoria.values());
     }
 
     public Stage getDialogStage() {
@@ -66,6 +76,7 @@ public class FXMLAPCadastroServicoDialogController implements Initializable {
         this.servico = servico;
         tfServicoDescricao.setText(servico.getDescricao());
         tfServicoValor.setText(String.valueOf(servico.getValor()));
+        cbCategoria.getSelectionModel().select(servico.getCategoria());
     }
 
 
@@ -74,6 +85,7 @@ public class FXMLAPCadastroServicoDialogController implements Initializable {
         if (validarEntradaDeDados()) {
             servico.setDescricao(tfServicoDescricao.getText());
             servico.setValor(Double.parseDouble(tfServicoValor.getText()));
+            cbCategoria.getSelectionModel().select(servico.getCategoria());
             btConfirmarClicked = true;
             dialogStage.close();
         }
@@ -93,6 +105,10 @@ public class FXMLAPCadastroServicoDialogController implements Initializable {
 
         if (this.tfServicoValor.getText() == null || this.tfServicoValor.getText().length() == 0) {
             errorMessage += "Valor inválido.\n";
+        }
+
+        if (this.cbCategoria.getSelectionModel().getSelectedItem() == null) {
+            errorMessage += "Categoria inválida.\n";
         }
 
         if (errorMessage.length() == 0) {

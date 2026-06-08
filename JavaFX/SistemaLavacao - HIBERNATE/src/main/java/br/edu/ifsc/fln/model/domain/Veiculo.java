@@ -91,6 +91,11 @@ public class Veiculo implements IDados {
 	}
 
 	@Override
+	public String toString() {
+		return this.placa;
+	}
+
+	@Override
 	public String getDados() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Placa..............: ").append(placa).append("\n");

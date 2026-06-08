@@ -31,9 +31,7 @@ public class ParametrosSistema {
 
     @Override
     public String toString() {
-        return "ParametrosSistema{" +
-                "pontos='" + pontos + '\'' +
-                '}';
+        return String.valueOf(this.pontos);
     }
 
 

@@ -67,4 +67,9 @@ public class Servico {
 	public void setPontos(int pontos) {
 		this.pontos = pontos;
 	}
+
+	@Override
+	public String toString() {
+		return this.descricao;
+	}
 }

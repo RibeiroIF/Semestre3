@@ -16,7 +16,6 @@
                   <MenuItem fx:id="menuItemCadastroCor" mnemonicParsing="false" onAction="#handleMenuItemCadastroCor" text="Cor" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="menuItemCadastroMarca" mnemonicParsing="false" onAction="#handleMenuItemCadastroMarca" text="Marca" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="menuItemCadastroModelo" mnemonicParsing="false" onAction="#handleMenuItemCadastroModelo" text="Modelo" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="menuItemCadastroVeiculo" mnemonicParsing="false" onAction="#handleMenuItemCadastroVeiculo" text="Veículo" />
@@ -26,6 +25,12 @@
                   <MenuItem fx:id="menuItemCadastroServico" mnemonicParsing="false" onAction="#handleMenuItemCadastroServico" text="Serviços" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Processos">
+              <items>
+                <MenuItem fx:id="menuItemProcessoOrdemServico" mnemonicParsing="false" onAction="#handleMenuItemProcessoOrdemServico" text="Ordem de Serviço" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
       <AnchorPane fx:id="anchorPane" prefHeight="382.0" prefWidth="600.0" />
