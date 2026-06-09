@@ -212,7 +212,7 @@ INSERT INTO ordem_servico (numero, total, agenda, desconto, status, id_veiculo) 
     (1002, 120.00, '2026-03-02', 10.00, 'FECHADA', 3),
     (1003, 270.00, '2026-03-05', 0.00, 'ABERTA', 4),
     (1004, 150.00, '2026-03-06', 15.00, 'CANCELADA', 5),
-    (1005, 120.00, '2026-03-07', 0.00, 'ABERTA', 7);
+    (1005, 120.00, '2026-04-07', 0.00, 'ABERTA', 7);
 
 INSERT INTO item_os (valor_servico, observacoes, id_servico, id_ordemservico) VALUES
     (150.00, 'Lavação completa padrão', 1, 1),

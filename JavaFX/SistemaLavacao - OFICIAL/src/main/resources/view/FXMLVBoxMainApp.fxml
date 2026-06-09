@@ -32,6 +32,11 @@
                         <SeparatorMenuItem mnemonicParsing="false" />
                     </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="Gráficos">
+                    <items>
+                        <MenuItem fx:id="menuItemGraficoOrdensMensais" mnemonicParsing="false" onAction="#handleMenuItemGraficosOrdensMensais" text="Ordens Mensais" />
+                    </items>
+                </Menu>
             </menus>
         </MenuBar>
         <AnchorPane fx:id="anchorPane" prefHeight="382.0" prefWidth="600.0" />

@@ -124,10 +124,10 @@ public class VeiculoDAO {
 
     public Veiculo buscar(Veiculo veiculo) {
         String sql = "SELECT * FROM veiculo v WHERE id=?;";
-        Veiculo retorno = null;
+        Veiculo retorno = new Veiculo();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, veiculo.getPlaca());
+            stmt.setInt(1, veiculo.getId());
             ResultSet resultado = stmt.executeQuery();
             if (resultado.next()) {
                 retorno = populateVO(resultado);

@@ -79,4 +79,10 @@ public class FXMLVBoxMainAppController implements Initializable {
         anchorPane.getChildren().setAll(a);
     }
 
+    @FXML
+    public void handleMenuItemGraficosOrdensMensais() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAPGraficosOrdensMensais.fxml"));
+        anchorPane.getChildren().setAll(a);
+    }
+
 }

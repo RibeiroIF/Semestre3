@@ -4,11 +4,15 @@ import br.edu.ifsc.fln.exception.DAOException;
 import br.edu.ifsc.fln.exception.ExceptionLavacao;
 import br.edu.ifsc.fln.exception.OrdemServicoException;
 import br.edu.ifsc.fln.model.domain.*;
+import br.edu.ifsc.fln.model.dto.OrdensMensaisDTO;
 import br.edu.ifsc.fln.model.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OrdemServicoDAO {
 
@@ -154,6 +158,66 @@ public class OrdemServicoDAO {
         } catch (Exception e) {
             if (tx != null) tx.rollback();
             throw new Exception("Falha na remoção da OrdemServico");
+        }
+    }
+
+    public Map<Integer, ArrayList<Integer>> listarQuantidadeOrdensMensais() {
+        Map<Integer, ArrayList<Integer>> retorno = new HashMap<>();
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+            List<Object[]> resultados = session.createQuery(
+                    "SELECT COUNT(v.id), YEAR(v.agenda), MONTH(v.agenda) " +
+                            "FROM OrdemServico v " +
+                            "GROUP BY YEAR(v.agenda), MONTH(v.agenda) " +
+                            "ORDER BY YEAR(v.agenda), MONTH(v.agenda)",
+                    Object[].class
+            ).getResultList();
+
+            for (Object[] row : resultados) {
+
+                Long count = (Long) row[0];
+                Integer ano = (Integer) row[1];
+                Integer mes = (Integer) row[2];
+
+                if (!retorno.containsKey(ano)) {
+                    ArrayList<Integer> linha = new ArrayList<>();
+                    linha.add(mes);
+                    linha.add(count.intValue());
+                    retorno.put(ano, linha);
+                } else {
+                    ArrayList<Integer> linha = retorno.get(ano);
+                    linha.add(mes);
+                    linha.add(count.intValue());
+                }
+            }
+
+            return retorno;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return retorno;
+    }
+
+    /**
+     * Tornando o método mais elegante com uso de DTO
+     * DAO com HQL
+     */
+    public List<OrdensMensaisDTO> listarQuantidadeOrdensAnuais() {
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+            return session.createQuery(
+                    "SELECT new br.edu.ifsc.fln.model.dto.OrdensMensaisDTO(" +
+                            "YEAR(v.agenda), MONTH(v.agenda), COUNT(v.id)) " +
+                            "FROM OrdemServico v " +
+                            "GROUP BY YEAR(v.agenda), MONTH(v.agenda) " +
+                            "ORDER BY YEAR(v.agenda), MONTH(v.agenda)",
+                    OrdensMensaisDTO.class
+            ).getResultList();
+
         }
     }
 }

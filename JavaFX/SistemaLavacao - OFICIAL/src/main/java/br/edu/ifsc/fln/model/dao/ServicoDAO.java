@@ -76,7 +76,7 @@ public class ServicoDAO {
                 servico.setId(resultado.getInt("id"));
                 servico.setDescricao(resultado.getString("descricao"));
                 servico.setValor(resultado.getDouble("valor"));
-                servico.setPontos(resultado.getInt("pontos"));
+                servico.setPontos(0);
                 retorno.add(servico);
             }
         } catch (SQLException ex) {

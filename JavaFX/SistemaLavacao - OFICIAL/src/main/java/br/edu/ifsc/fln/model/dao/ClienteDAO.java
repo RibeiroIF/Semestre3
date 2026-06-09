@@ -32,9 +32,10 @@ public class ClienteDAO {
     }
 
     public boolean inserir(Cliente cliente) {
-        String sql = "INSERT INTO cliente(nome, email, celular, dataCadastro) VALUES(?, ?, ?, ?)";
-        String sqlFN = "INSERT INTO pessoaFisica(id_cliente, cpf) VALUES((SELECT max(id) FROM cliente), ?)";
-        String sqlFI = "INSERT INTO pessoaJuridica(id_cliente, cnpj, inscricaoEstadual) VALUES((SELECT max(id) FROM " +
+        String sql = "INSERT INTO cliente(nome, email, celular, data_cadastro) VALUES(?, ?, ?, ?)";
+        String sqlFN = "INSERT INTO pessoa_fisica(id_cliente, cpf, data_nascimento) VALUES((SELECT max(id) FROM " +
+                "cliente), ?, ?)";
+        String sqlFI = "INSERT INTO pessoa_juridica(id_cliente, cnpj, inscricaoEstadual) VALUES((SELECT max(id) FROM " +
                 "cliente), ?, ?)";
         try {
             //armazena os dados da superclasse
@@ -49,6 +50,7 @@ public class ClienteDAO {
             if (cliente instanceof PessoaFisica) {
                 stmt = connection.prepareStatement(sqlFN);
                 stmt.setString(1, ((PessoaFisica)cliente).getCpf());
+                stmt.setDate(2, Date.valueOf(((PessoaFisica)cliente).getDataNascimento()));
                 //a linha a seguir está errada e foi proposital para fazer um teste de rollback
                 //stmt.setString(2, ((PessoaFisica)cliente).getCpf());
                 stmt.execute();
@@ -81,9 +83,9 @@ public class ClienteDAO {
     }
 
     public boolean alterar(Cliente cliente) {
-        String sql = "UPDATE cliente SET nome=?, email=?, celular=?, dataCadastro=? WHERE id=?";
-        String sqlFN = "UPDATE pessoaFisica SET cpf=? WHERE id_cliente = ?";
-        String sqlFI = "UPDATE pessoaJuridica SET cnpj=?, inscricaoEstadual=? WHERE id_cliente = ?";
+        String sql = "UPDATE cliente SET nome=?, email=?, celular=?, data_cadastro=? WHERE id=?";
+        String sqlFN = "UPDATE pessoa_fisica SET cpf=?, data_nascimento=? WHERE id_cliente = ?";
+        String sqlFI = "UPDATE pessoa_juridica SET cnpj=?, inscricaoEstadual=? WHERE id_cliente = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, cliente.getNome());
@@ -95,7 +97,8 @@ public class ClienteDAO {
             if (cliente instanceof PessoaFisica) {
                 stmt = connection.prepareStatement(sqlFN);
                 stmt.setString(1, ((PessoaFisica)cliente).getCpf());
-                stmt.setInt(2, cliente.getId());
+                stmt.setDate(2, Date.valueOf(((PessoaFisica) cliente).getDataNascimento()));
+                stmt.setInt(3, cliente.getId());
                 stmt.execute();
             } else {
                 stmt = connection.prepareStatement(sqlFI);
@@ -126,8 +129,8 @@ public class ClienteDAO {
 
     public List<Cliente> listar() {
         String sql = "SELECT * FROM cliente f "
-                        + "LEFT JOIN pessoaFisica n on n.id_cliente = f.id "
-                        + "LEFT JOIN pessoaJuridica i on i.id_cliente = f.id;";
+                        + "LEFT JOIN pessoa_fisica n on n.id_cliente = f.id "
+                        + "LEFT JOIN pessoa_juridica i on i.id_cliente = f.id;";
         List<Cliente> retorno = new ArrayList<>();
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -144,8 +147,8 @@ public class ClienteDAO {
 
     public Cliente buscar(Cliente cliente) {
         String sql = "SELECT * FROM cliente f "
-                        + "LEFT JOIN pessoaFisica n on n.id_cliente = f.id "
-                        + "LEFT JOIN pessoaJuridica i on i.id_cliente = f.id WHERE id=?";
+                        + "LEFT JOIN pessoa_fisica n on n.id_cliente = f.id "
+                        + "LEFT JOIN pessoa_juridica i on i.id_cliente = f.id WHERE id=?";
         Cliente retorno = null;
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -162,8 +165,8 @@ public class ClienteDAO {
     
     public Cliente buscar(int id) {
         String sql = "SELECT * FROM cliente f "
-                        + "LEFT JOIN pessoaFisica n on n.id_cliente = f.id "
-                        + "LEFT JOIN pessoaJuridica i on i.id_cliente = f.id WHERE id=?";
+                        + "LEFT JOIN pessoa_fisica n on n.id_cliente = f.id "
+                        + "LEFT JOIN pessoa_juridica i on i.id_cliente = f.id WHERE id=?";
         Cliente retorno = null;
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -184,6 +187,7 @@ public class ClienteDAO {
             //é um cliente pessoaFisica
             cliente = new PessoaFisica();
             ((PessoaFisica)cliente).setCpf(rs.getString("cpf"));
+            ((PessoaFisica)cliente).setDataNascimento(LocalDate.parse(rs.getString("data_nascimento")));
         } else {
             //é um cliente pessoaJuridica
             cliente = new PessoaJuridica();
