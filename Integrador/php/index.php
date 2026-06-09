@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="https://rwnobrega.page/_assets/ifsc-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/pesquisar.css">
-    <link rel="stylesheet" href="/css/meus-anuncios.css">
-    <link rel="stylesheet" href="/css/novo-anuncio.css">
-    <link rel="stylesheet" href="/css/favoritos.css">
-    <link rel="stylesheet" href="/css/perfil.css">
-    <link rel="stylesheet" href="/css/admin.css">
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pesquisar.css">
+    <link rel="stylesheet" href="../css/meus-anuncios.css">
+    <link rel="stylesheet" href="../css/novo-anuncio.css">
+    <link rel="stylesheet" href="../css/favoritos.css">
+    <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <script src="../javascript/troca-de-tela.js"></script>
     <title>Classificados IFSC - Home</title>
 </head>
 <body>
@@ -423,8 +424,6 @@
             <button class="btn-feedback">Enviar Feedback</button>
         </div>
     </aside>
-
-    <script src="/javascript/troca-de-tela.js"></script>
 
     <?php 
     

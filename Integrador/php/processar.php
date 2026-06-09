@@ -3,7 +3,7 @@
  require_once "class.usuarios.inc.php";
  require_once "class.alunos.inc.php";
 
- $banco = new BancoDeDados("localhost", "root", "", "db_integrador", "usuario", "administrador", "aluno", "categoria", "anuncio", "avaliacao", "denuncia", "feedback");
+ $banco = new BancoDeDados("localhost", "root", "dadosmain", "db_integrador", "usuario", "administrador", "aluno", "categoria", "anuncio", "avaliacao", "denuncia", "feedback");
  $conexao = $banco->criarConexao();
  $banco->abrirBanco($conexao);
 

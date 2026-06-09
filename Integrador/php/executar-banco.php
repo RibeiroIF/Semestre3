@@ -2,7 +2,7 @@
  require_once "criar-banco-classificados.php";
 
  // Instancia o banco com os parâmetros reais (Servidor, User, Senha e os nomes das tabelas)
- $banco = new BancoDeDados("localhost", "root", "", "db_integrador", "usuario", "administrador", "aluno", "categoria", "anuncio", "avaliacao", "denuncia", "feedback");
+ $banco = new BancoDeDados("localhost", "root", "dadosmain", "db_integrador", "usuario", "administrador", "aluno", "categoria", "anuncio", "avaliacao", "denuncia", "feedback");
 
  $conexao = $banco->criarConexao();
  $banco->criarBanco($conexao);
