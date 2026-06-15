@@ -1,0 +1,78 @@
+<!DOCTYPE html> 
+<html lang="pt-BR"> 
+<head> 
+  <meta charset="utf-8"> 
+  <title> Sistemas Norteador - protótipo de aplicação web para lavação de automóveis  </title> 
+  <link rel="stylesheet" href="../css/formata-lavacao.css">
+</head> 
+
+<body> 
+ <div class="conteiner">
+
+  <header>
+   <h1> Desenvolvimento Web - CTDS - Sistema Norteador </h1>
+  </header>
+
+  <nav>
+   <div class="menu">
+    <ul>
+     <li>
+      <a href="home.html"> Voltar à página inicial - Home </a>
+     </li>
+
+     <li>
+      <a href="cadastro-cliente.html"> Cadastrar cliente </a>
+     </li>
+
+     <li>
+      <a href="login-cliente.html"> Login do cliente </a>
+     </li>
+
+     <li>
+      <a href="login-administrador.html"> Login do administrador </a>
+     </li>
+    </ul>
+   </div>
+  </nav>
+
+ 
+  <main>
+   <form action="../php/recebe-dados-veiculos.php" method="post">
+    <fieldset>
+     <legend> Veículos - cadastro </legend>
+
+     <div class="alinha">
+      <label for="fabricante"> Fabricante: </label>
+      <input type="text" id="fabricante" name="fabricante" autofocus placeholder="Nome do fabricante aqui">
+     </div>
+
+     <div class="alinha">
+      <label for="modelo"> Modelo: </label>
+      <input type="text" id="modelo" name="modelo">
+     </div>
+
+
+     <div class="alinha">
+      <label for="placa"> Placa: </label>
+      <input type="text" id="placa" name="placa">
+     </div>
+
+
+     <button> Cadastrar veículo </button>
+    </fieldset>
+   </form>
+  </main>
+
+  <!--seção de rodapé da aplicação-->
+  <footer>
+   <div class="rodape">
+    <p> Desenvolvimento web - CTDS - Web Design, turma do semestre 2025/1 <br>
+     Copyright &copy;2025 - todos os direitos reservados. Proibida a reprodução parcial ou total do conteúdo presente nesta aplicação. <br>
+
+     <a href="contato.html" target="_blank"> Entre em contato conosco </a>    
+    </p>
+   </div>
+  </footer>
+ </div>    
+</body> 
+</html> 

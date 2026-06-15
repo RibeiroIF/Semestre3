@@ -1,0 +1,94 @@
+<!DOCTYPE html> 
+<html lang="pt-BR"> 
+<head> 
+  <meta charset="utf-8"> 
+  <title> Sistemas Norteador - protótipo de aplicação web para lavação de automóveis  </title> 
+  <link rel="stylesheet" href="../css/formata-lavacao.css">
+</head> 
+
+<body> 
+ <div class="conteiner">
+
+  <header>
+   <h1> Desenvolvimento Web - CTDS - Sistema Norteador </h1>
+  </header>
+
+  <nav>
+   <div class="menu">
+    <ul>
+     <li>
+      <a href="home.html"> Voltar à página inicial - Home </a>
+     </li>
+
+     <li>
+      <a href="cadastro-veiculo.html"> Cadastrar veículo </a>
+     </li>
+
+     <li>
+      <a href="login-cliente.html"> Login do cliente </a>
+     </li>
+
+     <li>
+      <a href="login-administrador.html"> Login do administrador </a>
+     </li>
+    </ul>
+   </div>
+  </nav>
+
+ 
+  <main>
+   <form action="../php/recebe-dados-cliente.php" method="post" id="formulario">
+    <fieldset>
+     <legend> Clientes - cadastro </legend>
+
+     <div class="alinha">
+      <label for="cliente"> Nome: </label>
+      <input type="text" id="cliente" name="cliente" autofocus placeholder="Seu nome aqui">
+     </div>
+
+     <div class="alinha">
+      <label for="endereco"> Endereço: </label>
+      <input type="text" id="endereco" name="endereco">
+     </div>
+
+     <div class="alinha">
+      <label for="email"> E-mail: </label>
+      <input type="email" name="email" id="email">
+     </div>
+
+     <div class="alinha">
+      <label for="celular"> Celular: </label>
+      <input type="tel" name="celular" id="celular">
+     </div>
+
+     <div class="alinha">
+      <label for="login"> Usuário: </label>
+      <input type="text" id="login" name="login">
+      <label id="erro-login"></label>
+     </div>
+
+     <div class="alinha">
+      <label for="senha"> Senha (mínimo 10 caracteres): </label>
+      <input type="password" id="senha" name="senha">
+      <label id="erro-senha"></label>
+     </div>
+ 
+     <button> Cadastrar cliente </button>
+    </fieldset>
+   </form>
+  </main>
+
+  <!--seção de rodapé da aplicação-->
+  <footer>
+   <div class="rodape">
+    <p> Desenvolvimento web - CTDS - Web Design, turma do semestre 2025/1 <br>
+     Copyright &copy;2025 - todos os direitos reservados. Proibida a reprodução parcial ou total do conteúdo presente nesta aplicação. <br>
+
+     <a href="contato.html" target="_blank"> Entre em contato conosco </a>    
+    </p>
+   </div>
+  </footer>
+ </div>
+ <script src="../javascript/valida-form.js"></script>    
+</body> 
+</html> 

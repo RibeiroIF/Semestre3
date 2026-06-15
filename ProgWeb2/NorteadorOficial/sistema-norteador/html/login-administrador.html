@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html lang="pt-BR"> 
+<head> 
+  <meta charset="utf-8"> 
+  <title> Sistemas Norteador - protótipo de aplicação web para lavação de automóveis  </title> 
+  <link rel="stylesheet" href="../css/formata-lavacao.css">
+</head> 
+
+<body> 
+ <div class="conteiner">
+
+  <header>
+   <h1> Desenvolvimento Web - CTDS - Sistema Norteador </h1>
+  </header>
+
+  <nav>
+   <div class="menu">
+    <ul>
+     <li>
+      <a href="home.html"> Voltar à página inicial - Home </a>
+     </li>
+
+     <li>
+      <a href="cadastro-cliente.html"> Cadastrar cliente </a>
+     </li>
+
+     <li>
+      <a href="cadastro-veiculo.html"> Cadastrar veículo </a>
+     </li>
+
+     <li>
+      <a href="login-cliente.html"> Login do cliente </a>
+     </li>
+    </ul>
+   </div>
+  </nav>
+
+ 
+  <main>
+   <form action="../php/login-administrador.php" method="post">
+    <fieldset>
+     <legend> Administrador - login </legend>
+
+     <div class="alinha">
+      <label for="login"> Login: </label>
+      <input type="text" id="login" name="login" autofocus placeholder="Seu login aqui">
+     </div>
+
+     <div class="alinha">
+      <label for="senha"> Senha: </label>
+      <input type="password" id="senha" name="senha">
+     </div>
+
+     <button> Logar administrador </button>
+    </fieldset>
+   </form>
+  </main>
+
+  <!--seção de rodapé da aplicação-->
+  <footer>
+   <div class="rodape">
+    <p> Desenvolvimento web - CTDS - Web Design, turma do semestre 2025/1 <br>
+     Copyright &copy;2025 - todos os direitos reservados. Proibida a reprodução parcial ou total do conteúdo presente nesta aplicação. <br>
+
+     <a href="contato.html" target="_blank"> Entre em contato conosco </a>    
+    </p>
+   </div>
+  </footer>
+ </div>    
+</body> 
+</html> 

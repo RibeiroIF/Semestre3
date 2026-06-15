@@ -1,0 +1,94 @@
+/*cor-base #226666*/
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed&display=swap');
+
+body {
+ font-family: "Barlow Condensed";
+ margin: 0; 
+}
+
+h1, header {
+ margin: 0;
+ text-align: center;
+ border-bottom: 1px solid #003333;
+ background-color: rgba(102, 153, 153, 0.4);
+ text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+ box-shadow: 0 0 5px 5px rgba(13, 77, 77, 0.8);
+ position: sticky;
+ top: 0;
+}
+
+header {
+ margin-bottom: 50px;
+}
+
+li a {
+ text-decoration: none;
+ color: #000;
+}
+
+ul {
+ list-style-type: none;
+}
+
+a:hover {
+ text-decoration: underline;
+}
+
+li {
+ margin-bottom: 10px;
+}
+
+footer a {
+ text-decoration: none;
+ color: #000;
+ font-weight: bold;
+ text-align: center;
+ width: 100%;
+ display: block;
+}
+
+footer a:hover {
+ color: #003333;
+}
+
+nav {
+ width: 30%;
+ float: left;
+ padding-left: 50px;
+}
+
+main {
+ width: 60%;
+ float: right;
+}
+
+footer {
+ clear: both;
+ position: absolute;
+ bottom: 0;
+ left: 50%;
+ transform: translate(-50%);
+ width: 55%;
+}
+
+
+
+
+
+
+
+
+
+/*nav li {
+ display: inline;
+}
+
+nav a {
+ margin-left: 20px;
+}
+
+nav ul {
+ border: 1px solid blue;
+ width: 48%;
+ margin: 20px auto;
+}*/

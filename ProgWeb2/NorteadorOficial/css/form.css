@@ -9,6 +9,7 @@
   border-radius: 10px;
   box-shadow: 0px 0px 8px gray;
   text-align:center;
+  line-height: 1.8;
 }
 
 fieldset{
@@ -26,12 +27,27 @@ legend{
 }
 
 .button{
-  margin: 1em;
-  padding: 0.5em;
+  margin: 0.5em;
+  padding: 1em;
+  border: none;
+  border-radius:10px;
+  font-size: 0.9rem;
+  font-weight:600;
+}
+
+.button:hover{
+  background-color: rgb(213, 213, 213);
 }
 
 .alinha{
   display: inline-block;
   text-align: right;
   width: 6em;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="senha"]{
+  border-radius: 5px;
+  height: 1.5em;
+  border: 1px solid gray;
+  font-size: 0.9rem;
 }
