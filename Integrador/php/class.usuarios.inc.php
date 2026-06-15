@@ -1,33 +1,35 @@
 <?php
  class Usuarios {
-  public $id;
   public $nome;
   public $email;
   public $senha;
+  public $senha2;
   public $dataCadastro;
-  public $campus;
  
   function receberDadosForm($conexao)
    {
    // O ID é nulo no cadastro pois é auto_increment no banco
-   $this->id           = null; 
    $this->nome         = trim($conexao->escape_string($_POST["nome"]));
    $this->email        = trim($conexao->escape_string($_POST["email"]));
    // Criptografando a senha em SHA-256 para segurança antes de salvar
    $this->senha        = hash("sha256", trim($conexao->escape_string($_POST["senha"])));
-   $this->dataCadastro = date("Y-m-d"); // Capta a data atual do sistema
-   $this->campus       = trim($conexao->escape_string($_POST["campus"]));
+   $this->senha2       = hash("sha256", trim($conexao->escape_string($_POST["senha2"])));
+   
+   if($this->senha = $this->senha2){
+    $this->senha        = password_hash($this->senha, PASSWORD_ARGON2I);
    }
 
-  function cadastrar($conexao, $nomeDaTabelaUsuario)
+   $this->dataCadastro = date("Y-m-d"); // Capta a data atual do sistema
+   }
+
+  function cadastrar($conexao, $usuario)
    {
-   $sql = "INSERT $nomeDaTabelaUsuario VALUES(
+   $sql = "INSERT $usuario VALUES(
              null,
             '$this->nome',
             '$this->email',
             '$this->senha',
-            '$this->dataCadastro',
-            '$this->campus')";
+            '$this->dataCadastro')";
 
    $conexao->query($sql) or die($conexao->error);
    

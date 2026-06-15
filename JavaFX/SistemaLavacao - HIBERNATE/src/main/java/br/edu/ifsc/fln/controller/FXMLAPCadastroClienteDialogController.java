@@ -8,15 +8,13 @@ import br.edu.ifsc.fln.model.domain.Cliente;
 import br.edu.ifsc.fln.model.domain.PessoaJuridica;
 import br.edu.ifsc.fln.model.domain.PessoaFisica;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 /**
@@ -33,31 +31,22 @@ public class FXMLAPCadastroClienteDialogController implements Initializable {
     private Button btConfirmar;
 
     @FXML
-    private RadioButton rbPessoaJuridica;
-
-    @FXML
-    private RadioButton rbPessoaFisica;
-
-    @FXML
-    private Group gbTipo;
-
-    @FXML
-    private ToggleGroup tgTipo;
-
+    private TextField tfNome;
     @FXML
     private TextField tfEmail;
-
     @FXML
     private TextField tfCelular;
 
     @FXML
-    private TextField tfNome;
+    private TextField tfCpf;
+    @FXML
+    private DatePicker dpDataNascimento;
 
     @FXML
-    private TextField tfNumFiscal;
-
+    private TextField tfCnpj;
     @FXML
     private TextField tfInscricaoEstadual;
+
 
     private Stage dialogStage;
     private boolean btConfirmarClicked = false;
@@ -97,15 +86,10 @@ public class FXMLAPCadastroClienteDialogController implements Initializable {
             this.tfNome.setText(this.cliente.getNome());
             this.tfEmail.setText(this.cliente.getEmail());
             this.tfCelular.setText(this.cliente.getCelular());
-            this.gbTipo.setDisable(true);
             if (cliente instanceof PessoaFisica) {
-                rbPessoaFisica.setSelected(true);
-                tfNumFiscal.setText(((PessoaFisica) this.cliente).getCpf());
                 tfInscricaoEstadual.setText("BRASIL");
                 tfInscricaoEstadual.setDisable(true);
             } else {
-                rbPessoaJuridica.setSelected(true);
-                tfNumFiscal.setText(((PessoaJuridica) this.cliente).getCnpj());
                 tfInscricaoEstadual.setText(((PessoaJuridica) this.cliente).getInscricaoEstadual());
                 tfInscricaoEstadual.setDisable(false);
             }
@@ -119,11 +103,14 @@ public class FXMLAPCadastroClienteDialogController implements Initializable {
             cliente.setNome(tfNome.getText());
             cliente.setEmail(tfEmail.getText());
             cliente.setCelular(tfCelular.getText());
-            if (rbPessoaFisica.isSelected()) {
-                ((PessoaFisica) cliente).setCpf(tfNumFiscal.getText());
-            } else {
-                ((PessoaJuridica) cliente).setCnpj(tfNumFiscal.getText());
-                ((PessoaJuridica) cliente).setInscricaoEstadual(tfInscricaoEstadual.getText());
+            cliente.setDataCadastro(LocalDate.now());
+            if (this.cliente instanceof PessoaFisica){
+                ((PessoaFisica)cliente).setDataNascimento(dpDataNascimento.getValue());
+                ((PessoaFisica)cliente).setCpf(tfCpf.getText());
+            }
+            if (this.cliente instanceof PessoaJuridica) {
+                ((PessoaJuridica)cliente).setCnpj(tfCnpj.getText());
+                ((PessoaJuridica)cliente).setInscricaoEstadual(tfInscricaoEstadual.getText());
             }
             btConfirmarClicked = true;
             dialogStage.close();
@@ -133,18 +120,6 @@ public class FXMLAPCadastroClienteDialogController implements Initializable {
     @FXML
     public void handleBtCancelar() {
         dialogStage.close();
-    }
-
-    @FXML
-    public void handleRbPessoaFisica() {
-        this.tfInscricaoEstadual.setText("BRASIL");
-        this.tfInscricaoEstadual.setDisable(true);
-    }
-
-    @FXML
-    public void handleRbPessoaJuridica() {
-        this.tfInscricaoEstadual.setText("");
-        this.tfInscricaoEstadual.setDisable(false);
     }
 
     //método para validar a entrada de dados
@@ -162,13 +137,16 @@ public class FXMLAPCadastroClienteDialogController implements Initializable {
             errorMessage += "Email inválido.\n";
         }
 
-        if (rbPessoaFisica.isSelected()) {
-            if (this.tfNumFiscal.getText() == null || this.tfNumFiscal.getText().length() == 0) {
-                errorMessage += "CNPJ inválido.\n";
+        if (this.cliente == new PessoaFisica()) {
+            if (this.dpDataNascimento.getValue() == null) {
+                errorMessage += "Data de Nascimento inválida.\n";
             }
-        } else {
-            if (this.tfNumFiscal.getText() == null || this.tfNumFiscal.getText().length() == 0) {
-                errorMessage += "NIF inválido.\n";
+            if (this.tfCpf.getText() == null || this.tfCpf.getText().length() == 0){
+                errorMessage += "CPF inválido.\n";
+            }
+        } if (this.cliente == new PessoaJuridica()) {
+            if (this.tfCnpj.getText() == null || this.tfCnpj.getText().length() == 0) {
+                errorMessage += "CNPJ inválido.\n";
             }
             if (this.tfInscricaoEstadual.getText() == null || this.tfInscricaoEstadual.getText().length() == 0) {
                 errorMessage += "Informe o nome do País.\n";

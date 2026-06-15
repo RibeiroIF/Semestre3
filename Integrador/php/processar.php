@@ -1,9 +1,7 @@
 <?php
- require_once "criar-banco-classificados.php";
- require_once "class.usuarios.inc.php";
- require_once "class.alunos.inc.php";
+ require_once "executar-banco.php";
 
- $banco = new BancoDeDados("localhost", "root", "dadosmain", "db_integrador", "usuario", "administrador", "aluno", "categoria", "anuncio", "avaliacao", "denuncia", "feedback");
+ $banco = new BancoDeDados("localhost", "root", "", "db_integrador", "usuario", "administrador", "aluno", "categoria", "anuncio", "avaliacao", "denuncia", "feedback");
  $conexao = $banco->criarConexao();
  $banco->abrirBanco($conexao);
 
@@ -12,7 +10,7 @@
 
  // 1. Ambas as classes capturam o que precisam do $_POST
  $usuario->receberDadosForm($conexao);
- $aluno->receberDadosForm($conexao);
+ //$aluno->receberDadosForm($conexao);
 
  // 2. Cadastra na tabela pai (usuario) e armazena o ID gerado
  $idGerado = $usuario->cadastrar($conexao, $banco->usuario);

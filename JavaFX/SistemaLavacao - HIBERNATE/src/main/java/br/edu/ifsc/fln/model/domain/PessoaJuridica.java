@@ -9,7 +9,8 @@ import java.time.LocalDate;
 @PrimaryKeyJoinColumn(name = "id_cliente")
 public class PessoaJuridica extends Cliente {
 
-	private String cnpj, inscricaoEstadual;
+	private String cnpj;
+	private String inscricaoEstadual;
 	
 	public PessoaJuridica() {
 		super();

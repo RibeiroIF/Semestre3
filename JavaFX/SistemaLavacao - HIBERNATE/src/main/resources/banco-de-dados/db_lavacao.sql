@@ -117,10 +117,9 @@ CREATE TABLE item_os(
 ) engine=InnoDB;
 
 CREATE TABLE pontuacao(
-    id INT NOT NULL auto_increment,
-    quantidade INT DEFAULT 0,
     id_cliente INT NOT NULL,
-    CONSTRAINT pk_pontuacao PRIMARY KEY(id),
+    quantidade INT DEFAULT 0,
+    CONSTRAINT pk_pontuacao PRIMARY KEY(id_cliente),
     CONSTRAINT fk_pontuacao_cliente FOREIGN KEY(id_cliente) REFERENCES cliente(id)
 ) engine=InnoDB;
 
@@ -129,8 +128,8 @@ CREATE TABLE pontuacao(
 #####################
 
 INSERT INTO servico (descricao, valor, id_parametros, categoria) VALUES
-    ('Lavação Completa', 150.00, (SELECT max(id) FROM parametros), 'PEQUENO'),
-    ('Lavação interna', 120.00, (SELECT max(id) FROM parametros), 'GRANDE');
+    ('Lavação Completa', 150.00, 1, 'PEQUENO'),
+    ('Lavação interna', 120.00, 1, 'GRANDE');
 
 INSERT INTO cliente (nome, celular, email, dataCadastro) VALUES
     ('Carlos Silva', '(11) 98888-1111', 'carlos@gmail.com', '2026-01-10'),

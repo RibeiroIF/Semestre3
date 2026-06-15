@@ -16,8 +16,10 @@ public abstract class Cliente implements IDados {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected Integer id;
-	protected String nome, celular, email;
+	protected int id;
+	protected String nome;
+	protected String email;
+	protected String celular;
 	protected LocalDate dataCadastro;
 
 	@OneToMany(mappedBy = "cliente")
@@ -27,8 +29,7 @@ public abstract class Cliente implements IDados {
 	protected Pontuacao pontuacao;
 	
 	public Cliente() {
-		super();
-		this.pontuacao = new Pontuacao();
+		this.createPontuacao();
 	}
 
 	public Cliente(int id, String nome, String celular, String email, LocalDate dataCadastro) {
@@ -40,7 +41,11 @@ public abstract class Cliente implements IDados {
 		this.dataCadastro = dataCadastro;
 		this.pontuacao = new Pontuacao();
 	}
-	
+
+	private void createPontuacao(){
+		this.pontuacao = new Pontuacao(this);
+	}
+
 	public Pontuacao getPontuacao() {
 		return pontuacao;
 	}

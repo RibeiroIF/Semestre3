@@ -37,6 +37,12 @@
                         <MenuItem fx:id="menuItemGraficoOrdensMensais" mnemonicParsing="false" onAction="#handleMenuItemGraficosOrdensMensais" text="Ordens Mensais" />
                     </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="Relatórios">
+                    <items>
+                        <MenuItem fx:id="menuItemRelatorioServico" mnemonicParsing="false"
+                                  onAction="#handleMenuItemRelatorioServico" text="Serviços" />
+                    </items>
+                </Menu>
             </menus>
         </MenuBar>
         <AnchorPane fx:id="anchorPane" prefHeight="382.0" prefWidth="600.0" />

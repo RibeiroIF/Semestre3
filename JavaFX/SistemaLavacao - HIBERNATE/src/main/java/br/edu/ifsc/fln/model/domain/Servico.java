@@ -60,6 +60,10 @@ public class Servico {
 		return categoria;
 	}
 
+	public void setCategoria(ECategoria categoria) {
+		this.categoria = categoria;
+	}
+
 	public static int getPontos() {
 		return pontos;
 	}

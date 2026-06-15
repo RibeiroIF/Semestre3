@@ -21,8 +21,8 @@
                     <children>
                         <TableView fx:id="tableViewVeiculos" layoutY="7.0" prefHeight="380.0" prefWidth="312.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
-                                <TableColumn fx:id="tableColumnCliente" prefWidth="75.0" text="Proprietário" />
-                                <TableColumn fx:id="tableColumnVeiculoPlaca" prefWidth="75.0" text="Placa" />
+                                <TableColumn fx:id="tableColumnVeiculoPlaca" prefWidth="75.0" text="Proprietário" />
+                                <TableColumn fx:id="tableColumnCliente" prefWidth="75.0" text="Placa" />
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

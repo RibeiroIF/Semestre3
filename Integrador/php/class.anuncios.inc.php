@@ -4,6 +4,7 @@
   public $titulo;
   public $descricao;
   public $preco;
+  public $imagem;
   public $statusAnuncio;
   public $dataPublicacao;
   public $dataExpiracao;
@@ -17,6 +18,7 @@
    $this->titulo         = trim($conexao->escape_string($_POST["titulo"]));
    $this->descricao      = trim($conexao->escape_string($_POST["descricao"]));
    $this->preco          = trim($conexao->escape_string($_POST["preco"]));
+   $this->imagem         = $_POST["fotos"];
    $this->statusAnuncio  = "EM ABERTO"; // Status padrão inicial
    $this->dataPublicacao = date("Y-m-d");
    // Define expiração para 30 dias após a publicação
@@ -28,13 +30,14 @@
    $this->idCategoria    = trim($conexao->escape_string($_POST["id_categoria"]));
    }
 
-  function cadastrar($conexao, $nomeDaTabelaAnuncio)
+  function cadastrar($conexao, $anuncio)
    {
-   $sql = "INSERT $nomeDaTabelaAnuncio VALUES(
+   $sql = "INSERT $anuncio VALUES(
              null,
             '$this->titulo',
             '$this->descricao',
             '$this->preco',
+            '$this->imagem',
             '$this->statusAnuncio',
             '$this->dataPublicacao',
             '$this->dataExpiracao',
@@ -45,9 +48,9 @@
    $conexao->query($sql) or die($conexao->error);
    } 
 
-   function listarAnunciosAtivos($conexao, $nomeDaTabelaAnuncio)
+   function listarAnunciosAtivos($conexao, $anuncio)
    {
-   $sql = "SELECT * FROM $nomeDaTabelaAnuncio WHERE status_anuncio = 'EM ABERTO' ORDER BY data_publicacao DESC";
+   $sql = "SELECT * FROM $anuncio WHERE status_anuncio = 'EM ABERTO' ORDER BY data_publicacao DESC";
    $resultado = $conexao->query($sql) or die($conexao->error);
 
    if($conexao->affected_rows == 0)

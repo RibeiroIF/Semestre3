@@ -46,7 +46,7 @@ public class ItemOS {
 	}
 
 	public double getValorServico() {
-		valorServico = this.getServico().getValor();
+		this.valorServico = servico.getValor();
 		return valorServico;
 	}
 

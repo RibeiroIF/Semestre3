@@ -34,9 +34,10 @@ public class OrdemServicoDAO {
                 item.setServico(servico);
                 //item.getValorServico();
                 item.setOrdemServico(ordemServico);
-                totalCalculado += item.getValorServico();
+                item.getValorServico();
             }
-            ordemServico.getTotal();
+
+            ordemServico.calcularTotal();
 
             // cascade salva itens automaticamente
             session.persist(ordemServico);
@@ -83,11 +84,9 @@ public class OrdemServicoDAO {
             }
 
             // atualizar dados da ordemServico
-            ordemServico.calcularServico();
+            ordemServico.calcularTotal();
             ordemServicoDB.setStatus(ordemServico.getStatus());
             tx.commit();
-        } catch (ExceptionLavacao ex) {
-            throw new ExceptionLavacao(ex.getMessage());
         } catch (Exception e) {
             if (tx != null) tx.rollback();
             e.printStackTrace();

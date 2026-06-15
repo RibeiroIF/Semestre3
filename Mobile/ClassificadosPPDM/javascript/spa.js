@@ -41,6 +41,7 @@
    // Função que carrega produtos baseado em uma categoria escolhida
 async function carregarPorCategoria(categoria) {
 
+  const categoriaTratada = categoria.replace("’", "'");
 
    try {
        let url;
@@ -49,9 +50,9 @@ async function carregarPorCategoria(categoria) {
 
        // Define URLs conforme categoria selecionada
        if (categoria === 'todos') {
-           url = 'https://fakestoreapi.com/products';
+           url = 'http://localhost:3000/products';
        } else {
-           url = `https://fakestoreapi.com/products/category/${categoria}`;
+           url = `http://localhost:3000/products?category=${encodeURIComponent(categoriaTratada)}`;
        }
 
 
@@ -69,10 +70,10 @@ async function carregarPorCategoria(categoria) {
            card.className = "col";
            card.innerHTML = `
                <div class="card h-100" onclick="abrirDetalhes(${produto.id})">
-               <img src="${produto.image.replace(".jpg", "t.png")}" class="card-img-top p-3" style="height:250px; object-fit:contain;">
+               <img src="${produto.image.replace(".jpg", ".png")}" class="card-img-top p-3" style="height:250px; object-fit:contain;">
                <div class="card-body">
                    <h5 class="card-title">${produto.title}</h5>
-                   <p class="card-text">R$ ${produto.price.toFixed(2)}</p>
+                   <p class="card-text">R$ ${produto.price}</p>
                </div>
                </div>
            `;
@@ -94,7 +95,7 @@ async function abrirDetalhes(id) {
      
       navegar('tela-produto')
       detalhesProduto.innerHTML = "Carregando..."
-      const response = await axios.get(`https://fakestoreapi.com/products/${id}`)
+      const response = await axios.get(`http://localhost:3000/products/${id}`)
       const p = response.data;
 
 
@@ -108,7 +109,7 @@ async function abrirDetalhes(id) {
           <div class="col-md-8">
           <h2>${p.title}</h2>
           <p><strong>Categoria:</strong> ${p.category}</p>
-          <p><strong>Preço:</strong> R$ ${p.price.toFixed(2)}</p>
+          <p><strong>Preço:</strong> R$ ${p.price}</p>
           <p><strong>Descrição:</strong> ${p.description}</p>
           <p><strong>Avaliação:</strong> ${p.rating.rate} ⭐ (${p.rating.count} avaliações)</p>
           </div>
@@ -130,32 +131,45 @@ async function cadastrarProduto(){
 
     navegar('tela-cadastro')
     cadastroProduto.innerHTML = "Carregando..."
-    //const response = await axios.get(`https://fakestoreapi.com/products/${id}`)
+    //const response = await axios.get(`http://localhost:3000/products/${id}`)
     //const p = response.data;
 
     cadastroProduto.innerHTML = `
       <div class="row g-3">
-          <div class="col-md-8">
-            <form class="form">
-              <fieldset>
+          <div class="col-12 col-md-10 col-lg-12">
+            <form action="" method="" class="form">
+              <fieldset class="grid-form">
                 <legend>Cadastro de Produto</legend>
-                <label for="title">Nome do Produto:</label>
-                <input type="text" name="title" id="title"><br>
-                <label for="category">Categoria do Produto:</label>
-                <select name="category" id="category">
-                  <option value="men\s' clothing">Vestuário</option>
+
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome">
+
+                <label for="categoria">Categoria:</label>
+                <select name="categoria" id="categoria">
+
+                  <option value="men&#39;s clothing">Vestuário</option>
                   <option value="electronics">Eletrônicos</option>
                   <option value="jewelery">Acessórios</option>
-                </select> <br>
-                <label for="price">Preço do Produto:</label>
-                <input type="number" name="price" id="price" min="0" max="10000"><br>
-                <label for="description">Descrição:</label>
-                <input type="text" name="description" id="description"> <br>
-                <label for="image">Foto do produto:</label>
-                <input type="file" name="image" accept="image/*" id="imagem">
+                </select>
+
+                <label for="preco">Preço:</label>
+                <input type="number" name="preco" id="preco" min="0" max="10000" step="0.01">
+
+                <label for="descricao">Descrição:</label>
+                <input type="text" name="descricao" id="descricao">
+
+                <label for="imagem">Tipoz:</label>
+                <input type="hidden" name="imgUrl" id="imgUrl">
+
+                <div class="imagens-form">
+                  <img class="imagem-form" id="imagem" src="https://png.pngtree.com/png-vector/20241203/ourmid/pngtree-white-t-shirt-mockup-png-image_14585412.png" onclick="setImage('https://png.pngtree.com/png-vector/20241203/ourmid/pngtree-white-t-shirt-mockup-png-image_14585412.png'); setBorda(this)">
+                  <img class="imagem-form" id="imagem" src="https://cdn.prod.website-files.com/60c368fa646716418bdf9ce9/614b4884362e9151e5e4a4b5_189142-conheca-as-principais-caracteristicas-das-joias-de-ouro-amarelo-p-1080.jpeg" onclick="setImage('https://cdn.prod.website-files.com/60c368fa646716418bdf9ce9/614b4884362e9151e5e4a4b5_189142-conheca-as-principais-caracteristicas-das-joias-de-ouro-amarelo-p-1080.jpeg'); setBorda(this)">
+                  <img class="imagem-form" id="imagem" src="https://s2-techtudo.glbimg.com/c_kPjuL88epOUepOndI324c3jlw=/0x0:1280x720/1000x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2025/u/t/D0Awd4S6eqg2YyaAOOog/6.png" onclick="setImage('https://s2-techtudo.glbimg.com/c_kPjuL88epOUepOndI324c3jlw=/0x0:1280x720/1000x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2025/u/t/D0Awd4S6eqg2YyaAOOog/6.png'); setBorda(this)">
+                </div>
+
               </fieldset>
-              <button type="submit" class="button1">Cadastrar Produto</button>
-            </form>
+            <button type="submit" class="button1">Cadastrar Produto</button>
+          </form>
           </div>
       </div>`
       const form = document.querySelector('.form');
@@ -163,16 +177,55 @@ async function cadastrarProduto(){
   form.addEventListener('submit', async function(e) {
     e.preventDefault()
 
-    const formData = new FormData(form);
+    let nomeProduto = document.getElementById('nome').value;
+    let categoriaProduto = document.getElementById('categoria').value;
+    let precoProduto = document.getElementById('preco').value;
+    let precoOficial = Number(precoProduto.replace(',', '.')) || 0;
+    let descricaoProduto = document.getElementById('descricao').value;
+    let imagemProduto = document.getElementById('imgUrl').value;
 
-    console.log([...formData])
+    let precoProdutoFormatado = precoProduto
+
+    let dadosNovos = {
+      "title": nomeProduto,
+      "price": precoOficial.toFixed(2),
+      "description": descricaoProduto,
+      "category": categoriaProduto,
+      "image": imagemProduto,
+      "rating": {
+        "rate": 0,
+        "count": 0
+      }
+    }
 
     try{
-      const result = await axios.post('https://fakestoreapi.com/products', formData)
+      const result = await axios.post('http://localhost:3000/products', dadosNovos)
       console.log(result)
     } catch(e){
       console.log(error)
     }
   })
 
+}
+
+function setImage(url){
+  try{
+    const urlModificada = new URL(url);
+    let urlDestino = urlModificada.searchParams.get('urlDestino') || 
+                    urlModificada.searchParams.get('urldestino');
+
+    let urlFinal = urlDestino ? decodeURIComponent(urlDestino):url;
+
+    document.getElementById('imgUrl').value = urlFinal;
+  } catch(erro){
+    document.getElementById('imgUrl').value = url;
+  }
+}
+
+function setBorda(imagemSelecionada){
+  const imagemAnterior = document.querySelector('.imagem-form.selecionado');
+      if(imagemAnterior){
+        imagemAnterior.classList.remove('selecionado')
+      }
+  imagemSelecionada.classList.add('selecionado')
 }

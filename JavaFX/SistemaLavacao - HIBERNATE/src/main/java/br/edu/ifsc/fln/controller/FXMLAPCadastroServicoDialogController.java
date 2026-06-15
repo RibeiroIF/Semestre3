@@ -2,6 +2,7 @@ package br.edu.ifsc.fln.controller;
 
 import br.edu.ifsc.fln.model.domain.ECategoria;
 import br.edu.ifsc.fln.model.domain.Servico;
+import br.edu.ifsc.fln.model.service.ParametrosService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -85,7 +86,8 @@ public class FXMLAPCadastroServicoDialogController implements Initializable {
         if (validarEntradaDeDados()) {
             servico.setDescricao(tfServicoDescricao.getText());
             servico.setValor(Double.parseDouble(tfServicoValor.getText()));
-            cbCategoria.getSelectionModel().select(servico.getCategoria());
+            servico.setCategoria(cbCategoria.getSelectionModel().getSelectedItem());
+            servico.setPontos(ParametrosService.getPontos());
             btConfirmarClicked = true;
             dialogStage.close();
         }

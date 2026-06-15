@@ -22,7 +22,7 @@ public class Modelo {
 	private Motor motor;
 	
 	public Modelo() {
-		this.motor = new Motor();
+		this.createMotor();
 	}
 	
 	public Modelo(int id, String descricao, Marca marca, ECategoria categoria, int potencia, ETipoCombustivel combustivel) {
@@ -32,6 +32,10 @@ public class Modelo {
 		this.marca = marca;
 		this.categoria = categoria;
 		this.motor = new Motor(potencia, combustivel);
+	}
+
+	private void createMotor() {
+		this.motor = new Motor(this);
 	}
 	
 	public Motor getMotor() {

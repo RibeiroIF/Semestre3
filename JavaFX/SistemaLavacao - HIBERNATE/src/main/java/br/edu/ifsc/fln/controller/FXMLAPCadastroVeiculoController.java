@@ -94,8 +94,8 @@ public class FXMLAPCadastroVeiculoController implements Initializable {
     }
 
     public void carregarTableViewVeiculo() {
-        tableColumnCliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
         tableColumnVeiculoPlaca.setCellValueFactory(new PropertyValueFactory<>("placa"));
+        tableColumnCliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 
         listaVeiculos = veiculoDAO.listar();
 

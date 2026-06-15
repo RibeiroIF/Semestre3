@@ -120,8 +120,7 @@ public class FXMLAPProcessoOrdemServicoController implements Initializable {
     public void selecionarItemTableView(OrdemServico ordem) {
         if (ordem != null) {
             lbOrdemServicoId.setText(Integer.toString(ordem.getId()));
-            lbOrdemServicoAgenda.setText(String.valueOf(
-                    ordem.getAgenda().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+            lbOrdemServicoAgenda.setText(ordem.getAgenda().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             lbOrdemServicoTotal.setText(String.format("%.2f", ordem.getTotal()));
             lbOrdemServicoDesconto.setText((String.format("%.2f", ordem.getDesconto())) + "%");
             lbOrdemServicoStatus.setText(ordem.getStatus().name());

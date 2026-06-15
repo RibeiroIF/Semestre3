@@ -49,3 +49,52 @@ form{
   background-color: rgb(213, 213, 213);
 }
 
+.imagens-form{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.imagem-form{
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.selecionado{
+  border: 1px solid black;
+}
+
+.grid-form{
+  display: grid;
+  grid-template-columns: 30% 70%;
+  gap: 1px 0;
+  align-items: center;
+}
+
+.grid-form input[type="text"],
+.grid-form input[type="number"],
+.grid-form select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px;
+}
+
+.grid-form legend,
+.grid-form .full-width {
+  grid-column: span 2;
+  width: 100%;
+}
+
+label.full-width {
+  margin-top: 10px;
+}
+
+

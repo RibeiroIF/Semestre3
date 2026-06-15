@@ -2,7 +2,9 @@ package br.edu.ifsc.fln.controller;
 
 import br.edu.ifsc.fln.exception.DAOException;
 import br.edu.ifsc.fln.model.dao.ServicoDAO;
+import br.edu.ifsc.fln.model.domain.ParametrosSistema;
 import br.edu.ifsc.fln.model.domain.Servico;
+import br.edu.ifsc.fln.model.service.ParametrosService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -91,7 +93,7 @@ public class FXMLAPCadastroServicoController implements Initializable {
             lbServicoId.setText(String.valueOf(servico.getId()));
             lbServicoDescricao.setText(servico.getDescricao());
             lbServicoValor.setText(String.valueOf(servico.getValor()));
-            lbServicoPontos.setText(String.valueOf(servico.getPontos()));
+            lbServicoPontos.setText(String.valueOf(ParametrosService.getPontos()));
             lbServicoCategoria.setText(servico.getCategoria().getDescricao());
         } else {
             lbServicoId.setText("");

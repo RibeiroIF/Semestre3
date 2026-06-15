@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Motor {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_modelo")
 	private Integer id;
 
 	private int potencia;
@@ -18,10 +18,12 @@ public class Motor {
 	@MapsId
 	@JoinColumn(name = "id_modelo")
 	private Modelo modelo;
-	
-	public Motor() {
-		super();
+
+	Motor(Modelo modelo){
+		this.modelo = modelo;
 	}
+	
+	protected Motor() {}
 
 	public Motor(int potencia, ETipoCombustivel tipoCombustivel) {
 		super();

@@ -10,17 +10,21 @@ public class Pontuacao {
 
 	@Id
 	@Column(name = "id_cliente")
-	private Integer id;
+	private int id;
 
 	@OneToOne
 	@MapsId
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 
+	@Column(name = "quantidade")
 	private int quantidade = 0;
-	
-	public Pontuacao() {
-		super();
+
+	Pontuacao(Cliente cliente){
+		this.cliente = cliente;
+	}
+
+	protected Pontuacao() {
 		this.quantidade = 0;
 	}
 	

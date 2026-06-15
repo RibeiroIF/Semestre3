@@ -12,6 +12,7 @@ import br.edu.ifsc.fln.utils.AlertDialog;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,38 +50,31 @@ public class FXMLAPCadastroClienteController implements Initializable {
     private Button btInserir;
 
     @FXML
-    private Label lbClienteEmail;
-
-    @FXML
     private Label lbClienteId;
-
     @FXML
     private Label lbClienteNome;
-
     @FXML
-    private Label lbClienteNumFiscal;
-
-    @FXML
-    private Label lbClienteInscricaoEstadual;
-
+    private Label lbClienteEmail;
     @FXML
     private Label lbClienteCelular;
-
+    @FXML
+    private Label lbClienteDataCadastro;
     @FXML
     private Label lbClienteTipo;
-
     @FXML
     private Label lbClientePais;
-
-    @FXML
-    private Label lbInfoParaTroca;
-
     @FXML
     private Label lbClientePontuacao;
 
     @FXML
-    private Label lbTituloParaTroca;
-    
+    private Label lbClienteCPFouCNPJ;
+    @FXML
+    private Label lbClienteNascimentoOuInscricao;
+    @FXML
+    private Label tituloClienteCPFouCNPJ;
+    @FXML
+    private Label tituloClienteNascimentoOuInscricao;
+
     @FXML
     private TableColumn<Cliente, String> tableColumnClienteCelular;
 
@@ -123,37 +117,47 @@ public class FXMLAPCadastroClienteController implements Initializable {
             lbClienteNome.setText(cliente.getNome());
             lbClienteCelular.setText(cliente.getCelular());
             lbClienteEmail.setText(cliente.getEmail());
-            if (cliente instanceof PessoaFisica) {
-                lbClienteTipo.setText("PessoaFisica");
-                lbClienteNumFiscal.setText(((PessoaFisica)cliente).getCpf());
-                lbClientePais.setText("Brasil");
-                lbTituloParaTroca.setText("Data Nasc.:");
-                lbInfoParaTroca.setText(String.valueOf(((PessoaFisica) cliente).getDataNascimento()));
-            } else {
-                lbClientePais.setText("Exterior");
-                lbClienteTipo.setText("PessoaJuridica");
-                lbClienteNumFiscal.setText(((PessoaJuridica)cliente).getCnpj());
-                lbTituloParaTroca.setText("Inscrição:");
-                lbInfoParaTroca.setText(((PessoaJuridica)cliente).getInscricaoEstadual());
-            }
+            lbClienteDataCadastro.setText(cliente.getDataCadastro().format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
             lbClientePontuacao.setText(String.valueOf(cliente.getPontuacao().verificarPontos()));
+            if (cliente instanceof PessoaFisica) {
+                lbClienteTipo.setText("Pessoa Física");
+                lbClientePais.setText("Brasil");
+
+                tituloClienteCPFouCNPJ.setText("CPF:");
+                tituloClienteNascimentoOuInscricao.setText("Data de Nasc.:");
+
+                lbClienteCPFouCNPJ.setText(((PessoaFisica)cliente).getCpf());
+                lbClienteNascimentoOuInscricao.setText(((PessoaFisica)cliente).getDataNascimento()
+                        .format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
+            } else {
+                lbClienteTipo.setText("Pessoa Jurídica");
+                lbClientePais.setText("Exterior");
+
+                tituloClienteCPFouCNPJ.setText("CNPJ:");
+                tituloClienteNascimentoOuInscricao.setText("Insc. Estadual:");
+
+                lbClienteCPFouCNPJ.setText(((PessoaJuridica)cliente).getCnpj());
+                lbClienteNascimentoOuInscricao.setText(((PessoaJuridica)cliente).getInscricaoEstadual());
+            }
         } else {
             lbClienteId.setText("");
             lbClienteNome.setText("");
             lbClienteCelular.setText("");
             lbClienteEmail.setText("");
+            lbClienteDataCadastro.setText("");
+            lbClientePontuacao.setText("");
+            lbClienteTipo.setText("");
+            lbClientePais.setText("");
             if (cliente instanceof PessoaFisica) {
-                lbClienteTipo.setText("PessoaFisica");
-                lbClienteNumFiscal.setText("");
-                lbClientePais.setText("Brasil");
-                lbTituloParaTroca.setText("Data Nasc.:");
-                lbInfoParaTroca.setText("");
+                tituloClienteCPFouCNPJ.setText("CPF");
+                tituloClienteNascimentoOuInscricao.setText("Data de Nasc.:");
+
+                lbClienteCPFouCNPJ.setText("");
+                lbClienteNascimentoOuInscricao.setText("");
             }
             else{
-                lbClienteTipo.setText("PessoaJuridica");
-                lbClienteNumFiscal.setText("");
-                lbTituloParaTroca.setText("Inscrição:");
-                lbInfoParaTroca.setText("");
+                tituloClienteCPFouCNPJ.setText("CNPJ");
+                tituloClienteNascimentoOuInscricao.setText("Insc. Estadual:");
             }
         }
         
@@ -223,7 +227,18 @@ public class FXMLAPCadastroClienteController implements Initializable {
 
     private boolean showFXMLAnchorPaneCadastroClienteDialog(Cliente cliente) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(FXMLAPCadastroClienteController.class.getResource("/view/FXMLAPCadastroClienteDialog.fxml"));
+
+        if (cliente == null){
+            return false;
+        }
+        if (cliente instanceof PessoaFisica){
+            loader.setLocation(FXMLAPCadastroClienteController.class.getResource("/view/FXMLAPCadastroClienteDialogPF" +
+                    ".fxml"));
+        }
+        if (cliente instanceof PessoaJuridica){
+            loader.setLocation(FXMLAPCadastroClienteController.class.getResource("/view/FXMLAPCadastroClienteDialogPJ" +
+                    ".fxml"));
+        }
         AnchorPane page = (AnchorPane) loader.load();
         
         //criação de um estágio de diálogo (StageDialog)

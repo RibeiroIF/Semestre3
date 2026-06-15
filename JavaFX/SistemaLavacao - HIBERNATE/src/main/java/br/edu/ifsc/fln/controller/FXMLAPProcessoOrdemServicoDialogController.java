@@ -115,7 +115,7 @@ public class FXMLAPProcessoOrdemServicoDialogController implements Initializable
 
 
     public void carregarChoiceBoxStatus() {
-        choiceBoxStatus.setItems( FXCollections.observableArrayList(EStatus.values()));
+        choiceBoxStatus.setItems(FXCollections.observableArrayList(EStatus.values()));
         choiceBoxStatus.getSelectionModel().select(0);
     }
 
@@ -202,13 +202,7 @@ public class FXMLAPProcessoOrdemServicoDialogController implements Initializable
                 itemOS.setServico(servico);
                 itemOS.setValorServico(servico.getValor());
                 ordemServico.getItens().add(itemOS);
-
-                try {
-                    ordemServico.calcularServico();
-                } catch (ExceptionLavacao e) {
-                    throw new RuntimeException(e);
-                }
-
+                ordemServico.calcularTotal();
                 itemOS.setOrdemServico(ordemServico);
                 observableListItens = FXCollections.observableArrayList(ordemServico.getItens());
                 tableViewItens.setItems(observableListItens);
@@ -216,7 +210,7 @@ public class FXMLAPProcessoOrdemServicoDialogController implements Initializable
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Problemas na escolha do servico");
-                alert.setContentText("Não existe quantidade suficiente de servicos para ordemServico.");
+                alert.setContentText("Não existe quantidade suficiente de servicos para a ordem.");
                 alert.show();
             }
         }

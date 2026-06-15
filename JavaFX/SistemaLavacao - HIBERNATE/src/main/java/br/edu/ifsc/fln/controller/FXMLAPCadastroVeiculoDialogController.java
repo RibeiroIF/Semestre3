@@ -75,7 +75,11 @@ public class FXMLAPCadastroVeiculoDialogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         carregarComboBoxClientes();
-        carregarComboBoxModelos();
+        try {
+            carregarComboBoxModelos();
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+        }
         carregarComboBoxCores();
     }
 
@@ -99,7 +103,7 @@ public class FXMLAPCadastroVeiculoDialogController implements Initializable {
         return veiculo;
     }
 
-    public void carregarComboBoxModelos() {
+    public void carregarComboBoxModelos() throws DAOException {
         listaModelos = modeloDAO.listar();
         observableListModelos =
                 FXCollections.observableArrayList(listaModelos);

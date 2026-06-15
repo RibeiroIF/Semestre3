@@ -85,4 +85,10 @@ public class FXMLVBoxMainAppController implements Initializable {
         anchorPane.getChildren().setAll(a);
     }
 
+    @FXML
+    public void handleMenuItemRelatorioServico() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAPRelatorioServicos.fxml"));
+        anchorPane.getChildren().setAll(a);
+    }
+
 }

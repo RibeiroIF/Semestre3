@@ -1,9 +1,8 @@
-<h1> Mão na Massa PPDM - Classificados IFSC </h1>
+<h1> Mão na Massa 2 PPDM - Classificados IFSC </h1>
 
-<h4> Neste repositório constam os arquivos referentes ao projeto de Classificados IFSC, um sistema que consiste em um site
-para compra e venda de produtos anunciados pelos alunos do IFSC </h4>
+<h4> Neste repositório contém o trabalho final Mão na Massa 2 para a matéria de dispositivos móveis </h4>
 
-<h4> Este dispôe de funções como: </h4>
+<h4> Este sistema compunha funções como: </h4>
 
 <ul>
   <li> Listagem por categoria de anúncio </li>
@@ -11,6 +10,8 @@ para compra e venda de produtos anunciados pelos alunos do IFSC </h4>
   <li> Registro de avaliações de produtos comprados  </li>
 </ul>
 
-<p> Aqui consta o link para apresentação da forma de utilização deste sistema <strong> <a href="https://youtu.be/avOEtbGQ3s0?si=7w9xhjERJlpk6MmI"> aqui </a> </strong> </p>
+<h4> Agora ele também possui: <strong> Cadastro de novos produtos!!</strong>(incluindo atualização correta e inclusão nas categorias)S</h4>
+
+<p> Aqui consta o link para apresentação da forma de utilização deste sistema <strong> <a href=""> aqui </a> </strong> </p>
 
 <p> Alunos:<strong> Gabriel R. e Clara Luna </strong> </p>

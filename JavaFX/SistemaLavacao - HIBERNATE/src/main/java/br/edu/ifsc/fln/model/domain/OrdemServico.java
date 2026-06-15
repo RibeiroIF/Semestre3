@@ -4,6 +4,7 @@ import br.edu.ifsc.fln.exception.ExceptionLavacao;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,9 +68,7 @@ public class OrdemServico {
 	
 	// ESTE MÉT0DO É PARA PEGAR O TOTAL DO SERVIÇO DESCONSIDERANDO O DESCONTO
 	public double getTotal() {
-		for (ItemOS item : itens) {
-			this.total += item.getValorServico();
-		}
+		calcularTotal();
 		return total;
 	}
 	
@@ -139,18 +138,29 @@ public class OrdemServico {
 		}
 	}
 
+	public void calcularTotal() {
+		total = 0.0;
+		for (ItemOS item : this.getItens()){
+			total += item.getValorServico();
+		}
+		total -= (total * (desconto*0.01));
+	}
+
 	// ESSE MÉT0DO É PARA CALCULAR O TOTAL DO SERVIÇO CONSIDERANDO O DESCONTO
-	public double calcularServico() throws ExceptionLavacao {
-		if (itens.isEmpty()) {
-			throw new ExceptionLavacao("A lista de ordens está vazia, portanto não há valor!!");
-		}
-		else {
-			total -= (total * (desconto*0.01));
-		}
-		return total;
-	}
+//	public double calcularServico() throws ExceptionLavacao {
+//		if (itens.isEmpty()) {
+//			throw new ExceptionLavacao("A lista de ordens está vazia, portanto não há valor!!");
+//		}
+//		else {
+//			for (ItemOS item : this.getItens()){
+//				total += item.getValorServico();
+//			}
+//			total -= (total * (desconto*0.01));
+//		}
+//		return total;
+//	}
 	
-	public double valorDesconto() {
-		return (total * desconto)/100;
-	}
+//	public double valorDesconto() {
+//		return (total * desconto)/100;
+//	}
 }

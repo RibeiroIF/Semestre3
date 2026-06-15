@@ -42,7 +42,30 @@
       <artifactId>atlantafx-base</artifactId>
       <version>2.0.0</version>
     </dependency>
+
+    <!-- Relatórios JasperReports -->
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports</artifactId>
+      <version>7.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports-fonts</artifactId>
+      <version>7.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports-excel-poi</artifactId>
+      <version>7.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.jasperreports</groupId>
+      <artifactId>jasperreports-pdf</artifactId>
+      <version>7.0.0</version>
+    </dependency>
   </dependencies>
+
 
   <build>
     <plugins>
@@ -91,5 +114,5 @@
       </plugin>
     </plugins>
   </build>
-  <name>prj-sistema-vendas-javafx-parte1</name>
+  <name>sistema-lavacao</name>
 </project>

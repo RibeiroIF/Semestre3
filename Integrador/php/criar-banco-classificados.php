@@ -59,7 +59,6 @@
             email varchar(60),
             senha varchar(128),
             data_cadastro date,
-            campus varchar(30),
             constraint pk_usuario primary key(id)
             ) ENGINE=innoDB;";
 
@@ -82,7 +81,6 @@
   function criarTabelaAluno($conexao){
     $sql = "CREATE TABLE IF NOT EXISTS $this->aluno (
            id_usuario int not null auto_increment,
-           curso varchar(40) not null,
            constraint pk_aluno primary key(id_usuario),
            constraint fk_aluno_usuario foreign key(id_usuario) references $this->usuario (id)
               on delete cascade
@@ -109,7 +107,8 @@
            titulo varchar(30),
            descricao varchar(200),
            preco decimal(10,2) not null,
-           status_anuncio  enum ('EM ABERTO', 'EM NEGOCIACAO', 'VENDIDO') default 'EM ABERTO',
+           imagem int not null,
+           status_anuncio enum ('EM ABERTO', 'EM NEGOCIACAO', 'VENDIDO') default 'EM ABERTO',
            data_publicacao date,
            data_expiracao date,
            visualizacoes int,
