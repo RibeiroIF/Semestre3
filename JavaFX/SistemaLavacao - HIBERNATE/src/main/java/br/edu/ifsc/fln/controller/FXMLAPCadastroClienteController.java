@@ -5,9 +5,11 @@
 package br.edu.ifsc.fln.controller;
 
 import br.edu.ifsc.fln.model.dao.ClienteDAO;
+import br.edu.ifsc.fln.model.dao.VeiculoDAO;
 import br.edu.ifsc.fln.model.domain.Cliente;
 import br.edu.ifsc.fln.model.domain.PessoaJuridica;
 import br.edu.ifsc.fln.model.domain.PessoaFisica;
+import br.edu.ifsc.fln.model.domain.Veiculo;
 import br.edu.ifsc.fln.utils.AlertDialog;
 import java.io.IOException;
 import java.net.URL;
@@ -77,18 +79,29 @@ public class FXMLAPCadastroClienteController implements Initializable {
 
     @FXML
     private TableColumn<Cliente, String> tableColumnClienteCelular;
-
     @FXML
     private TableColumn<Cliente, String> tableColumnClienteNome;
-
     @FXML
     private TableView<Cliente> tableViewClientes;
+
+    @FXML
+    private TableColumn<Veiculo, String> tableColumnClienteVeiculoPlaca;
+    @FXML
+    private TableColumn<Veiculo, String> tableColumnClienteVeiculoModelo;
+    @FXML
+    private TableColumn<Veiculo, String> tableColumnClienteVeiculoCor;
+    @FXML
+    private TableView<Veiculo> tableViewClienteVeiculos;
 
     
     private List<Cliente> listaClientes;
     private ObservableList<Cliente> observableListClientes;
 
+    private List<Veiculo> listaVeiculos;
+    private ObservableList<Veiculo> observableListVeiculos;
+
     private final ClienteDAO clienteDAO = new ClienteDAO();
+    private final VeiculoDAO veiculoDAO = new VeiculoDAO();
     
     /**
      * Initializes the controller class.
@@ -110,9 +123,23 @@ public class FXMLAPCadastroClienteController implements Initializable {
         observableListClientes = FXCollections.observableArrayList(listaClientes);
         tableViewClientes.setItems(observableListClientes);
     }
+
+    public void carregarTableViewClienteVeiculos(Cliente cliente) {
+        tableColumnClienteVeiculoPlaca.setCellValueFactory(new PropertyValueFactory<>("placa"));
+        tableColumnClienteVeiculoModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+        tableColumnClienteVeiculoCor.setCellValueFactory(new PropertyValueFactory<>("cor"));
+
+        listaVeiculos = cliente.getListaDeVeiculos();//veiculoDAO.listarVeiculosPorClienteId(cliente.getId());
+
+        observableListVeiculos = FXCollections.observableArrayList(listaVeiculos);
+        tableViewClienteVeiculos.setItems(observableListVeiculos);
+    }
     
     public void selecionarItemTableViewClientes(Cliente cliente) {
         if (cliente != null) {
+            cliente = clienteDAO.buscarVeiculos(cliente.getId());
+            carregarTableViewClienteVeiculos(cliente);
+
             lbClienteId.setText(String.valueOf(cliente.getId())); 
             lbClienteNome.setText(cliente.getNome());
             lbClienteCelular.setText(cliente.getCelular());

@@ -88,9 +88,7 @@ CREATE TABLE servico(
     descricao varchar(40) NOT NULL,
     valor double NOT NULL,
     categoria ENUM('PEQUENO', 'MÉDIO', 'GRANDE', 'MOTO', 'PADRÃO') NOT NULL DEFAULT 'PADRÃO',
-    id_parametros INT NOT NULL,
-    CONSTRAINT pk_servico PRIMARY KEY(id),
-    CONSTRAINT fk_servico_parametros FOREIGN KEY (id_parametros) REFERENCES parametros(id)
+    CONSTRAINT pk_servico PRIMARY KEY(id)
 ) engine=InnoDB;
 
 CREATE TABLE ordem_servico(
@@ -127,9 +125,9 @@ CREATE TABLE pontuacao(
 #POVOAÇÃO DAS TABELAS
 #####################
 
-INSERT INTO servico (descricao, valor, id_parametros, categoria) VALUES
-    ('Lavação Completa', 150.00, 1, 'PEQUENO'),
-    ('Lavação interna', 120.00, 1, 'GRANDE');
+INSERT INTO servico (descricao, valor, categoria) VALUES
+    ('Lavação Completa', 150.00, 'PEQUENO'),
+    ('Lavação interna', 120.00, 'GRANDE');
 
 INSERT INTO cliente (nome, celular, email, dataCadastro) VALUES
     ('Carlos Silva', '(11) 98888-1111', 'carlos@gmail.com', '2026-01-10'),

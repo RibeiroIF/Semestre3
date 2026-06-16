@@ -26,7 +26,7 @@ public class JavaFXApp extends Application {
             System.out.println("Não foi possível carregar o formulário");
         }
 
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 642, 471);
         primaryStage.getIcons().add(
                 new Image(Main.class.getResource("/icon/IFSC_logo_vertical.png").toExternalForm())
         );

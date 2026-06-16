@@ -5,9 +5,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="385.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsc.fln.controller.FXMLAPRelatorioServicosController">
+<AnchorPane id="AnchorPane" prefHeight="459.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsc.fln.controller.FXMLAPRelatorioServicosController">
     <children>
-        <TableView fx:id="tableView" layoutX="-1.0" prefHeight="347.0" prefWidth="600.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TableView fx:id="tableView" layoutX="-1.0" prefHeight="459.0" prefWidth="642.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columns>
                 <TableColumn fx:id="tableColumnServicoID" prefWidth="48.0" text="ID" />
                 <TableColumn fx:id="tableColumnServicoDescricao" prefWidth="277.0" text="Descrição" />

@@ -1,6 +1,7 @@
 package br.edu.ifsc.fln.model.dao;
 
 import br.edu.ifsc.fln.model.domain.Cliente;
+import br.edu.ifsc.fln.model.domain.Veiculo;
 import br.edu.ifsc.fln.model.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -77,13 +78,26 @@ public class ClienteDAO {
         }
     }
 
+    public Cliente buscarVeiculos(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery(
+                            "SELECT DISTINCT c FROM Cliente c " +
+                                    "LEFT JOIN FETCH c.ListaDeVeiculos " +
+                                    "WHERE c.id = :id",
+                            Cliente.class
+                    )
+                    .setParameter("id", id)
+                    .uniqueResult();
+        }
+    }
+
     public List<Cliente> listar() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("FROM Cliente", Cliente.class).list();
         }
     }
 
-    public List<Cliente> listarPorNome(String nome) {
+    public List<Cliente> listarVeiculos(String nome) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery(
                             "FROM Cliente WHERE lower(nome) LIKE :nome",
@@ -92,4 +106,6 @@ public class ClienteDAO {
                     .list();
         }
     }
+
+
 }
