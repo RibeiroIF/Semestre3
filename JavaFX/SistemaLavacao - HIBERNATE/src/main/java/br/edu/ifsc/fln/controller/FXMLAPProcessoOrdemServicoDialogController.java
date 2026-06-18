@@ -47,11 +47,11 @@ public class FXMLAPProcessoOrdemServicoDialogController implements Initializable
     @FXML
     private TableColumn<ItemOS, Double> tableColumnValor;
     @FXML
-    private TextField tfValor;
+    private TextField tfValorTotal;
     @FXML
     private ComboBox<Servico> comboBoxServico;
     @FXML
-    private TextField tfServico;
+    private TextField tfValorServico;
     @FXML
     private Button buttonAdicionar;
     @FXML
@@ -93,7 +93,7 @@ public class FXMLAPProcessoOrdemServicoDialogController implements Initializable
         carregarChoiceBoxStatus();
         setFocusLostHandle();
         tableColumnServico.setCellValueFactory(new PropertyValueFactory<>("servico"));
-        tableColumnValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        tableColumnValor.setCellValueFactory(new PropertyValueFactory<>("valorServico"));
     }
 
     private void carregarComboBoxVeiculos() {
@@ -129,7 +129,7 @@ public class FXMLAPProcessoOrdemServicoDialogController implements Initializable
                     } catch (ExceptionLavacao e) {
                         throw new RuntimeException(e);
                     }
-                    tfValor.setText(String.valueOf(ordemServico.getTotal()));
+                    tfValorTotal.setText(String.valueOf(ordemServico.getTotal()));
 
                 }
             }
@@ -182,7 +182,7 @@ public class FXMLAPProcessoOrdemServicoDialogController implements Initializable
             observableListItens = FXCollections.observableArrayList(
                     this.ordemServico.getItens());
             tableViewItens.setItems(observableListItens);
-            tfValor.setText(String.format("%.2f", this.ordemServico.getTotal()));
+            tfValorTotal.setText(String.format("%.2f", this.ordemServico.getTotal()));
             tfDesconto.setText(String.format("%.2f", this.ordemServico.getDesconto()));
             choiceBoxStatus.getSelectionModel().select(this.ordemServico.getStatus());
 
@@ -200,13 +200,13 @@ public class FXMLAPProcessoOrdemServicoDialogController implements Initializable
             //servico = servicoDAO.buscar(servico);
             if (servico.getId() != 0) {
                 itemOS.setServico(servico);
-                itemOS.setValorServico(servico.getValor());
+                itemOS.getValorServico();
+                itemOS.setOrdemServico(ordemServico);
                 ordemServico.getItens().add(itemOS);
                 ordemServico.calcularTotal();
-                itemOS.setOrdemServico(ordemServico);
                 observableListItens = FXCollections.observableArrayList(ordemServico.getItens());
                 tableViewItens.setItems(observableListItens);
-                tfValor.setText(String.format("%.2f", ordemServico.getTotal()));
+                tfValorTotal.setText(String.format("%.2f", ordemServico.getTotal()));
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Problemas na escolha do servico");
@@ -257,11 +257,11 @@ public class FXMLAPProcessoOrdemServicoDialogController implements Initializable
                 = tableViewItens.getSelectionModel().getSelectedItem();
         int index = tableViewItens.getSelectionModel().getSelectedIndex();
 
-        ordemServico.getItens().remove(index);
+        ordemServico.getItens().add(index, itemOS);
         observableListItens = FXCollections.observableArrayList(ordemServico.getItens());
         tableViewItens.setItems(observableListItens);
 
-        tfValor.setText(String.format("%.2f", ordemServico.getTotal()));
+        tfValorTotal.setText(String.format("%.2f", ordemServico.getTotal()));
     }
 
 //    private String inputDialog(int value) {
@@ -284,7 +284,7 @@ public class FXMLAPProcessoOrdemServicoDialogController implements Initializable
         observableListItens = FXCollections.observableArrayList(ordemServico.getItens());
         tableViewItens.setItems(observableListItens);
 
-        tfValor.setText(String.format("%.2f", ordemServico.getTotal()));
+        tfValorTotal.setText(String.format("%.2f", ordemServico.getTotal()));
     }
 
     //validar entrada de dados do cadastro

@@ -42,6 +42,11 @@
                         <MenuItem fx:id="menuItemRelatorioServico" mnemonicParsing="false" onAction="#handleMenuItemRelatorioServico" text="Serviços" />
                     </items>
                 </Menu>
+            <Menu mnemonicParsing="false" text="Controle">
+              <items>
+                <MenuItem fx:id="menuItemControleDescontos" mnemonicParsing="false" onAction="#handleMenuItemControleDescontos" text="Descontos" />
+              </items>
+            </Menu>
             </menus>
         </MenuBar>
         <AnchorPane fx:id="anchorPane" prefHeight="471.0" prefWidth="642.0" />

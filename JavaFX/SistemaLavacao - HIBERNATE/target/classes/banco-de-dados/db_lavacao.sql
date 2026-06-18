@@ -4,10 +4,16 @@ USE db_lavacao;
 
 CREATE TABLE parametros(
     id int not null auto_increment primary key,
-    pontos int not null
+    pontos int not null,
+    percentual_pequeno double,
+    percentual_medio double,
+    percentual_grande double,
+    percentual_moto double,
+    percentual_padrao double
 ) engine=InnoDB;
 
-INSERT INTO parametros(pontos) VALUES(20);
+INSERT INTO parametros(pontos, percentual_pequeno, percentual_medio, percentual_grande, percentual_moto,
+                       percentual_padrao) VALUES(20, 0, 5, 10, 7.5, 12);
 
 CREATE TABLE cliente(
     id INT NOT NULL auto_increment,

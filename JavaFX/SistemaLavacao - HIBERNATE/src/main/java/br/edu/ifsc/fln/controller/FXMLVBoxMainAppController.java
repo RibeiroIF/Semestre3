@@ -91,4 +91,10 @@ public class FXMLVBoxMainAppController implements Initializable {
         anchorPane.getChildren().setAll(a);
     }
 
+    @FXML
+    public void handleMenuItemControleDescontos() throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/FXMLAPControleDescontos.fxml"));
+        anchorPane.getChildren().setAll(a);
+    }
+
 }

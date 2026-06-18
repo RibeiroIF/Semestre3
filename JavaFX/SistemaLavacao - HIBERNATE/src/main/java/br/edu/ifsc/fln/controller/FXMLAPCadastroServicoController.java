@@ -92,7 +92,7 @@ public class FXMLAPCadastroServicoController implements Initializable {
         if (servico != null) {
             lbServicoId.setText(String.valueOf(servico.getId()));
             lbServicoDescricao.setText(servico.getDescricao());
-            lbServicoValor.setText(String.valueOf(servico.getValor()));
+            lbServicoValor.setText(String.valueOf(ParametrosService.calcularDesconto(servico)));
             lbServicoPontos.setText(String.valueOf(ParametrosService.getPontos()));
             lbServicoCategoria.setText(servico.getCategoria().getDescricao());
         } else {

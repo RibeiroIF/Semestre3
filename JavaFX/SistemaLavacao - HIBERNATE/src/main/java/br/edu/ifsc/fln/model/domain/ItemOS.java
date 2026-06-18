@@ -20,31 +20,6 @@ public class ItemOS {
 	@JoinColumn(name = "id_ordemservico", nullable = false)
 	private OrdemServico ordemServico;
 
-	public ItemOS(){}
-
-	public ItemOS(Servico servico) {
-		super();
-		this.servico = servico;
-	}
-	
-	public ItemOS(double valorServico, Servico servico) {
-		super();
-		this.valorServico = valorServico;
-		this.servico = servico;
-	}
-
-	public ItemOS(double valorServico) {
-		super();
-		this.valorServico = valorServico;
-	}
-
-	public ItemOS(double valorServico, String observacoes, Servico servico) {
-		super();
-		this.valorServico = valorServico;
-		this.observacoes = observacoes;
-		this.servico = servico;
-	}
-
 	public double getValorServico() {
 		this.valorServico = servico.getValor();
 		return valorServico;

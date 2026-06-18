@@ -15,7 +15,7 @@ public class OrdemServico {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 
 	private long numero;
 	private double total, desconto;
@@ -41,11 +41,11 @@ public class OrdemServico {
 		this.agenda = LocalDate.now();
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -57,7 +57,6 @@ public class OrdemServico {
 		this.itens = itens;
 	}
 
-	
 	public long getNumero() {
 		return numero;
 	}
