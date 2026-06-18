@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="https://rwnobrega.page/_assets/ifsc-logo.png">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/login.css">
     <title>Login - Classificados IFSC</title>
 </head>
 <body class="body-login">
@@ -34,7 +34,10 @@
                     <a href="#">Esqueceu a senha?</a>
                 </div>
 
-                <button type="submit" class="btn-login">Entrar</button>
+                <div class="button-group">
+                    <button type="submit" class="btn-login" name="logar-aluno">Entrar (Aluno)</button>
+                    <button type="submit" class="btn-login" name="logar-admin">Entrar (Admin)</button>
+                </div>
             </form>
 
             <div class="divisor">
@@ -79,11 +82,32 @@
         </div>
     </div>
 
-    <script src="../javascript/login.js"></script>
+    <script src="../../javascript/login.js"></script>
 
     <?php
     
-    require "processar.php";
+    require __DIR__ . "/../includes/criar-banco-classificados.php";
+    require __DIR__ . "/../includes/criar-classe-usuario.php";
+    require __DIR__ . "/../includes/criar-classe-admin.php";
+
+    $banco = new BancoDeDados("localhost", "root", "", "db_integrador", "admin", "aluno", "anuncio", "avaliacao", "denuncia", "feedback");
+
+    $conexao = $banco->criarConexao();
+    $banco->criarBanco($conexao);
+    $banco->abrirBanco($conexao);
+    $banco->definirCharset($conexao);
+    $banco->criarTabelaAluno($conexao);
+    $banco->criarTabelaAdmin($conexao);
+
+    $alunos = new Alunos();
+    $admins = new Admin();
+
+    if(isset($_POST['logar-aluno'])){
+        $alunos->logar($conexao, $banco->aluno);
+    }
+    if(isset($_POST['logar-admin'])){
+        $admins->logar($conexao, $banco->admin);
+    }
 
     ?>
 </body>

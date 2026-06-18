@@ -6,16 +6,15 @@
 
   public $dbIntegrador;
 
-  public $usuario;
-  public $administrador;
+  public $admin;
   public $aluno;
-  public $categoria;
+
   public $anuncio;
   public $avaliacao;
   public $denuncia;
   public $feedback;
 
-  function __construct($servidor, $user, $senha, $dbIntegrador, $usuario, $administrador, $aluno, $categoria, $anuncio, $avaliacao, $denuncia, $feedback)
+  function __construct($servidor, $user, $senha, $dbIntegrador, $admin, $aluno, $anuncio, $avaliacao, $denuncia, $feedback)
    {
    $this->servidor = $servidor;
    $this->user = $user;
@@ -23,10 +22,9 @@
 
    $this->dbIntegrador = $dbIntegrador;
 
-   $this->usuario = $usuario;
-   $this->administrador = $administrador;
+   $this->admin = $admin;
    $this->aluno = $aluno;
-   $this->categoria = $categoria;
+
    $this->anuncio = $anuncio;
    $this->avaliacao = $avaliacao;
    $this->denuncia = $denuncia;
@@ -52,25 +50,26 @@
     $conexao->set_charset("utf8");
   }
 
-  function criarTabelaUsuario($conexao){
-    $sql = "CREATE TABLE IF NOT EXISTS $this->usuario (
+  function criarTabelaAluno($conexao){
+    $sql = "CREATE TABLE IF NOT EXISTS $this->aluno(
             id int not null auto_increment,
             nome varchar(40),
             email varchar(60),
+            login varchar(40),
             senha varchar(128),
             data_cadastro date,
-            constraint pk_usuario primary key(id)
+            constraint pk_aluno primary key(id)
             ) ENGINE=innoDB;";
 
    $conexao->query($sql) OR die($conexao->error);
   }
 
-  function criarTabelaAdministrador($conexao){
-    $sql = "CREATE TABLE IF NOT EXISTS $this->administrador (
-            id_usuario int not null auto_increment,
-            ocupacao varchar(20) not null,
-            constraint pk_administrador primary key(id_usuario),
-            constraint fk_administrador_usuario foreign key(id_usuario) references $this->usuario (id)
+  function criarTabelaAdmin($conexao){
+    $sql = "CREATE TABLE IF NOT EXISTS $this->admin (
+            id int not null auto_increment,
+            login int not null,
+            senha varchar(20) not null,
+            constraint pk_administrador primary key(id)
                 on delete cascade
                 on update cascade
             ) ENGINE=innoDB;";
@@ -78,7 +77,7 @@
     $conexao->query($sql) OR die($conexao->error);
   }
 
-  function criarTabelaAluno($conexao){
+/*   function criarTabelaAluno($conexao){
     $sql = "CREATE TABLE IF NOT EXISTS $this->aluno (
            id_usuario int not null auto_increment,
            constraint pk_aluno primary key(id_usuario),
@@ -88,9 +87,9 @@
               ) ENGINE=innoDB;";
 
     $conexao->query($sql) OR die($conexao->error);
-  }
+  } */
 
-  function criarTabelaCategoria($conexao){
+/*   function criarTabelaCategoria($conexao){
     $sql = "CREATE TABLE IF NOT EXISTS $this->categoria (
            id int not null auto_increment,
            nome varchar(20),
@@ -99,7 +98,7 @@
            ) ENGINE=innoDB;";
 
     $conexao->query($sql) OR die($conexao->error);
-  }
+  } */
 
   function criarTabelaAnuncio($conexao){
     $sql = "CREATE TABLE IF NOT EXISTS $this->anuncio (
@@ -108,16 +107,15 @@
            descricao varchar(200),
            preco decimal(10,2) not null,
            imagem int not null,
-           status_anuncio enum ('EM ABERTO', 'EM NEGOCIACAO', 'VENDIDO') default 'EM ABERTO',
+           categoria enum ('MÓVEL', 'ELETRODOMÉSTICO', 'MATERIAL', 'UTENSÍLIOS', 'OUTROS', 'ROUPA') default 'MÓVEL',
+           status enum ('EM ABERTO', 'EM NEGOCIACAO', 'VENDIDO') default 'EM ABERTO',
            data_publicacao date,
            data_expiracao date,
            visualizacoes int,
            denuncias int,
-           id_categoria int not null,
-           id_vendedor int not null,
+           id_aluno int not null,
            constraint pk_anuncio primary key(id),
-           constraint fk_anuncio_categoria foreign key(id_categoria) references $this->categoria(id),
-           constraint fk_anuncio_usuario foreign key(id_vendedor) references $this->usuario(id)
+           constraint fk_anuncio_aluno foreign key(id_aluno) references $this->aluno(id)
               on delete cascade
               on update cascade
     ) ENGINE=innoDB;";
@@ -136,7 +134,7 @@
            id_comprador int not null,
            constraint pk_avaliacao primary key(id),
            constraint fk_avaliacao_anuncio foreign key(id_anuncio) references $this->anuncio(id),
-           constraint fk_avaliacao_usuario foreign key(id_comprador) references $this->usuario(id)
+           constraint fk_avaliacao_aluno foreign key(id_comprador) references $this->aluno(id)
               on delete cascade
               on update cascade
               ) ENGINE=innoDB;";
@@ -153,7 +151,7 @@
            id_comprador int not null,
            constraint pk_denuncia primary key(id),
            constraint fk_denuncia_anuncio foreign key(id_anuncio) references anuncio(id),
-           constraint fk_denuncia_usuario foreign key(id_comprador) references usuario(id)
+           constraint fk_denuncia_aluno foreign key(id_comprador) references aluno(id)
               on delete cascade
               on update cascade
            ) ENGINE=innoDB;";
@@ -168,12 +166,30 @@
            data_feedback date,
            id_usuario int not null,
            constraint pk_feedback primary key(id),
-           constraint fk_feedback_usuario foreign key(id_usuario) references usuario(id)
+           constraint fk_feedback_aluno foreign key(id_usuario) references aluno(id)
               on delete cascade
               on update cascade
            ) ENGINE=innoDB;";
 
     $conexao->query($sql) OR die($conexao->error);
+  }
+
+  function testarSessao(){
+    session_start();
+    if(!isset($_SESSION["conectado"]) OR $_SESSION["conectado"] != true){
+      exit("<p> Você não está logado no sistema: <a href='../php/login.php> Logar </a> </p>");
+    }
+  }
+
+  function logout(){
+    session_start();
+    $_SESSION = [];
+    session_destroy();
+    $this->redirecionarPagina("../php/login.php");
+  }
+ 
+  function redirecionarPagina($endereco){
+    header("location: $endereco");
   }
 
   function desconectar($conexao){

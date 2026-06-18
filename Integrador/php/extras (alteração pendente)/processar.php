@@ -5,7 +5,6 @@
  $conexao = $banco->criarConexao();
  $banco->abrirBanco($conexao);
 
- $usuario = new Usuarios();
  $aluno = new Alunos();
 
  // 1. Ambas as classes capturam o que precisam do $_POST

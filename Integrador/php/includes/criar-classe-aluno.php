@@ -1,13 +1,12 @@
 <?php
- class Usuarios {
+ class Alunos {
   public $nome;
   public $email;
   public $senha;
   public $senha2;
   public $dataCadastro;
  
-  function receberDadosForm($conexao)
-   {
+  function receberDadosForm($conexao){
    // O ID é nulo no cadastro pois é auto_increment no banco
    $this->nome         = trim($conexao->escape_string($_POST["nome"]));
    $this->email        = trim($conexao->escape_string($_POST["email"]));
@@ -22,9 +21,8 @@
    $this->dataCadastro = date("Y-m-d"); // Capta a data atual do sistema
    }
 
-  function cadastrar($conexao, $usuario)
-   {
-   $sql = "INSERT $usuario VALUES(
+  function cadastrar($conexao, $tabelaAluno){
+   $sql = "INSERT $tabelaAluno VALUES(
              null,
             '$this->nome',
             '$this->email',
@@ -32,9 +30,33 @@
             '$this->dataCadastro')";
 
    $conexao->query($sql) or die($conexao->error);
+   }
    
-   // Retorna o ID gerado para ser usado pelas tabelas filhas (aluno/admin)
-   return $conexao->insert_id; 
-   } 
+   function logar($conexao, $tabelaAluno){
+
+   $login = trim($conexao->escape_string($_POST["login"]));
+   $senha = trim($conexao->escape_string($_POST["senha"]));
+   $senhaCriptografada = password_hash($senha, PASSWORD_ARGON2I);
+
+   $sql = "SELECT senha FROM $tabelaAluno WHERE email='$login'";
+   $resultado = $conexao->query($sql) or die($conexao->error);
+
+   $senhaDoBanco = false;
+
+   if($conexao->affected_rows != 0){
+    $vetorRegistro = $resultado->fetch_array();
+    $senhaCriptografada = $vetorRegistro[0];
+    $senhaDoBanco = password_verify($senha, $senhaCriptografada);
+   }
+
+   if($senhaDoBanco){
+    session_start();
+    $_SESSION["conectado"] = true;
+    header("../php/tela/index.php");
+   }
+   else{
+    echo "<p> Informações de usuário incorretas. </p>";
+   }
+  }
  }
 ?>

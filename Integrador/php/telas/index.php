@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="https://rwnobrega.page/_assets/ifsc-logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/pesquisar.css">
-    <link rel="stylesheet" href="/css/meus-anuncios.css">
-    <link rel="stylesheet" href="/css/novo-anuncio.css">
-    <link rel="stylesheet" href="/css/favoritos.css">
-    <link rel="stylesheet" href="/css/perfil.css">
-    <link rel="stylesheet" href="/css/admin.css">
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/pesquisar.css">
+    <link rel="stylesheet" href="../../css/meus-anuncios.css">
+    <link rel="stylesheet" href="../../css/novo-anuncio.css">
+    <link rel="stylesheet" href="../../css/favoritos.css">
+    <link rel="stylesheet" href="../../css/perfil.css">
+    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="../../css/login.css">
+    <script src="../../javascript/troca-de-tela.js"></script>
     <title>Classificados IFSC - Home</title>
 </head>
 <body>
@@ -22,13 +23,13 @@
         <nav>
             <ul>
                 <li><span class="logo">Classificados IFSC</span></li>
-                <li ><a href="#" class="active" onclick="navegar('tela-home')">Página Inicial</a></li>
-                <li><a href="#" onclick="navegar('tela-pesquisa')">Pesquisar</a></li>
-                <li><a href="#" onclick="navegar('tela-meusanuncios')">Meus Anúncios</a></li>
-                <li><a href="#" onclick="navegar('tela-favoritos')">Favoritos</a></li>
-                <li><a href="#" onclick="navegar('tela-perfil')">Perfil</a></li>
-                <li class="admin-link"><a href="#" onclick="navegar('tela-admin')">Painel Adm</a></li>
-                <li><a href="login.html" class="logout">Sair</a></li>
+                <li ><a href="#" id="menu-home" class="menu active" onclick="navegar('tela-home'); navegarMenu('menu-home')">Página Inicial</a></li>
+                <li><a href="#" id="menu-pesquisar" class="menu" onclick="navegar('tela-pesquisa'); navegarMenu('menu-pesquisar')">Pesquisar</a></li>
+                <li><a href="#" id="menu-anuncio" class="menu" onclick="navegar('tela-meusanuncios'); navegarMenu('menu-anuncio')">Meus Anúncios</a></li>
+                <li><a href="#" id="menu-favoritos" class="menu" onclick="navegar('tela-favoritos'); navegarMenu('menu-favoritos')">Favoritos</a></li>
+                <li><a href="#" id="menu-perfil" class="menu" onclick="navegar('tela-perfil'); navegarMenu('menu-perfil')">Perfil</a></li>
+                <li class="admin-link"><a href="#" id="menu-adm" class="menu" onclick="navegar('tela-admin'); navegarMenu('menu-adm')">Painel Adm</a></li>
+                <li><a href="login.php" class="logout">Sair</a></li>
             </ul>
         </nav>
     </aside>
@@ -145,7 +146,7 @@
                     <h2>Meus Anúncios</h2>
                     <p>Gerencie seus itens anunciados no IFSC</p>
                 </div>
-                <a href="novo-anuncio.html" style="text-decoration: none;">
+                <a href="#" style="text-decoration: none;">
                     <button class="btn-anunciar-topo" onclick="navegar('tela-novoanuncio')">+ Novo Anúncio</button>
                 </a>
             </header>
@@ -193,6 +194,7 @@
                 </article>
             </div>
         </div>
+
 
         <!--Tela de novo anuncio-->
         <div id="tela-novoanuncio" class="tela collapse">
@@ -414,7 +416,7 @@
         </div>
 
         <div class="acoes-rapidas">
-            <button class="btn-anunciar"> + Criar Novo Anúncio</button>
+            <button class="btn-anunciar" onclick="navegar('tela-novoanuncio')"> + Criar Novo Anúncio</button>
         </div>
 
         <div class="feedback-section">
@@ -424,7 +426,12 @@
         </div>
     </aside>
 
-    <script src="/javascript/troca-de-tela.js"></script>
+    <?php 
+    
+    require_once "executar-banco.php";
+    //require "criar-banco-classificados.php";
+
+    ?>
     
 </body>
 </html>

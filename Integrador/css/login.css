@@ -113,6 +113,30 @@ body.body-login {
     background-color: var(--side-bar-color);
 }
 
+/* Container para os botões ficarem lado a lado */
+.button-group {
+    display: flex;
+    gap: 12px; /* Espaçamento ideal entre os botões */
+    width: 100%;
+}
+
+/* Ajuste sutil no botão para que eles dividam o espaço igualmente */
+.button-group .btn-login {
+    flex: 1;
+    padding: 14px 8px; /* Reduz o padding lateral para evitar quebra de texto em telas menores */
+    font-size: 0.95rem; /* Ajuste leve no tamanho da fonte */
+}
+
+/* Cor padrão (Verde Escuro) para o botão de Admin */
+.btn-login[name="logar-admin"] {
+    background-color: #1b5e20; /* Um tom de verde mais escuro/fechado */
+}
+
+/* Efeito Hover (passar o mouse) para o botão de Admin */
+.btn-login[name="logar-admin"]:hover {
+    background-color: #123e14; /* Um tom ainda mais escuro para o efeito de clique */
+}
+
 /* Divisor "ou" */
 .divisor {
     margin: 20px 0;
